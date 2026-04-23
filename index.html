@@ -445,7 +445,7 @@ html, body {
   <button class="nb new-tab" onclick="showTab('powerrankings',this)">📊 POWER RANKINGS</button>
   <button class="nb" onclick="showTab('analytics',this)">📈 ANALYTICS</button>
   <button class="nb" onclick="showTab('trades',this)">🤝 TRADE LOG</button>
-  <button class="nb" onclick="showTab('prospects2027',this)">🌟 2027 PROSPECTS</button>
+  <button class="nb" onclick="showTab('prospects2027',this);if(!window.preview2027Rendered){render2027Preview();window.preview2027Rendered=true;}">🌟 2027 PROSPECTS</button>
   <button class="nb" onclick="showTab('tradeanalyzer',this)">⚖️ TRADE ANALYZER</button>
   <button class="nb new-tab" onclick="showTab('warroom',this)">🪖 WAR ROOM</button>
   <button class="nb" onclick="showTab('aianalyzer',this)">⚡ AI ANALYZER</button>
@@ -2695,7 +2695,7 @@ function toggle2027Preview(){
 }
 
 function render2027Preview(){
-  const el=document.getElementById('preview2027List');
+  const panel=document.getElementById('prospects2027');panel.innerHTML="<div class='sec-title'>&#127775; 2027 NFL DRAFT PROSPECTS</div><div class='sec-sub'>Dynasty-ranked prospects · Top "+DRAFT_CLASS_2027.length+" prospects for 2027 rookie drafts · Bryce Underwood leads the class</div><div id='preview2027List'></div>";const el=document.getElementById('preview2027List');
   const GC={'A+':'#c084fc','A':'#c084fc','A-':'#a78bfa','B+':'#60a5fa','B':'#3b82f6','B-':'#6b7280'};
   el.innerHTML=DRAFT_CLASS_2027.map(p=>`
     <div class="prow2 prow2-purple pr${p.rank}" onclick="show2027Modal(${JSON.stringify(p).replace(/"/g,'&quot;')})">
