@@ -1897,7 +1897,6 @@ function showTab(id,btn){
   if(id==='powerrankings')loadPowerRankings();
   if(id==='trades')loadLiveTradeLog();
   if(id==='rankings')renderRankings();
-  if(id==='rookies')showRookieClass('2026',document.getElementById('rookieBtn2026'));
   if(id==='warroom'){document.getElementById('warRoomStamp').textContent=new Date().toLocaleString('en-US',{dateStyle:'medium',timeStyle:'short'});}
   if(id==='analytics'&&!document.getElementById('analyticsContent').dataset.loaded){
     buildAnalyticsTab();
@@ -3920,7 +3919,6 @@ window.addEventListener('DOMContentLoaded',()=>{
   computeTeamGrades();
   renderTeams();
   loadLiveTradeLog();
-  showRookieClass('2026',document.getElementById('rookieBtn2026'));
   // Set war room timestamp
   document.getElementById('warRoomStamp').textContent=new Date().toLocaleString('en-US',{dateStyle:'medium',timeStyle:'short'});
   // Compute stat bar tiles (static pass first, updates after FC loads)
