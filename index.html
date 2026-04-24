@@ -837,29 +837,47 @@ html, body {
 
   <script>
   const TA_VALUES={
-    'Patrick Mahomes':70,'Josh Allen':66,'Lamar Jackson':64,'Jalen Hurts':60,'CJ Stroud':63,
-    'Joe Burrow':58,'Drake Maye':60,'Caleb Williams':60,'Anthony Richardson':54,'Trevor Lawrence':52,
-    'Jordan Love':50,'Brock Purdy':48,'Tua Tagovailoa':44,'Kyler Murray':40,'Justin Fields':35,
-    'Dak Prescott':34,'Bryce Young':38,'Sam Howell':22,'Geno Smith':18,'Daniel Jones':12,
-    'Christian McCaffrey':58,'Bijan Robinson':64,'Jahmyr Gibbs':62,'Breece Hall':60,
-    'De\'Von Achane':60,'Kyren Williams':46,'Jonathan Taylor':48,'Saquon Barkley':46,
-    'James Cook':48,'D\'Andre Swift':38,'Josh Jacobs':30,'Travis Etienne Jr.':42,
-    'Tony Pollard':32,'Derrick Henry':26,'Alvin Kamara':28,'Rashaad Penny':15,
-    'Ashton Jeanty':62,'Jeremiyah Love':58,'Ahmad Hardy':52,
-    'Justin Jefferson':72,'CeeDee Lamb':70,"Ja\'Marr Chase":70,'Marvin Harrison Jr.':64,
-    'Malik Nabers':60,'Brian Thomas Jr.':58,'Rome Odunze':54,'Drake London':52,
-    'Garrett Wilson':58,'A.J. Brown':62,'Amon-Ra St. Brown':60,'Puka Nacua':54,
-    'DeVonta Smith':50,'Chris Olave':50,'Jordan Addison':50,'Xavier Worthy':48,
-    'Ladd McConkey':48,'Rashee Rice':54,'Tyreek Hill':52,'Davante Adams':38,
-    'Stefon Diggs':30,'Tee Higgins':50,'Mike Evans':38,'Amari Cooper':28,
-    'Carnell Tate':50,'Brock Bowers':58,'Sam LaPorta':50,'Trey McBride':50,
-    'Mark Andrews':44,'Travis Kelce':44,'George Kittle':46,'Dallas Goedert':40,
-    'Jake Ferguson':40,'Dalton Kincaid':38,'Evan Engram':35,
-    '2027 1st Round Pick (Early)':68,'2027 1st Round Pick':52,'2027 2nd Round Pick':22,
-    '2027 3rd Round Pick':12,'2026 1st Round Pick':35,'2026 2nd Round Pick':15,
-    '2026 3rd Round Pick':7,'2026 4th Round Pick':3,
-    'Fernando Mendoza':55,'Ty Simpson':40,'Carson Beck':35,'Drew Allar':35,'Garrett Nussmeier':32,
-    'Ashton Jeanty':62,'Carnell Tate':50,'Kenyon Sadiq':40,'Arvell Reese':10,'David Bailey':10,
+    // Superflex dynasty consensus 0-100 scale (Apr 2026)
+    'Josh Allen':100,'Lamar Jackson':95,
+    "Ja'Marr Chase":98,'Justin Jefferson':93,'Jayden Daniels':92,
+    'CeeDee Lamb':91,'Drake Maye':90,'Brock Bowers':89,
+    'Jalen Hurts':87,'Joe Burrow':85,
+    'Ashton Jeanty':84,'Bijan Robinson':83,'Malik Nabers':82,
+    'Jahmyr Gibbs':81,'Caleb Williams':80,'Patrick Mahomes':79,
+    'Marvin Harrison Jr.':78,'Travis Hunter':77,
+    'A.J. Brown':76,'Amon-Ra St. Brown':75,
+    'Brian Thomas Jr.':74,'Breece Hall':73,"De'Von Achane":72,
+    'Trey McBride':71,'Jaxon Smith-Njigba':70,'Anthony Richardson':69,
+    'Puka Nacua':68,'Garrett Wilson':67,'George Pickens':66,
+    'Tee Higgins':65,'Jordan Love':65,'Rome Odunze':65,
+    'Drake London':65,'Jeremiyah Love':65,'Fernando Mendoza':65,
+    'Kyren Williams':63,'Jonathan Taylor':62,'DeVonta Smith':61,
+    'Rashee Rice':60,'Jameson Williams':59,'Tyler Warren':58,
+    'CJ Stroud':57,'Xavier Worthy':56,'Ladd McConkey':55,
+    'Jordan Addison':54,'Saquon Barkley':53,'Chris Olave':52,
+    'Carnell Tate':51,'Trevor Lawrence':51,'James Cook':50,
+    'Travis Etienne Jr.':50,'Brock Purdy':50,'Zay Flowers':50,
+    'Omarion Hampton':50,'Emeka Egbuka':52,
+    'Harold Fannin Jr.':60,'Jaxson Dart':53,'J.J. McCarthy':52,
+    'Justin Herbert':55,'Tetairoa McMillan':65,'Luther Burden III':55,
+    'Colston Loveland':57,'Mason Taylor':42,'Elijah Arroyo':38,
+    'RJ Harvey':45,'Braelon Allen':45,'Quinshon Judkins':48,'Bo Nix':50,
+    'Kyle Pitts':38,'Sam LaPorta':48,'Mark Andrews':44,'George Kittle':43,
+    'Travis Kelce':40,'Dallas Goedert':39,'Tyreek Hill':47,
+    'Tua Tagovailoa':46,"D'Andre Swift":45,'Kyler Murray':42,
+    'Bryce Young':41,'Justin Fields':38,'Jake Ferguson':37,
+    'Dalton Kincaid':36,'Evan Engram':35,'Josh Jacobs':35,
+    'Dak Prescott':34,'Tony Pollard':32,'Alvin Kamara':28,
+    'Davante Adams':26,'Derrick Henry':24,'Stefon Diggs':22,
+    'Mike Evans':22,'Amari Cooper':20,'Geno Smith':15,
+    'Sam Howell':12,'Daniel Jones':8,'Rashaad Penny':8,
+    'Ahmad Hardy':14,'Ty Simpson':14,'Carson Beck':18,
+    'Drew Allar':14,'Garrett Nussmeier':13,'Kenyon Sadiq':10,
+    'Arvell Reese':8,'David Bailey':8,
+    '2027 1st Round Pick (Early)':75,'2027 1st Round Pick':55,
+    '2027 2nd Round Pick':22,'2027 3rd Round Pick':12,
+    '2026 1st Round Pick':38,'2026 2nd Round Pick':18,
+    '2026 3rd Round Pick':8,'2026 4th Round Pick':3,
   };
 
   let taA=[],taB=[];
@@ -885,7 +903,7 @@ html, body {
 
   function taGetPos(name){
     if(name.includes('Pick')) return 'PICK';
-    const qbs=['Mahomes','Allen','Jackson','Hurts','Stroud','Burrow','Maye','Williams','Richardson','Lawrence','Love','Purdy','Murray','Manning','Moore','Sayin','Lagway','Raiola','Mendoza','Simpson','Beck','Allar','Nussmeier'];
+    const qbs=['Mahomes','Allen','Jackson','Hurts','Stroud','Burrow','Maye','Williams','Richardson','Lawrence','Love','Purdy','Murray','Manning','Moore','Sayin','Lagway','Raiola','Mendoza','Simpson','Beck','Allar','Nussmeier','Daniels','Dart','Herbert','McCarthy','Nix','Fields','Prescott','Young','Howell','Jones'];
     const rbs=['McCaffrey','Robinson','Gibbs','Hall','Achane','Williams','Taylor','Barkley','Cook','Swift','Jacobs','Etienne','Pollard','Henry','Kamara','Jeanty','Love','Hardy','Bothwell','Martinez','Skattebo'];
     const tes=['Bowers','LaPorta','McBride','Andrews','Kelce','Kittle','Goedert','Ferguson','Kincaid','Engram','Sadiq','Fannin'];
     const n=name.split(' ').pop()||'';
@@ -947,25 +965,39 @@ html, body {
     const winner=document.getElementById('taResultWinner');
     const margin=document.getElementById('taResultMargin');
     result.style.display='block';
-    const diff=Math.abs(vA-vB);
-    const pct=Math.max(vA,vB)>0?Math.round((diff/Math.max(vA,vB))*100):0;
     if(vA===0&&vB===0){winner.textContent='Add players first';result.className='ta-result even';margin.textContent='';return;}
-    if(Math.abs(vA-vB)<=4){
-      result.className='ta-result even';
+    if(vA===0||vB===0){
+      winner.textContent='Add players to both sides';
       winner.style.color='#D4AF37';
-      winner.textContent='⚖️ FAIR TRADE';
-      margin.textContent=`Values are within ${diff} points — this deal is balanced`;
-    } else if(vA>vB){
-      result.className='ta-result win-b';
-      winner.style.color='#00FF87';
-      winner.textContent='🔵 TEAM A WINS';
-      margin.textContent=`Team A gets +${diff} pts more value (${pct}% edge) · Team B should ask for more`;
-    } else {
-      result.className='ta-result win-a';
-      winner.style.color='#00FF87';
-      winner.textContent='🔴 TEAM B WINS';
-      margin.textContent=`Team B gets +${diff} pts more value (${pct}% edge) · Team A should ask for more`;
+      result.className='ta-result even';
+      margin.innerHTML='One side is empty.';
+      return;
     }
+    const hi=Math.max(vA,vB),lo=Math.min(vA,vB);
+    const ratio=hi/lo;
+    const aWins=vA>=vB;
+    let gradeWin,gradeLose,labelWin,desc,cls;
+    if(ratio<1.05){
+      gradeWin='C';gradeLose='C';
+      labelWin='EVEN TRADE';
+      desc='Values are essentially equal — this is a fair deal for both sides.';
+      cls='ta-result even';
+      winner.style.color='#D4AF37';
+    } else {
+      winner.style.color='#00FF87';
+      cls=aWins?'ta-result win-b':'ta-result win-a';
+      if(ratio<1.15){gradeWin='B';gradeLose='C';desc='Slight edge — small value advantage, still a reasonable deal.';}
+      else if(ratio<1.30){gradeWin='B+';gradeLose='C-';desc='Clear edge — meaningful value difference. Losing side should ask for more.';}
+      else if(ratio<1.50){gradeWin='A-';gradeLose='D+';desc='Significant edge — winning side got noticeably more value.';}
+      else{gradeWin='A+';gradeLose='F';desc='Lopsided — one side is giving away far too much value.';}
+      labelWin=aWins?'TEAM A WINS':'TEAM B WINS';
+    }
+    result.className=cls;
+    const gradeA=aWins?gradeWin:gradeLose;
+    const gradeB=aWins?gradeLose:gradeWin;
+    const gc=g=>{if(['A+','A','A-'].includes(g))return'#00FF87';if(['B+','B','B-','C+'].includes(g))return'#7DDB7D';if(g==='C')return'#D4AF37';return'#E67E22';};
+    winner.textContent=labelWin;
+    margin.innerHTML='<span style="font-size:17px;font-weight:700;color:'+gc(gradeA)+'">A: '+gradeA+'</span>&nbsp;&nbsp;<span style="font-size:17px;font-weight:700;color:'+gc(gradeB)+'">B: '+gradeB+'</span>&nbsp;&nbsp;<span style="font-size:10px;color:var(--muted)">'+desc+'</span><br><span style="font-size:9px;opacity:.6;font-family:monospace">Team A: '+vA+' pts &middot; Team B: '+vB+' pts &middot; Ratio: '+ratio.toFixed(2)+'x</span>';
     result.scrollIntoView({behavior:'smooth',block:'nearest'});
   }
 
