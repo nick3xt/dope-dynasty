@@ -4602,5 +4602,23 @@ const tier=pct!==null?scoutTier(pct):isDraftPick?{bg:'rgba(147,51,234,.15)',fg:'
 <div id="duosGrid"></div>
 <script>if(typeof renderDynastyDuos!=="undefined")renderDynastyDuos();</script>
 </div>
+
+<script>
+/* NAV FIX */
+(function(){
+  function doFix(){
+    var s=document.createElement('style');
+    s.textContent='.nav-burger{display:flex!important;width:52px!important;height:52px!important;min-width:52px!important;font-size:28px!important;align-items:center!important;justify-content:center!important;cursor:pointer!important;background:var(--bg2,#1a1a2e)!important;border:2px solid var(--accent,#7c3aed)!important;border-radius:10px!important;color:var(--text,#fff)!important;z-index:9999!important;}';
+    document.head.appendChild(s);
+    var b=document.getElementById('navBurger');
+    if(b&&!b.innerHTML.trim())b.innerHTML='&#9776;';
+    if(b)b.onclick=function(){window.toggleMobileNav();};
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',doFix);else doFix();
+  window.toggleMobileNav=function(){var n=document.getElementById('mobileNav')||document.querySelector('.nav-links');if(n){var o=n.classList.toggle('mobile-open');n.style.display=o?'flex':'';}else{alert('nav not found');}};
+  window.openMobileNav=function(){var n=document.getElementById('mobileNav')||document.querySelector('.nav-links');if(n){n.classList.add('mobile-open');n.style.display='flex';}};
+  window.closeMobileNav=function(){var n=document.getElementById('mobileNav')||document.querySelector('.nav-links');if(n){n.classList.remove('mobile-open');n.style.display='';}};
+})();
+</script>
 </body>
 </html>
