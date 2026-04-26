@@ -4803,17 +4803,6 @@ setTimeout(function(){
 <div class="tv2-verdict" id="tv2Verdict">
   <div class="tv2-verdict-winner" id="tv2VerdictWinner"></div>
   <div class="tv2-verdict-sub" id="tv2VerdictSub"></div>
-  <div class="tv2-verdict-bars">
-    <div>
-      <div class="tv2-bar-side" style="color:#4fc3f7;text-align:right;" id="tv2BarLblA"></div>
-      <div style="display:flex;justify-content:flex-end;"><div class="tv2-bar-fill" id="tv2BarA" style="background:#4fc3f7;"></div></div>
-    </div>
-    <div class="tv2-bar-vs">VS</div>
-    <div>
-      <div class="tv2-bar-side" style="color:#E67E22;" id="tv2BarLblB"></div>
-      <div><div class="tv2-bar-fill" id="tv2BarB" style="background:#E67E22;"></div></div>
-    </div>
-  </div>
 </div>
 
 <!-- Add Player Modal -->
@@ -5004,10 +4993,10 @@ function tv2Analyze(){
   // A wins = B sends more (totB > totA), i.e. A gets a better haul
   const aReceives=totB, bReceives=totA;
   const maxPts=Math.max(aReceives,bReceives,1);
-  barA.style.width=Math.round((aReceives/maxPts)*120)+'px';
-  barB.style.width=Math.round((bReceives/maxPts)*120)+'px';
-  lblA.textContent='A gets: '+Math.round(aReceives)+' pts';
-  lblB.textContent='B gets: '+Math.round(bReceives)+' pts';
+  if(barA)barA.style.width=Math.round((aReceives/maxPts)*120)+'px';
+  if(barB)barB.style.width=Math.round((bReceives/maxPts)*120)+'px';
+  if(lblA)lblA.textContent='A gets: '+Math.round(aReceives)+' pts';
+  if(lblB)lblB.textContent='B gets: '+Math.round(bReceives)+' pts';
   verdict.className='tv2-verdict';
   const delta=totA>0&&totB>0?Math.abs(totA-totB)/Math.max(totA,totB):1;
   const aWins=totB>totA;  // A wins when B sends more (A receives more)
