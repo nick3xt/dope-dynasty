@@ -445,39 +445,15 @@ html, body {
     <span class="v8-badge">v25 · AGE + POS + AI</span>
   </div>
 </div>
-<div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:3px;margin:14px 0 6px;text-align:center;">2025 BEST</div>
-<div class="dynasty-pulse" id="dynastyPulse">
-  <div class="pulse-item">
-    <div class="pulse-label">TEAM</div>
-    <div class="pulse-value" style="font-size:13px;color:var(--gold)">LAMARIO BROS</div>
-    <div class="pulse-sub">@ColonelSanders4</div>
-  </div>
-  <div class="pulse-item">
-    <div class="pulse-label">ROSTER OVR</div>
-    <div class="pulse-value" id="pulseOvr">—</div>
-    <div class="pulse-bar-wrap"><div class="pulse-bar" id="pulseOvrBar" style="width:0%"></div></div>
-  </div>
-  <div class="pulse-item">
-    <div class="pulse-label">AVG AGE</div>
-    <div class="pulse-value" id="pulseAge">—</div>
-    <div class="pulse-sub" id="pulseAgeSub">starters</div>
-  </div>
-  <div class="pulse-item">
-    <div class="pulse-label">PICK CAPITAL</div>
-    <div class="pulse-value" id="pulsePickScore">—</div>
-    <div class="pulse-sub" id="pulsePickCount">picks</div>
-  </div>
-  <div class="pulse-item">
-    <div class="pulse-label">CHAMP WINDOW</div>
-    <div class="pulse-value" style="font-size:13px" id="pulseWindow">—</div>
-    <div class="pulse-bar-wrap"><div class="pulse-bar" id="pulseWindowBar" style="width:0%;background:var(--gold)"></div></div>
-  </div>
-  <div class="pulse-item">
-    <div class="pulse-label">GRADE</div>
-    <div class="pulse-value" id="pulseGrade" style="font-size:28px">B</div>
-    <div class="pulse-sub" id="pulseType">WIN NOW</div>
-  </div>
+<div id="leagueAvatarStrip" style="display:flex;align-items:center;gap:0;overflow-x:auto;padding:14px 0 10px;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-bottom:1px solid var(--border);margin-bottom:0;">
+  <!-- populated by buildLeagueAvatarStrip() -->
 </div>
+<!-- hidden elements to keep computeLeaguePulse/computeDynastyPulse happy -->
+<span id="pulseOvr" style="display:none"></span><span id="pulseOvrBar" style="display:none"></span>
+<span id="pulseAge" style="display:none"></span><span id="pulseAgeSub" style="display:none"></span>
+<span id="pulsePickScore" style="display:none"></span><span id="pulsePickCount" style="display:none"></span>
+<span id="pulseWindow" style="display:none"></span><span id="pulseWindowBar" style="display:none"></span>
+<span id="pulseGrade" style="display:none"></span><span id="pulseType" style="display:none"></span>
 <div class="nav-wrap" id="navWrap">
 <button class="nav-burger" id="navBurger" onclick="toggleMobileNav()" aria-label="Open navigation menu">&#9776;&nbsp; MENU</button>
 <div class="nav-backdrop" id="navBackdrop" onclick="closeMobileNav()"></div>
@@ -2067,7 +2043,11 @@ function showTab(id,btn){
   if(id==='powerrankings')loadPowerRankings();
   if(id==='trades')loadLiveTradeLog();
   if(id==='rankings')renderRankings();
-  if(id==='warroom'){document.getElementById('warRoomStamp').textContent=new Date().toLocaleString('en-US',{dateStyle:'medium',timeStyle:'short'});}
+  if(id==='warroom'){
+    (document.getElementById('warRoomStamp')||{}).textContent=new Date().toLocaleString('en-US',{dateStyle:'medium',timeStyle:'short'});
+    setTimeout(function(){try{renderMarketBoard();}catch(e){console.error('marketboard:',e);}},50);
+  }
+  if(id==='aianalyzer'){setTimeout(function(){try{populateAISelect();}catch(e){}},50);}
   if(id==='analytics'&&!document.getElementById('analyticsContent').dataset.loaded){
     buildAnalyticsTab();
     document.getElementById('analyticsContent').dataset.loaded='1';
@@ -4424,14 +4404,67 @@ function computeDynastyPulse(){
   if(gEl)gEl.style.color=team.color;
 }
 
+// ==== LEAGUE AVATAR STRIP ====
+async function buildLeagueAvatarStrip(){
+  const strip=document.getElementById('leagueAvatarStrip');
+  if(!strip)return;
+  // Build from TEAMS (static fallback) while we wait for Sleeper
+  const rankMap={};
+  (typeof RANKINGS!=='undefined'?RANKINGS:[]).forEach(r=>{rankMap[r.h]=r.rank;});
+  function renderStrip(teamAvatars){
+    const sorted=Object.entries(TEAMS).sort((a,b)=>(rankMap[a[0]]||99)-(rankMap[b[0]]||99));
+    const rankColors=['#D4AF37','#C0C0C0','#CD7F32'];
+    strip.innerHTML=sorted.map(([handle,t],i)=>{
+      const rank=rankMap[handle]||i+1;
+      const avatarId=teamAvatars[handle]||t.avatar||'';
+      const tc=t.color||'var(--border)';
+      const initials=(t.name||'').split(' ').map(w=>w[0]||'').join('').substring(0,2).toUpperCase();
+      const rColor=rankColors[rank-1]||'var(--muted)';
+      const imgHtml=avatarId
+        ?`<img src="https://sleepercdn.com/avatars/thumbs/${avatarId}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.style.display='none';this.nextSibling.style.display='flex'"><span style="display:none;align-items:center;justify-content:center;width:100%;height:100%;font-family:'Bebas Neue',sans-serif;font-size:16px;color:${tc}">${initials}</span>`
+        :`<span style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-family:'Bebas Neue',sans-serif;font-size:16px;color:${tc}">${initials}</span>`;
+      return`<div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0;padding:0 10px;cursor:pointer;" onclick="showTab('powerrankings',document.querySelector('.nb:nth-child(2)'))">
+        <div style="position:relative;">
+          <div style="width:48px;height:48px;border-radius:50%;border:2px solid ${tc};overflow:hidden;background:var(--bg3);">${imgHtml}</div>
+          <div style="position:absolute;bottom:-2px;right:-4px;background:var(--bg);border:1px solid ${rColor};border-radius:10px;padding:1px 5px;font-family:'Bebas Neue',sans-serif;font-size:9px;color:${rColor};line-height:1.2">#${rank}</div>
+        </div>
+        <div style="font-family:'DM Mono',monospace;font-size:7px;color:var(--muted);letter-spacing:0.5px;white-space:nowrap;max-width:58px;overflow:hidden;text-overflow:ellipsis;text-align:center">${t.name}</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:11px;color:${t.grade&&t.grade[0]==='A'?'var(--green)':t.grade&&t.grade[0]==='B'?'#4fc3f7':t.grade&&t.grade[0]==='C'?'var(--gold)':'#ef5350'}">${t.grade||'—'}</div>
+      </div>`;
+    }).join('<div style="width:1px;background:var(--border);height:40px;flex-shrink:0;align-self:center;opacity:0.4"></div>');
+  }
+  // First pass: render with TEAMS avatars (instant)
+  const localAvatars={};
+  Object.entries(TEAMS).forEach(([k,t])=>{if(t.avatar)localAvatars[k]=t.avatar;});
+  renderStrip(localAvatars);
+  // Second pass: fetch live Sleeper avatars
+  try{
+    const r=await fetch(`https://api.sleeper.app/v1/league/${SLEEPER_LEAGUE_ID}/users`);
+    if(!r.ok)return;
+    const users=await r.json();
+    const liveAvatars={...localAvatars};
+    users.forEach(u=>{
+      if(!u.avatar||!u.username)return;
+      const uname=u.username.toLowerCase();
+      Object.keys(TEAMS).forEach(k=>{
+        if(k.toLowerCase()===uname) liveAvatars[k]=u.avatar;
+      });
+    });
+    renderStrip(liveAvatars);
+    // Also update TEAMS.avatar for use elsewhere
+    Object.entries(liveAvatars).forEach(([k,av])=>{if(TEAMS[k])TEAMS[k].avatar=av;});
+  }catch(e){}
+}
+
 window.addEventListener('DOMContentLoaded',()=>{
+  buildLeagueAvatarStrip();
   computeDynastyPulse();
   // Compute grades from static data first (fast initial render)
   computeTeamGrades();
   renderTeams();
   loadLiveTradeLog();
   // Set war room timestamp
-  document.getElementById('warRoomStamp').textContent=new Date().toLocaleString('en-US',{dateStyle:'medium',timeStyle:'short'});
+  (document.getElementById('warRoomStamp')||{}).textContent=new Date().toLocaleString('en-US',{dateStyle:'medium',timeStyle:'short'});
   // Compute stat bar tiles (static pass first, updates after FC loads)
   computeStatBar();
   // Roster load still happens — just not wrapped in the sync orchestrator
