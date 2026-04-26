@@ -47,11 +47,11 @@ body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);min-he
 .nav-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:98;}
 .nav-backdrop.active{display:block;}
 @media(max-width:640px){
-  .nav-burger{display:flex;align-items:center;gap:10px;}
+  .nav-burger{display:flex;align-items:center;justify-content:center;gap:0;position:fixed;top:10px;left:10px;z-index:10001;}
   .nav-wrap{position:relative;}
-  .nav{display:none;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:var(--bg2);border:1px solid var(--border);border-top:none;z-index:99;overflow:visible;flex-wrap:wrap;box-shadow:0 8px 32px rgba(0,0,0,.6);}
+  .nav{display:none;flex-direction:column;position:fixed;top:70px;left:0;right:0;background:var(--bg2);border:1px solid var(--border);border-top:none;z-index:10000;overflow-y:auto;flex-wrap:wrap;box-shadow:0 8px 32px rgba(0,0,0,.6);}
   .nav.mobile-open{display:flex;}
-  .nb{border-right:none;border-bottom:1px solid var(--border);text-align:left;padding:14px 20px;width:100%;white-space:normal;}
+  .nb{border-right:none;border-bottom:1px solid var(--border);text-align:left;padding:18px 24px;width:100%;white-space:normal;font-size:15px;letter-spacing:1.5px;}
   .nb:last-child{border-bottom:none;}
 }
 
@@ -482,15 +482,15 @@ html, body {
 <button class="nav-burger" id="navBurger" onclick="toggleMobileNav()" aria-label="Open navigation menu">&#9776;&nbsp; MENU</button>
 <div class="nav-backdrop" id="navBackdrop" onclick="closeMobileNav()"></div>
 <div class="nav" id="mainNav">
-  <button class="nb active" onclick="showTab('teams',this)">🏆 TEAMS</button>
-  <button class="nb new-tab" onclick="showTab('powerrankings',this)">📊 POWER RANKINGS</button>
-  <button class="nb" onclick="showTab('analytics',this)">📈 ANALYTICS</button>
-  <button class="nb" onclick="showTab('trades',this)">🤝 TRADE LOG</button>
-  <button class="nb" onclick="showTab('prospects2027',this)">🌟 2027 PROSPECTS</button>
-  <button class="nb" onclick="showTab('tradeanalyzer',this)">⚖️ TRADE ANALYZER</button>
-  <button class="nb new-tab" onclick="showTab('warroom',this)">📊 MARKET BOARD</button>
-  <button class="nb" onclick="showTab('aianalyzer',this)">⚡ AI ANALYZER</button>
-  <button class="nb" onclick="showTab('dynastyduos',this)">&#x1F465; DYNASTY DUOS</button>
+  <button class="nb active" onclick="showTab('teams',this);closeMobileNav()">🏆 TEAMS</button>
+  <button class="nb new-tab" onclick="showTab('powerrankings',this);closeMobileNav()">📊 POWER RANKINGS</button>
+  <button class="nb" onclick="showTab('analytics',this);closeMobileNav()">📈 ANALYTICS</button>
+  <button class="nb" onclick="showTab('trades',this);closeMobileNav()">🤝 TRADE LOG</button>
+  <button class="nb" onclick="showTab('prospects2027',this);closeMobileNav()">🌟 2027 PROSPECTS</button>
+  <button class="nb" onclick="showTab('tradeanalyzer',this);closeMobileNav()">⚖️ TRADE ANALYZER</button>
+  <button class="nb new-tab" onclick="showTab('warroom',this);closeMobileNav()">📊 MARKET BOARD</button>
+  <button class="nb" onclick="showTab('aianalyzer',this);closeMobileNav()">⚡ AI ANALYZER</button>
+  <button class="nb" onclick="showTab('dynastyduos',this);closeMobileNav()">&#x1F465; DYNASTY DUOS</button>
 </div>
 </div>
 
