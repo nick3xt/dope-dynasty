@@ -497,6 +497,7 @@ html, body {
   <button class="nb new-tab" onclick="showTab('warroom',this);closeMobileNav()">📊 MARKET BOARD</button>
   <button class="nb" onclick="showTab('aianalyzer',this);closeMobileNav()">⚡ AI ANALYZER</button>
   <button class="nb" onclick="showTab('dynastyduos',this);closeMobileNav()">👥 DYNASTY DUOS</button>
+  <button class="nb new-tab" onclick="showTab('ta2',this);closeMobileNav()">⚖️ TRADE GRADES</button>
   <button class="nb" style="margin-top:auto;color:rgba(255,255,255,.25);font-size:8px;" onclick="closeMobileNav()">✕ CLOSE</button>
 </div>
 </div>
@@ -4527,6 +4528,400 @@ setTimeout(function(){
   window.closeMobileNav=function(){var nav=document.getElementById('mainNav');var bd=document.getElementById('navBackdrop');var burger=document.getElementById('navBurger');if(nav)nav.classList.remove('mobile-open');if(bd)bd.classList.remove('active');if(burger)burger.innerHTML='&#9776;&nbsp; MENU';}
 })();
 </script>
+
+<!-- ══════════════════════════════════════════════════
+     TRADE GRADES v2  ·  Position-relative dynasty grades
+     ══════════════════════════════════════════════════ -->
+<div class="sec" id="ta2">
+<style>
+.tv2-wrap{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+@media(max-width:500px){.tv2-wrap{grid-template-columns:1fr;}}
+.tv2-side{background:#0D0D14;border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px;}
+.tv2-side-lbl{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;margin-bottom:10px;}
+.tv2-side-a .tv2-side-lbl{color:#4fc3f7;}
+.tv2-side-b .tv2-side-lbl{color:#E67E22;}
+.tv2-add{width:100%;padding:10px;background:rgba(255,255,255,.04);border:1px dashed rgba(255,255,255,.15);border-radius:6px;color:rgba(255,255,255,.45);font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;cursor:pointer;text-transform:uppercase;transition:all .2s;}
+.tv2-add:hover,.tv2-add:active{background:rgba(255,255,255,.08);color:#fff;border-color:rgba(255,255,255,.3);}
+.tv2-pills{display:flex;flex-direction:column;gap:6px;margin-bottom:8px;min-height:0;}
+.tv2-pill{display:flex;align-items:center;gap:8px;padding:8px 10px;background:rgba(255,255,255,.05);border-radius:6px;border:1px solid rgba(255,255,255,.07);}
+.tv2-pill-pos{font-family:'DM Mono',monospace;font-size:8px;padding:2px 5px;border-radius:3px;font-weight:700;flex-shrink:0;}
+.tv2-pill-pos-QB{background:rgba(41,128,185,.3);color:#4fc3f7;}
+.tv2-pill-pos-RB{background:rgba(0,255,135,.12);color:#00FF87;}
+.tv2-pill-pos-WR{background:rgba(212,175,55,.15);color:#D4AF37;}
+.tv2-pill-pos-TE{background:rgba(230,126,34,.2);color:#E67E22;}
+.tv2-pill-pos-PICK{background:rgba(155,89,182,.2);color:#c084fc;}
+.tv2-pill-name{flex:1;font-size:11px;color:#e0e0e0;font-weight:600;}
+.tv2-pill-rank{font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,.35);}
+.tv2-pill-grade{font-family:'Bebas Neue',sans-serif;font-size:16px;min-width:28px;text-align:right;}
+.tv2-pill-rm{background:none;border:none;color:rgba(255,255,255,.2);cursor:pointer;font-size:13px;padding:0 2px;flex-shrink:0;}
+.tv2-pill-rm:hover{color:#ef5350;}
+.tv2-verdict{display:none;margin-top:4px;padding:18px;border-radius:10px;text-align:center;}
+.tv2-verdict.even{background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.25);}
+.tv2-verdict.side-a{background:rgba(79,195,247,.07);border:1px solid rgba(79,195,247,.3);}
+.tv2-verdict.side-b{background:rgba(230,126,34,.07);border:1px solid rgba(230,126,34,.3);}
+.tv2-verdict-winner{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;margin-bottom:4px;}
+.tv2-verdict-sub{font-size:11px;color:rgba(255,255,255,.55);margin-bottom:10px;}
+.tv2-verdict-bars{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin-top:12px;}
+.tv2-bar-side{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;}
+.tv2-bar-vs{font-family:'Bebas Neue',sans-serif;font-size:14px;color:rgba(255,255,255,.3);}
+.tv2-bar-fill{height:6px;border-radius:3px;margin-top:4px;}
+/* Modal */
+#tv2Modal{display:none;position:fixed;inset:0;z-index:10010;background:rgba(0,0,0,.85);backdrop-filter:blur(4px);}
+#tv2Modal.open{display:flex;flex-direction:column;}
+.tv2-modal-header{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid rgba(255,255,255,.08);background:#0D0D14;}
+.tv2-modal-lbl{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:#D4AF37;}
+.tv2-modal-close{background:none;border:none;color:rgba(255,255,255,.4);font-size:22px;cursor:pointer;padding:0 4px;}
+.tv2-modal-search{padding:12px 18px;background:#0D0D14;border-bottom:1px solid rgba(255,255,255,.06);}
+.tv2-modal-input{width:100%;padding:10px 14px;background:#111118;border:1px solid rgba(255,255,255,.12);border-radius:8px;color:#fff;font-size:15px;box-sizing:border-box;outline:none;}
+.tv2-modal-input:focus{border-color:#D4AF37;}
+.tv2-modal-list{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+.tv2-modal-row{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,.05);cursor:pointer;transition:background .15s;}
+.tv2-modal-row:active,.tv2-modal-row:hover{background:rgba(255,255,255,.06);}
+.tv2-modal-rank{font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,.3);min-width:28px;}
+.tv2-modal-name{flex:1;font-size:13px;color:#e8e8e8;font-weight:600;}
+.tv2-modal-grade{font-family:'Bebas Neue',sans-serif;font-size:18px;}
+.tv2-modal-pts{font-family:'DM Mono',monospace;font-size:9px;color:rgba(255,255,255,.35);}
+</style>
+
+<div class="sec-title">⚖️ TRADE GRADES</div>
+<div class="sec-sub" style="margin-bottom:18px;">Position-relative dynasty rankings · Every player + every pick · SF/PPR</div>
+
+<div class="tv2-wrap">
+  <div class="tv2-side tv2-side-a">
+    <div class="tv2-side-lbl">🔵 TEAM A SENDS</div>
+    <div class="tv2-pills" id="tv2PillsA"></div>
+    <button class="tv2-add" onclick="tv2OpenModal('A')">+ ADD PLAYER / PICK</button>
+  </div>
+  <div class="tv2-side tv2-side-b">
+    <div class="tv2-side-lbl">🟠 TEAM B SENDS</div>
+    <div class="tv2-pills" id="tv2PillsB"></div>
+    <button class="tv2-add" onclick="tv2OpenModal('B')">+ ADD PLAYER / PICK</button>
+  </div>
+</div>
+
+<button onclick="tv2Analyze()" style="width:100%;padding:14px;background:linear-gradient(135deg,#D4AF37,#c9a227);color:#000;border:none;border-radius:8px;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;cursor:pointer;margin-bottom:14px;">⚖️ GRADE THIS TRADE</button>
+<button onclick="tv2Clear()" style="width:100%;padding:10px;background:none;border:1px solid rgba(255,255,255,.1);border-radius:8px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;color:rgba(255,255,255,.3);cursor:pointer;margin-bottom:14px;text-transform:uppercase;">✕ CLEAR ALL</button>
+
+<div class="tv2-verdict" id="tv2Verdict">
+  <div class="tv2-verdict-winner" id="tv2VerdictWinner"></div>
+  <div class="tv2-verdict-sub" id="tv2VerdictSub"></div>
+  <div class="tv2-verdict-bars">
+    <div>
+      <div class="tv2-bar-side" style="color:#4fc3f7;text-align:right;" id="tv2BarLblA"></div>
+      <div style="display:flex;justify-content:flex-end;"><div class="tv2-bar-fill" id="tv2BarA" style="background:#4fc3f7;"></div></div>
+    </div>
+    <div class="tv2-bar-vs">VS</div>
+    <div>
+      <div class="tv2-bar-side" style="color:#E67E22;" id="tv2BarLblB"></div>
+      <div><div class="tv2-bar-fill" id="tv2BarB" style="background:#E67E22;"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Player Modal -->
+<div id="tv2Modal">
+  <div class="tv2-modal-header">
+    <span class="tv2-modal-lbl" id="tv2ModalLbl">ADD TO TEAM A</span>
+    <button class="tv2-modal-close" onclick="tv2CloseModal()">✕</button>
+  </div>
+  <div class="tv2-modal-search">
+    <input class="tv2-modal-input" id="tv2ModalInput" placeholder="Search player or pick…" oninput="tv2ModalSearch()" autocomplete="off" inputmode="search">
+  </div>
+  <div class="tv2-modal-list" id="tv2ModalList"></div>
+</div>
+
+<script>
+(function(){
+// ── DYNASTY POSITIONAL RANKINGS (Apr 2026 · SF · PPR) ──
+const TV2_RANKS={
+  QB:['Josh Allen','Lamar Jackson','Jayden Daniels','Drake Maye','Jalen Hurts','Joe Burrow','Caleb Williams','Patrick Mahomes','Cam Ward','Anthony Richardson','C.J. Stroud','Jordan Love','Shedeur Sanders','Justin Herbert','Tua Tagovailoa','Brock Purdy','Kyler Murray','Michael Penix Jr.','Dak Prescott','Quinn Ewers','Bryce Young','Justin Fields','Jaxson Dart','Bo Nix','Trevor Lawrence','J.J. McCarthy','Jalen Milroe','Will Howard','Baker Mayfield','Jared Goff','Matthew Stafford','Sam Darnold','Riley Leonard','Tyler Shough','Spencer Rattler','Tyson Bagent','Malik Willis','Joe Milton III','Aaron Rodgers','Daniel Jones','Jacoby Brissett','Joe Flacco','Andy Dalton','Gardner Minshew','Teddy Bridgewater','Marcus Mariota','Deshaun Watson'],
+  RB:['Ashton Jeanty','Jahmyr Gibbs','Bijan Robinson',"De'Von Achane",'Breece Hall','Kyren Williams','Jonathan Taylor','Cam Skattebo','Bucky Irving','Omarion Hampton','James Cook','Travis Etienne Jr.','Travis Etienne','RJ Harvey','Jeremiyah Love','Braelon Allen','Saquon Barkley','Quinshon Judkins','Zach Charbonnet','Chase Brown','Kenneth Walker III','Kaleb Johnson','Trevyon Henderson',"D'Andre Swift",'Isiah Pacheco','Javonte Williams','Donovan Edwards','Rhamondre Stevenson','Jordan Mason','David Montgomery','Tony Pollard','Jaylen Wright','Devin Neal','Trevor Etienne','DJ Giddens','Tank Bigsby','Trey Benson','Josh Jacobs','George Holani','Blake Corum','Najee Harris','MarShawn Lloyd','Audric Estime','Kyle Monangai','Brian Robinson','Joe Mixon','Derrick Henry','Alvin Kamara','James Conner','Kareem Hunt','Roschon Johnson','Kenneth Gainwell','Jerome Ford','Rachaad White','Chris Rodriguez','Tyrone Tracy','Isaac Guerendo','Ahmad Hardy','Bhayshul Tuten','Tyjae Spears','Woody Marks','Keaaton Mitchell'],
+  WR:["Ja'Marr Chase",'JaMarr Chase','Justin Jefferson','CeeDee Lamb','Malik Nabers','Marvin Harrison Jr.','Travis Hunter','Brian Thomas Jr.','Amon-Ra St. Brown','A.J. Brown','Puka Nacua','Garrett Wilson','George Pickens','Tee Higgins','Rome Odunze','Drake London','Jaxon Smith-Njigba','Rashee Rice','Xavier Worthy','Ladd McConkey','Jordan Addison','Tetairoa McMillan','Chris Olave','Zay Flowers','DeVonta Smith','Jameson Williams','Luther Burden III','Carnell Tate','Emeka Egbuka','Jayden Higgins','Nico Collins','Jaylen Waddle','DK Metcalf','Brandon Aiyuk','Ricky Pearsall','Josh Downs','Keon Coleman','Jayden Reed','Terry McLaurin','Jack Bech','Tai Felton','Matthew Golden','Troy Franklin','Devaughn Vele','Khalil Shakir','Elic Ayomanor','Tez Johnson','Michael Pittman','Jahan Dotson','Marvin Mims','Tyreek Hill','Deebo Samuel','Alec Pierce','Romeo Doubs','Christian Watson','Darnell Mooney','Xavier Legette','Jalen Coker','Jalen McMillan','Quentin Johnston','Isaiah Bond','Arian Smith','Cedric Tillman','Dontayvion Wicks','Beaux Collins','Ryan Flournoy','Parker Washington','Raheim Sanders','Kyle Williams','Gage Larvadain','DeMario Douglas','Jakobi Meyers','Kameron Johnson','Tyquan Thornton','Kayshon Boutte','Joshua Palmer','Isaiah Neyor','Xavier Restrepo','Davante Adams','Stefon Diggs','Amari Cooper','Keenan Allen','Mike Evans'],
+  TE:['Brock Bowers','Trey McBride','Harold Fannin Jr.','Sam LaPorta','Tyler Warren','Colston Loveland','Isaiah Likely','Tucker Kraft','Mason Taylor','Elijah Arroyo','Kyle Pitts','Mark Andrews','George Kittle','Travis Kelce','Dallas Goedert','AJ Barner','Oronde Gadsden II','Jake Ferguson','Dalton Kincaid','Evan Engram','Cade Otton','Noah Fant','Cade Stover','Mitchell Evans','Erick All','Noah Gray','Cole Kmet','Juwan Johnson','Dawson Knox','Sam LaPorta']
+};
+
+// Positional point values — designed so position-relative comparison is fair in SF
+function tv2Pts(pos,rank){
+  const curves={
+    QB:[200,185,170,156,143,131,120,110,101,93,86,80,74,69,64,60,56,52,48,45,42,39,36,33,31,29,27,25,23,21,19,17,15,14,13,12,11,10,9,8],
+    RB:[180,165,152,140,129,119,110,101,93,86,80,74,69,64,59,55,51,47,44,41,38,35,33,31,29,27,25,23,21,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4,3],
+    WR:[175,162,150,138,127,117,108,100,92,85,79,73,68,63,58,54,50,46,43,40,37,34,32,30,28,26,24,22,21,20,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4],
+    TE:[155,138,123,110,99,89,80,72,65,59,54,50,46,42,38,35,32,29,26,23,21,19,17,15,13,11,9,7,5,3]
+  };
+  const c=curves[pos]||curves.WR;
+  if(rank<=0)return c[c.length-1]||3;
+  return c[Math.min(rank-1,c.length-1)]||c[c.length-1]||3;
+}
+
+// Pick points
+const TV2_PICK_PTS={
+  '2028 1st Round Pick (Early)':172,'2028 1st Round Pick':142,'2028 2nd Round Pick':58,'2028 3rd Round Pick':20,'2028 4th Round Pick':8,
+  '2027 1st Round Pick (Early)':152,'2027 1st Round Pick':118,'2027 2nd Round Pick':44,'2027 3rd Round Pick':18,'2027 4th Round Pick':7,
+  '2026 1st Round Pick (Early)':95,'2026 1st Round Pick':80,'2026 2nd Round Pick':30,'2026 3rd Round Pick':12,'2026 4th Round Pick':4,
+  '2025 1st Round Pick':60,'2025 2nd Round Pick':22,'2025 3rd Round Pick':8,
+};
+
+function tv2PickPts(name){
+  if(TV2_PICK_PTS[name]) return TV2_PICK_PTS[name];
+  // Detect year + round from actual pick names like "2027 1st (via Nxbosta)" or "2026 1st — 1.06"
+  const yr=name.match(/20(\d\d)/); const y=yr?parseInt('20'+yr[1]):2027;
+  const gap=y-2026;
+  const isEarly=name.match(/1\.[01][0-5]/)||name.includes('Early')||name.match(/1\.0[1-4]/);
+  if(name.includes('1st')) return gap<=0?80:gap===1?(isEarly?152:118):gap===2?(isEarly?172:142):130;
+  if(name.includes('2nd')) return gap<=0?30:gap===1?44:58;
+  if(name.includes('3rd')) return gap<=0?12:gap===1?18:20;
+  return gap<=0?4:7;
+}
+
+function tv2Grade(pts){
+  if(pts>=170)return{g:'A+',c:'#00FF87'};
+  if(pts>=140)return{g:'A',c:'#00FF87'};
+  if(pts>=110)return{g:'A-',c:'#4fc3f7'};
+  if(pts>=85)return{g:'B+',c:'#4fc3f7'};
+  if(pts>=65)return{g:'B',c:'#D4AF37'};
+  if(pts>=48)return{g:'B-',c:'#D4AF37'};
+  if(pts>=34)return{g:'C+',c:'#E67E22'};
+  if(pts>=22)return{g:'C',c:'#E67E22'};
+  if(pts>=12)return{g:'C-',c:'#aaa'};
+  return{g:'D',c:'#666'};
+}
+
+function tv2GetPosRank(name){
+  for(const pos of ['QB','RB','WR','TE']){
+    const idx=TV2_RANKS[pos].indexOf(name);
+    if(idx>=0) return{pos,rank:idx+1,pts:tv2Pts(pos,idx+1)};
+  }
+  // Check TEAMS rosters for pos
+  if(typeof TEAMS!=='undefined'){
+    for(const t of Object.values(TEAMS)){
+      for(const pos of ['QB','RB','WR','TE','IR','TAXI','WRT']){
+        const found=(t.roster[pos]||[]).find(p=>p.n===name);
+        if(found){
+          const rpos=found.g==='cut'?'WR':(pos==='IR'||pos==='TAXI'||pos==='WRT'?'WR':pos);
+          const actualPos=typeof PLAYER_POS!=='undefined'&&PLAYER_POS[name]?PLAYER_POS[name]:rpos;
+          return{pos:actualPos,rank:99,pts:tv2Pts(actualPos,99)};
+        }
+      }
+    }
+  }
+  return{pos:'WR',rank:999,pts:8};
+}
+
+function tv2IsPickName(name){
+  return name.includes('1st')||name.includes('2nd')||name.includes('3rd')||name.includes('4th')||name.includes('Pick')||name.includes('Round');
+}
+
+function tv2GetItem(name){
+  if(tv2IsPickName(name)){
+    const pts=tv2PickPts(name);
+    const g=tv2Grade(pts);
+    return{name,pos:'PICK',rank:null,pts,grade:g.g,color:g.c};
+  }
+  const {pos,rank,pts}=tv2GetPosRank(name);
+  const g=tv2Grade(pts);
+  return{name,pos,rank,pts,grade:g.g,color:g.c};
+}
+
+// ── ALL PLAYERS (for search) ──
+function tv2AllPlayers(){
+  const seen=new Set();
+  const all=[];
+  // 1. All ranked players
+  for(const pos of ['QB','RB','WR','TE']){
+    TV2_RANKS[pos].forEach((n,i)=>{if(!seen.has(n)){seen.add(n);all.push({name:n,pos,rank:i+1,pts:tv2Pts(pos,i+1)});}});
+  }
+  // 2. All roster players not yet in list
+  if(typeof TEAMS!=='undefined'){
+    Object.values(TEAMS).forEach(t=>{
+      ['QB','RB','WR','TE','IR','TAXI','WRT'].forEach(pos=>{
+        (t.roster[pos]||[]).forEach(p=>{
+          if(p.n&&!seen.has(p.n)){
+            seen.add(p.n);
+            const rpos=(pos==='IR'||pos==='TAXI'||pos==='WRT')?((typeof PLAYER_POS!=='undefined'&&PLAYER_POS[p.n])||'WR'):pos;
+            all.push({name:p.n,pos:rpos,rank:99,pts:tv2Pts(rpos,99)});
+          }
+        });
+      });
+      // All picks on this team
+      (t.picks||[]).forEach(pk=>{
+        if(!seen.has(pk)){seen.add(pk);const pts=tv2PickPts(pk);all.push({name:pk,pos:'PICK',rank:null,pts});}
+      });
+    });
+  }
+  // 3. Generic pick options
+  ['2026','2027','2028'].forEach(yr=>{
+    ['1st Round Pick (Early)','1st Round Pick','2nd Round Pick','3rd Round Pick','4th Round Pick'].forEach(rd=>{
+      const n=yr+' '+rd;if(!seen.has(n)){seen.add(n);const pts=tv2PickPts(n);all.push({name:n,pos:'PICK',rank:null,pts});}
+    });
+  });
+  return all;
+}
+
+// State
+let tv2A=[],tv2B=[],_tv2Side='A';
+
+function tv2Render(side){
+  const arr=side==='A'?tv2A:tv2B;
+  const el=document.getElementById('tv2Pills'+side);
+  if(!el)return;
+  el.innerHTML=arr.map((item,i)=>{
+    const g=tv2Grade(item.pts);
+    const rankStr=item.rank&&item.rank<90?item.pos+item.rank:'';
+    return`<div class="tv2-pill">
+      <span class="tv2-pill-pos tv2-pill-pos-${item.pos}">${item.pos}</span>
+      <span class="tv2-pill-name">${item.name}</span>
+      ${rankStr?`<span class="tv2-pill-rank">${rankStr}</span>`:''}
+      <span class="tv2-pill-grade" style="color:${g.c}">${g.g}</span>
+      <button class="tv2-pill-rm" onclick="tv2Remove('${side}',${i})">✕</button>
+    </div>`;
+  }).join('');
+}
+
+function tv2Remove(side,idx){
+  const arr=side==='A'?tv2A:tv2B;
+  arr.splice(idx,1);
+  tv2Render(side);
+  document.getElementById('tv2Verdict').style.display='none';
+}
+
+function tv2Clear(){
+  tv2A=[];tv2B=[];
+  tv2Render('A');tv2Render('B');
+  document.getElementById('tv2Verdict').style.display='none';
+}
+
+// ── ANALYZE ──
+function tv2Analyze(){
+  if(!tv2A.length&&!tv2B.length)return;
+  // Diminishing returns: 1st asset=100%, 2nd=80%, 3rd=65%, 4th+=55%
+  function sideTotal(arr){
+    const sorted=[...arr].sort((a,b)=>b.pts-a.pts);
+    const weights=[1,.80,.65,.55,.50];
+    return sorted.reduce((s,item,i)=>s+item.pts*(weights[Math.min(i,weights.length-1)]),0);
+  }
+  const totA=sideTotal(tv2A),totB=sideTotal(tv2B);
+  const verdict=document.getElementById('tv2Verdict');
+  const winner=document.getElementById('tv2VerdictWinner');
+  const sub=document.getElementById('tv2VerdictSub');
+  const barA=document.getElementById('tv2BarA');
+  const barB=document.getElementById('tv2BarB');
+  const lblA=document.getElementById('tv2BarLblA');
+  const lblB=document.getElementById('tv2BarLblB');
+  const maxPts=Math.max(totA,totB,1);
+  barA.style.width=Math.round((totA/maxPts)*120)+'px';
+  barB.style.width=Math.round((totB/maxPts)*120)+'px';
+  lblA.textContent='A: '+Math.round(totA)+' pts';
+  lblB.textContent='B: '+Math.round(totB)+' pts';
+  verdict.className='tv2-verdict';
+  const delta=totA>0&&totB>0?Math.abs(totA-totB)/Math.max(totA,totB):1;
+  const aWins=totA>totB;
+  function genNote(side,other){
+    const arr=side==='A'?tv2A:tv2B;const oarr=side==='A'?tv2B:tv2A;
+    const hasQB=arr.some(x=>x.pos==='QB');
+    const hasPick=arr.some(x=>x.pos==='PICK');
+    const oHasPick=oarr.some(x=>x.pos==='PICK');
+    const topItem=arr.sort((a,b)=>b.pts-a.pts)[0];
+    const oTopItem=oarr.sort((a,b)=>b.pts-a.pts)[0];
+    if(hasQB&&!oarr.some(x=>x.pos==='QB'))return'Selling a starting QB. SF leagues punish this — make sure the return is elite.';
+    if(hasPick&&!oHasPick)return'Taking on future capital. High risk, high ceiling.';
+    if(arr.length>oarr.length)return'More pieces, less ceiling. Depth vs star power.';
+    if(topItem&&oTopItem&&topItem.pts>oTopItem.pts&&topItem.pts>=150)return`${topItem.name} is a genuine franchise asset — not easy to replace.`;
+    return delta<.08?'Close enough to do the deal — both sides get fair value.':'Check the positional scarcity on each side before pulling the trigger.';
+  }
+  if(delta<.05){
+    verdict.classList.add('even');
+    winner.style.color='#D4AF37';
+    winner.textContent='EVEN TRADE';
+    sub.textContent='Both sides are within 5% — fair deal. Pull the trigger.';
+  } else {
+    verdict.classList.add(aWins?'side-a':'side-b');
+    winner.style.color=aWins?'#4fc3f7':'#E67E22';
+    winner.textContent='TEAM '+(aWins?'B WINS':'A WINS');
+    const loser=aWins?'B':'A';
+    const edge=delta<.12?'slight edge':delta<.25?'clear winner':'dominant winner';
+    winner.textContent='TEAM '+(aWins?'B':'A')+' — '+edge.toUpperCase();
+    sub.textContent=genNote(aWins?'B':'A',aWins?'A':'B');
+  }
+  verdict.style.display='block';
+  verdict.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+// ── MODAL ──
+function tv2OpenModal(side){
+  _tv2Side=side;
+  const modal=document.getElementById('tv2Modal');
+  const lbl=document.getElementById('tv2ModalLbl');
+  if(lbl)lbl.textContent='ADD TO TEAM '+(side==='A'?'A':'B');
+  modal.classList.add('open');
+  const inp=document.getElementById('tv2ModalInput');
+  if(inp){inp.value='';inp.focus();}
+  tv2ModalSearch();
+}
+window.tv2OpenModal=tv2OpenModal;
+
+function tv2CloseModal(){
+  document.getElementById('tv2Modal').classList.remove('open');
+  const inp=document.getElementById('tv2ModalInput');
+  if(inp)inp.blur();
+}
+window.tv2CloseModal=tv2CloseModal;
+
+function tv2ModalSearch(){
+  const inp=document.getElementById('tv2ModalInput');
+  const q=(inp?inp.value:'').trim().toLowerCase();
+  const list=document.getElementById('tv2ModalList');
+  if(!list)return;
+  const all=tv2AllPlayers();
+  function rankM(p){
+    const pl=p.name.toLowerCase();
+    const parts=pl.split(' ');const last=parts[parts.length-1]||'';const first=parts[0]||'';
+    if(!q)return p.pos==='PICK'?1:0;
+    if(pl===q)return 0;if(last===q||last.startsWith(q))return 1;
+    if(first===q||first.startsWith(q))return 2;if(pl.startsWith(q))return 3;
+    if(pl.includes(q))return 4;return 99;
+  }
+  const seen=new Set();
+  const filtered=all
+    .map(p=>({...p,_r:rankM(p)}))
+    .filter(p=>p._r<99)
+    .sort((a,b)=>a._r-b._r||b.pts-a.pts)
+    .filter(p=>{
+      const key=p.pos==='PICK'?p.name:p.name.toLowerCase().replace(/[^a-z ]/g,'').split(' ').slice(-2).join(' ');
+      if(seen.has(key))return false;seen.add(key);return true;
+    })
+    .slice(0,40);
+  list.innerHTML=filtered.map(p=>{
+    const g=tv2Grade(p.pts);
+    const rankStr=p.rank&&p.rank<90?p.pos+p.rank:'';
+    const safeName=p.name.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+    return`<div class="tv2-modal-row" onclick="tv2ModalPick('${safeName}')">
+      <span class="tv2-pill-pos tv2-pill-pos-${p.pos}" style="font-family:'DM Mono',monospace;font-size:8px;padding:2px 6px;border-radius:3px;font-weight:700;flex-shrink:0;">${p.pos}</span>
+      ${rankStr?`<span class="tv2-modal-rank">${rankStr}</span>`:'<span class="tv2-modal-rank"></span>'}
+      <span class="tv2-modal-name">${p.name}</span>
+      <span class="tv2-modal-grade" style="color:${g.c}">${g.g}</span>
+    </div>`;
+  }).join('')||(q?'<div style="padding:24px;text-align:center;color:rgba(255,255,255,.3);font-size:12px;">No results for "'+q+'"</div>':'');
+}
+window.tv2ModalSearch=tv2ModalSearch;
+
+function tv2ModalPick(name){
+  const item=tv2GetItem(name);
+  const arr=_tv2Side==='A'?tv2A:tv2B;
+  if(!arr.find(x=>x.name===name))arr.push(item);
+  tv2Render(_tv2Side);
+  tv2CloseModal();
+  document.getElementById('tv2Verdict').style.display='none';
+}
+window.tv2ModalPick=tv2ModalPick;
+
+window.tv2Analyze=tv2Analyze;
+window.tv2Remove=tv2Remove;
+window.tv2Clear=tv2Clear;
+tv2Render('A');tv2Render('B');
+})();
+</script>
+</div>
+<!-- END TRADE GRADES v2 -->
 
 </body>
 </html>
