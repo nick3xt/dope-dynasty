@@ -475,6 +475,7 @@ html, body {
     <span class="v8-badge">v25 · AGE + POS + AI</span>
   </div>
 </div>
+<div style="text-align:center;font-size:10px;letter-spacing:2px;color:#666;margin-bottom:6px;font-family:monospace">BEST DYNASTY ASSET</div>
 <div id="leagueAvatarStrip" style="display:flex;align-items:center;gap:0;overflow-x:auto;padding:14px 0 10px;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-bottom:1px solid var(--border);margin-bottom:0;">
   <!-- populated by buildLeagueAvatarStrip() -->
 </div>
@@ -4224,52 +4225,23 @@ function computeDynastyPulse(){
 async function buildLeagueAvatarStrip(){
   const strip=document.getElementById('leagueAvatarStrip');
   if(!strip)return;
-  // Build from TEAMS (static fallback) while we wait for Sleeper
   const rankMap={};
   (typeof RANKINGS!=='undefined'?RANKINGS:[]).forEach(r=>{rankMap[r.h]=r.rank;});
-  function renderStrip(teamAvatars){
-    const sorted=Object.entries(TEAMS).sort((a,b)=>(rankMap[a[0]]||99)-(rankMap[b[0]]||99));
-    const rankColors=['#D4AF37','#C0C0C0','#CD7F32'];
-    strip.innerHTML=sorted.map(([handle,t],i)=>{
-      const rank=rankMap[handle]||i+1;
-      const avatarId=teamAvatars[handle]||t.avatar||'';
-      const tc=t.color||'var(--border)';
-      const initials=(t.name||'').split(' ').map(w=>w[0]||'').join('').substring(0,2).toUpperCase();
-      const rColor=rankColors[rank-1]||'var(--muted)';
-      const imgHtml=avatarId
-        ?`<img src="https://sleepercdn.com/avatars/thumbs/${avatarId}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.style.display='none';this.nextSibling.style.display='flex'"><span style="display:none;align-items:center;justify-content:center;width:100%;height:100%;font-family:'Bebas Neue',sans-serif;font-size:16px;color:${tc}">${initials}</span>`
-        :`<span style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-family:'Bebas Neue',sans-serif;font-size:16px;color:${tc}">${initials}</span>`;
-      return`<div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0;padding:0 10px;cursor:pointer;" onclick="showTab('teams',document.querySelector('.nb'))">
-        <div style="position:relative;">
-          <div style="width:48px;height:48px;border-radius:50%;border:2px solid ${tc};overflow:hidden;background:var(--bg3);">${imgHtml}</div>
-          <div style="position:absolute;bottom:-2px;right:-4px;background:var(--bg);border:1px solid ${rColor};border-radius:10px;padding:1px 5px;font-family:'Bebas Neue',sans-serif;font-size:9px;color:${rColor};line-height:1.2">#${rank}</div>
-        </div>
-        <div style="font-family:'DM Mono',monospace;font-size:7px;color:var(--muted);letter-spacing:0.5px;white-space:nowrap;max-width:58px;overflow:hidden;text-overflow:ellipsis;text-align:center">${t.name}</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:11px;color:${(()=>{const g=getTeamGrade(handle);return g[0]==='A'?'var(--green)':g[0]==='B'?'#4fc3f7':g[0]==='C'?'var(--gold)':'#ef5350'})()}">${getTeamGrade(handle)||'—'}</div>
-      </div>`;
-    }).join('<div style="width:1px;background:var(--border);height:40px;flex-shrink:0;align-self:center;opacity:0.4"></div>');
-  }
-  // First pass: render with TEAMS avatars (instant)
-  const localAvatars={};
-  Object.entries(TEAMS).forEach(([k,t])=>{if(t.avatar)localAvatars[k]=t.avatar;});
-  renderStrip(localAvatars);
-  // Second pass: fetch live Sleeper avatars
-  try{
-    const r=await fetch(`https://api.sleeper.app/v1/league/${SLEEPER_LEAGUE_ID}/users`);
-    if(!r.ok)return;
-    const users=await r.json();
-    const liveAvatars={...localAvatars};
-    users.forEach(u=>{
-      if(!u.avatar||!u.username)return;
-      const uname=u.username.toLowerCase();
-      Object.keys(TEAMS).forEach(k=>{
-        if(k.toLowerCase()===uname) liveAvatars[k]=u.avatar;
-      });
-    });
-    renderStrip(liveAvatars);
-    // Also update TEAMS.avatar for use elsewhere
-    Object.entries(liveAvatars).forEach(([k,av])=>{if(TEAMS[k])TEAMS[k].avatar=av;});
-  }catch(e){}
+  const sorted=Object.entries(TEAMS).sort((a,b)=>(rankMap[a[0]]||99)-(rankMap[b[0]]||99));
+  strip.innerHTML=sorted.map(([handle,t])=>{
+    const ba=(typeof BEST_ASSETS!=='undefined')&&BEST_ASSETS[handle];
+    const tc=t.color||'var(--border)';
+    const initials=(t.name||'').split(' ').map(w=>w[0]||'').join('').substring(0,2).toUpperCase();
+    const imgHtml=ba
+      ?`<img src="https://a.espncdn.com/i/headshots/nfl/players/full/${ba.espnId}.png" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.onerror=null;this.src='https://sleepercdn.com/content/nfl/players/thumb/${ba.sleeperId}.jpg'">`
+      :`<span style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-family:'Bebas Neue',sans-serif;font-size:16px;color:${tc}">${initials}</span>`;
+    const assetName=ba?ba.name:'';
+    return`<div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0;padding:0 10px;cursor:pointer;" onclick="showTab('teams',document.querySelector('.nb'))">
+      <div style="width:48px;height:48px;border-radius:50%;border:2px solid ${tc};overflow:hidden;background:var(--bg3);">${imgHtml}</div>
+      <div style="font-family:'DM Mono',monospace;font-size:7px;color:var(--muted);letter-spacing:0.5px;white-space:nowrap;max-width:58px;overflow:hidden;text-overflow:ellipsis;text-align:center">${t.name}</div>
+      ${assetName?`<div style="font-family:'DM Mono',monospace;font-size:7px;color:var(--text);letter-spacing:0.3px;max-width:58px;overflow:hidden;text-overflow:ellipsis;text-align:center;white-space:nowrap">${assetName}</div>`:''}
+    </div>`;
+  }).join('<div style="width:1px;background:var(--border);height:40px;flex-shrink:0;align-self:center;opacity:0.4"></div>');
 }
 
 window.addEventListener('DOMContentLoaded',()=>{
