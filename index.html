@@ -1900,19 +1900,20 @@ const sortedEntries=Object.entries(TEAMS).sort(([ha],[hb])=>{
     return(ar?.rank||99)-(br?.rank||99);
   });
   container.innerHTML=sortedEntries.map(([h,t])=>{
+    const ba=BEST_ASSETS[h];
     const rows=buildRows(t);
     const pks=(t.picks||[]).map(pk=>`<span style="font-family:'DM Mono',monospace;font-size:9px;padding:3px 8px;border:1px solid var(--border);color:var(--green)">${pk}</span>`).join('');
+    const tavInner=ba?`<img src="https://a.espncdn.com/i/headshots/nfl/players/full/${ba.espnId}.png" onerror="this.onerror=null;this.src='https://sleepercdn.com/content/nfl/players/thumb/${ba.sleeperId}.jpg'" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`:`<span style="display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:13px;color:${t.color};letter-spacing:.5px;width:100%;height:100%">${t.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()}</span>`;
     return`<div class="roster-team-block">
       <div class="roster-team-header" id="rth_${h}" onclick="toggleTeam('${h}')">
         <div class="tav" data-av-key="${h}" style="width:36px;height:36px;border-radius:50%;flex-shrink:0;overflow:hidden;border:2px solid ${t.color};background:${t.color}22;display:flex;align-items:center;justify-content:center">
-          ${t.avatar ? `<img class="av-img" src="https://sleepercdn.com/avatars/thumbs/${t.avatar}" style="width:100%;height:100%;object-fit:cover;border-radius:50%" onerror="this.style.display='none';this.nextSibling.style.display='flex'">` : ''}
-          <span class="av-span" style="display:${t.avatar ? 'none' : 'flex'};align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:13px;color:${t.color};letter-spacing:.5px;width:100%;height:100%">${t.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()}</span>
+          ${tavInner}
         </div>
         <div style="flex:1;min-width:0">
           <div style="font-weight:800;font-size:14px;display:flex;align-items:center;gap:6px;flex-wrap:wrap"><span style="font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;font-weight:700;min-width:20px;flex-shrink:0">#${(RANKINGS.find(r=>r.h===h)||{}).rank||''}</span>${t.name}${t.commissioner?'<span class="you-tag" style="background:#2980B9">⚙️ COMMISH</span>':''}${t.champ?'<span class="champ-badge">🏆 CHAMP</span>':''}</div>
           <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--green)">${t.handle}</div>
         </div>
-        <div class="ttype ${t.type}" style="margin-right:10px">${t.typeLabel}</div>
+        ${ba?`<div style="font-family:'Bebas Neue',sans-serif;font-size:11px;color:${t.color};text-align:right;margin-right:8px;line-height:1.2;max-width:80px;letter-spacing:.3px">${ba.name}</div>`:`<div class="ttype ${t.type}" style="margin-right:10px">${t.typeLabel}</div>`}
         <div class="rh-chevron">▼</div>
       </div>
       <div class="roster-table-wrap" id="rtt_${h}">
@@ -1964,9 +1965,8 @@ function renderRankings(){
     const gradeColor_=gradeColor(derivedGrade);
     const typeColor=typeColorMap[t.typeLabel]||'var(--muted)';
     const avatarUrl=t.avatar?`https://sleepercdn.com/avatars/thumbs/${t.avatar}`:'';
-    const avatarInner=avatarUrl
-      ?`<img src="${avatarUrl}" style="width:100%;height:100%;object-fit:cover;border-radius:50%" onerror="this.style.display='none';this.nextSibling.style.display='flex'"><span style="display:none;align-items:center;justify-content:center;width:100%;height:100%;font-family:'Bebas Neue',sans-serif;font-size:16px;color:${tc}">${initials}</span>`
-      :`<span style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-family:'Bebas Neue',sans-serif;font-size:16px;color:${tc}">${initials}</span>`;
+    const rba=BEST_ASSETS[r.h];
+    const avatarInner=rba?`<img src="https://a.espncdn.com/i/headshots/nfl/players/full/${rba.espnId}.png" onerror="this.onerror=null;this.src='https://sleepercdn.com/content/nfl/players/thumb/${rba.sleeperId}.jpg'" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`:`<span style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-family:'Bebas Neue',sans-serif;font-size:16px;color:${tc}">${initials}</span>`;
     const top3=getTop3Players(r.h);
     const assetsHtml=top3.length
       ?top3.map(p=>`<div class="pr-asset-row"><span style="font-family:'DM Mono',monospace;font-size:7px;padding:1px 5px;border:1px solid ${POS_COLOR[p.pos]||'var(--muted)'};color:${POS_COLOR[p.pos]||'var(--muted)'};flex-shrink:0">${p.pos}</span><span class="pr-asset-name">${p.name}</span></div>`).join('')
@@ -1991,7 +1991,7 @@ function renderRankings(){
           <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);margin-top:2px">${r.desc}</div>
         </div>
         <div class="pr-grade-col">
-          <div class="pr-type" style="color:${typeColor};border:1px solid ${typeColor}44;padding:4px 10px;font-size:11px">${t.typeLabel}</div>
+          ${rba?`<div style="font-family:'Bebas Neue',sans-serif;font-size:11px;color:${tc};text-align:center;line-height:1.2;max-width:80px;letter-spacing:.3px">${rba.name}</div>`:`<div class="pr-type" style="color:${typeColor};border:1px solid ${typeColor}44;padding:4px 10px;font-size:11px">${t.typeLabel}</div>`}
         </div>
       </div>
       <div class="pr-body">
@@ -3782,6 +3782,20 @@ function closeModal(){document.getElementById('playerModal').classList.remove('a
 
 
 
+// ==== BEST DYNASTY ASSETS (per team) ====
+// Highest FC-value player on each roster — used for team card headshots
+const BEST_ASSETS={
+  davidshah:     {name:'Justin Jefferson', espnId:4262921, sleeperId:6794},
+  yarakabi:      {name:'JaMarr Chase',     espnId:4372016, sleeperId:7564},
+  ColonelSanders4:{name:'Lamar Jackson',   espnId:3916387, sleeperId:4881},
+  LeGetItPoppin: {name:'CeeDee Lamb',      espnId:4241389, sleeperId:6786},
+  vikita:        {name:'Josh Allen',       espnId:3918298, sleeperId:4984},
+  Gargarbanks:   {name:'Brock Bowers',     espnId:4685669, sleeperId:11604},
+  Nxbosta:       {name:'Ashton Jeanty',    espnId:4877671, sleeperId:11573},
+  ckhoshor89:    {name:'Drake Maye',       espnId:4430193, sleeperId:10858},
+  DrChama:       {name:'Garrett Wilson',   espnId:4372013, sleeperId:8146},
+  LegionOfBoom:  {name:'Bijan Robinson',   espnId:4432593, sleeperId:9509}
+};
 const TRADES=[]; // All trades now in GRADED_TRADES — unified source of truth
 
 // ==== AI ANALYZER FUNCTIONS ====
