@@ -46,7 +46,7 @@ body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);min-he
 .nb.new-tab.active{color:var(--gold);}
 .nb.new-tab::after{background:var(--gold);}
 /* ── NAV: MOBILE BUTTON ── */
-.nav-burger{display:none;position:fixed;top:12px;left:12px;z-index:10001;background:rgba(10,10,14,.85);border:1.5px solid rgba(255,255,255,.1);border-radius:12px;width:46px;height:46px;font-size:26px;cursor:pointer;backdrop-filter:blur(12px);box-shadow:0 4px 20px rgba(0,0,0,.6);transition:transform .15s,box-shadow .15s;padding:0;line-height:1;align-items:center;justify-content:center;}
+.nav-burger{display:none;position:fixed;top:12px;left:12px;z-index:10001;background:rgba(10,10,14,.85);border:1.5px solid rgba(255,255,255,.1);border-radius:12px;width:46px;height:58px;font-size:22px;flex-direction:column;cursor:pointer;backdrop-filter:blur(12px);box-shadow:0 4px 20px rgba(0,0,0,.6);transition:transform .15s,box-shadow .15s;padding:0;line-height:1;align-items:center;justify-content:center;}
 .nav-burger:active{transform:scale(.93);box-shadow:0 2px 8px rgba(0,0,0,.5);}
 .nav-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9998;backdrop-filter:blur(3px);}
 .nav-backdrop.active{display:block;}
@@ -485,7 +485,7 @@ html, body {
 <span id="pulseWindow" style="display:none"></span><span id="pulseWindowBar" style="display:none"></span>
 <span id="pulseGrade" style="display:none"></span><span id="pulseType" style="display:none"></span>
 <div class="nav-wrap" id="navWrap">
-<button class="nav-burger" id="navBurger" onclick="toggleMobileNav()" aria-label="Open navigation menu">🏈</button>
+<button class="nav-burger" id="navBurger" onclick="toggleMobileNav()" aria-label="Open navigation menu">🏈<span style="display:block;font-size:8px;font-family:'DM Mono',monospace;color:rgba(255,255,255,.45);letter-spacing:1.5px;line-height:1;margin-top:3px;">MENU</span></button>
 <div class="nav-backdrop" id="navBackdrop" onclick="closeMobileNav()"></div>
 <div class="nav" id="mainNav">
   <button class="nb active" onclick="showTab('teams',this);closeMobileNav()">🏆 TEAMS</button>
@@ -4503,8 +4503,7 @@ function buildTeamsGrid(){
         +'<div style="width:34px;height:34px;border-radius:50%;background:'+bg+';display:flex;align-items:center;justify-content:center;font-family:Bebas Neue,sans-serif;font-size:13px;color:#fff;flex-shrink:0;">'+init+'</div>'
         +'<div style="flex:1;min-width:0;"><div style="font-family:Bebas Neue,sans-serif;font-size:14px;letter-spacing:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+t.name+'</div>'
         +'<div style="font-family:DM Mono,monospace;font-size:9px;color:var(--muted);">'+(t.handle||'')+'</div></div>'
-        +'<div style="text-align:right;"><div style="font-family:Bebas Neue,sans-serif;font-size:22px;color:'+c+';">'+derivedG+'</div>'
-        +'<div style="font-family:DM Mono,monospace;font-size:8px;color:var(--muted);">'+(t.typeLabel||'')+'</div></div></div>'
+        '</div>
         +'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:8px;">'
         +'<div style="background:var(--bg3);border-radius:4px;padding:5px;text-align:center;"><div style="font-family:DM Mono,monospace;font-size:7px;color:var(--muted);letter-spacing:1px;">DYN OVR</div><div style="font-family:Bebas Neue,sans-serif;font-size:18px;color:'+c+';">'+(r.score||'—')+'</div></div>'
         +'<div style="background:var(--bg3);border-radius:4px;padding:5px;text-align:center;"><div style="font-family:DM Mono,monospace;font-size:7px;color:var(--muted);letter-spacing:1px;">PICKS</div><div style="font-family:Bebas Neue,sans-serif;font-size:18px;color:var(--gold);">'+pk+'</div></div>'
