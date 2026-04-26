@@ -213,6 +213,8 @@ body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);min-he
 .v25-regrade-badge{display:inline-block;margin-left:10px;padding:3px 8px;background:rgba(155,89,182,.12);border:1px solid rgba(155,89,182,.4);color:var(--purple);font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;}
 
 /* TRADE LOG */
+/* Grade letter badges suppressed from all trade cards — numeric scores only */
+.gtrade-card .grade-badge,.gtrade-card .grade-badge-wrap,.gtrade-card .v25-regrade-badge{display:none!important;}
 .trade-card{background:var(--bg2);border:1px solid var(--border);border-radius:4px;margin-bottom:16px;overflow:hidden;}
 .trade-header{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--bg3);}
 .trade-num{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);}
@@ -472,6 +474,7 @@ html, body {
   <div class="main-subtitle">DYNASTY LEAGUE WAR ROOM</div>
   <div class="league-tag">10-TEAM SUPERFLEX · FULL PPR · TE PREMIUM
     <span class="live-badge" id="sleeperBadge" style="display:none;">● SLEEPER LIVE</span>
+    <span id="syncIndicator" style="display:none;font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);margin-left:8px;letter-spacing:1px;vertical-align:middle;"></span>
     <span class="v8-badge">v25 · AGE + POS + AI</span>
   </div>
 </div>
@@ -1261,7 +1264,7 @@ function buildMathExpandableV25(listA,listB,g,labelA,labelB){
       <div class="v25-step"><span>① Raw KTC delta</span><span>Δ <b>${g.rawDelta>0?'+':''}${g.rawDelta.toLocaleString()}</b> (${(g.rawPct*100).toFixed(1)}%)</span></div>
       <div class="v25-step"><span>② After age curves</span><span>Δ <b>${g.ageDelta>0?'+':''}${g.ageDelta.toLocaleString()}</b> (${(g.agePct*100).toFixed(1)}%)</span></div>
       <div class="v25-step"><span>③ After position weights (QB ×1.30 · TE ×1.20 · RB ×1.05 · WR ×1.00 · picks ×1.00)</span><span>Δ <b>${g.delta>0?'+':''}${g.delta.toLocaleString()}</b> (${(g.pctDelta*100).toFixed(1)}%)</span></div>
-      <div class="v25-step v25-step-final"><span>④ FINAL SCORE</span><span><b>${labelA} ${g.scoreA}/100 (${g.letterA})</b> · <b>${labelB} ${g.scoreB}/100 (${g.letterB})</b></span></div>
+      <div class="v25-step v25-step-final"><span>④ FINAL SCORE</span><span><b>${labelA} ${g.scoreA}/100</b> · <b>${labelB} ${g.scoreB}/100</b></span></div>
       <div class="v25-step"><span>v24 (raw-only) would have graded</span><span><b>${v24Prior.scoreA}/${v24Prior.scoreB}</b> · v25 shift on side A: <b style="color:${shift>0?'var(--green)':(shift<0?'#ff8070':'var(--muted)')}">${shiftTxt}</b></span></div>
     </div>
   </details>`;
@@ -2070,7 +2073,7 @@ function buildMathExpandable(recvA,recvB,g,labelA,labelB){
         Δ ${g.delta>0?'+':''}${g.delta.toLocaleString()} KTC · ${(g.pctDelta*100).toFixed(1)}% of ${totalVol.toLocaleString()} total${fairTag}
       </div>
       <div class="mdelta" style="color:var(--text);background:transparent;padding:4px 10px;">
-        Score: <b style="color:${gradeColorV2(g.scoreA)}">${labelA} ${g.scoreA}/100 (${g.letterA})</b> · <b style="color:${gradeColorV2(g.scoreB)}">${labelB} ${g.scoreB}/100 (${g.letterB})</b>
+        Score: <b style="color:${gradeColorV2(g.scoreA)}">${labelA} ${g.scoreA}/100</b> · <b style="color:${gradeColorV2(g.scoreB)}">${labelB} ${g.scoreB}/100</b>
       </div>
     </div>
   </details>`;
@@ -2500,7 +2503,7 @@ async function loadLiveTradeLog(){
       rosterOwner[String(r.roster_id)]=tk||sl;
     });
     const playerData=sleeperPlayersCache||await fetch('https://api.sleeper.app/v1/players/nfl').then(r=>r.json());
-    if(!sleeperPlayersCache)sleeperPlayersCache=playerData;
+    if(!sleeperPlayersCache)_slpSetCache(playerData);
     const playerMap={};
     Object.entries(playerData).forEach(([id,p])=>{playerMap[id]=p.full_name||`${p.first_name||''} ${p.last_name||''}`.trim();});
     let allTx=[];
@@ -2901,6 +2904,25 @@ function computeTeamGrades(){
 
 // ==== PROBLEM 1: LIVE ROSTERS FROM SLEEPER ====
 let sleeperPlayersCache=null;
+// Hydrate players cache from localStorage on startup (24hr TTL — avoids re-fetching 6MB on every load)
+(function _hydratePlayersCache(){
+  try{
+    const ts=parseInt(localStorage.getItem('sleeper_players_ts')||'0',10);
+    if(ts&&Date.now()-ts<86400000){
+      const raw=localStorage.getItem('sleeper_players_cache');
+      if(raw){sleeperPlayersCache=JSON.parse(raw);console.log('[sleeper] players cache hit from localStorage');}
+    }
+  }catch(e){console.warn('[sleeper] localStorage hydration failed:',e);}
+})();
+// Helper: set players cache in memory AND persist to localStorage
+function _slpSetCache(data){
+  if(!data)return;
+  sleeperPlayersCache=data;
+  try{
+    localStorage.setItem('sleeper_players_cache',JSON.stringify(data));
+    localStorage.setItem('sleeper_players_ts',String(Date.now()));
+  }catch(e){/* localStorage full — ignore */}
+}
 async function loadLiveRosters(){
   const container=document.getElementById('teamGrid');
   if(!document.getElementById('liveRosterBanner')&&container){container.insertAdjacentHTML('beforebegin','<div id="liveRosterBanner" style="font-family:\'DM Mono\',monospace;font-size:9px;color:var(--muted);padding:8px 0;letter-spacing:2px;display:flex;align-items:center;gap:8px;"><span class="loading-spin"></span>SYNCING LIVE ROSTERS FROM SLEEPER...</div>');}
@@ -2912,7 +2934,7 @@ async function loadLiveRosters(){
       fetchPlayers
     ]);
     if(!rostersRes.ok||!usersRes.ok)throw new Error('Sleeper API error');
-    if(!sleeperPlayersCache)sleeperPlayersCache=playersData;
+    if(!sleeperPlayersCache)_slpSetCache(playersData);
     const rosters=await rostersRes.json();
     const users=await usersRes.json();
     // Build id→player lookup
@@ -4039,7 +4061,7 @@ async function v25FetchAgesFromSleeper(){
     const p=typeof sleeperPlayersCache!=='undefined'&&sleeperPlayersCache
       ? sleeperPlayersCache
       : await fetch('https://api.sleeper.app/v1/players/nfl').then(r=>r.json());
-    if(typeof sleeperPlayersCache!=='undefined'&&!sleeperPlayersCache){sleeperPlayersCache=p;}
+    if(typeof sleeperPlayersCache!=='undefined'&&!sleeperPlayersCache){_slpSetCache(p);}
     const ages={};
     Object.values(p||{}).forEach(pl=>{
       const name=pl.full_name||`${pl.first_name||''} ${pl.last_name||''}`.trim();
@@ -4253,13 +4275,24 @@ window.addEventListener('DOMContentLoaded',()=>{
   computeTeamGrades();
   try{buildTeamsGrid();}catch(e){}
   renderTeams();
+  // Immediate static trade render (no spinner — fast)
   loadLiveTradeLog();
   // Set war room timestamp
   (document.getElementById('warRoomStamp')||{}).textContent=new Date().toLocaleString('en-US',{dateStyle:'medium',timeStyle:'short'});
   // Compute stat bar tiles (static pass first, updates after FC loads)
   computeStatBar();
-  // Roster load still happens — just not wrapped in the sync orchestrator
-  if(typeof loadLiveRosters==='function')loadLiveRosters();
+  // Primary Sleeper sync on load — rosters, trades, ranks
+  // Small delay lets synchronous render settle before heavy fetches start
+  setTimeout(function(){
+    if(typeof syncFromSleeper==='function'){
+      window._syncIntervalStarted=true;
+      syncFromSleeper();
+      // Auto-refresh every 15 min — each pick has a ~4-hour window, 15 min is plenty
+      setInterval(syncFromSleeper, 15*60*1000);
+    } else {
+      if(typeof loadLiveRosters==='function')loadLiveRosters();
+    }
+  }, 800);
   buildLivePlayerIds();
   fetchSleeperUserAvatars();
   fetchFantasyCalc();
@@ -4391,6 +4424,64 @@ const tier=pct!==null?scoutTier(pct):isDraftPick?{bg:'rgba(147,51,234,.15)',fg:'
   const el=document.getElementById('analyticsContent');
   if(el)el.innerHTML=html||'<div style="padding:40px;text-align:center;font-family:DM Mono,monospace;font-size:10px;color:var(--muted)">NO DATA</div>';
 }
+
+// ==== SLEEPER AUTO-SYNC ORCHESTRATOR (15-min refresh) ====
+// Single function that refreshes rosters + trades + rankings from Sleeper.
+// Called once at page load (after static render) and then on a 15-min interval.
+// Each pick window is ~4 hours so 15-min cadence keeps everything current.
+let _syncLastTs=0;
+let _syncTickId=null;
+
+function _updateSyncIndicator(state){
+  const el=document.getElementById('syncIndicator');
+  if(!el)return;
+  if(state==='syncing'){
+    el.style.display='inline';
+    el.textContent='\u21bb SYNCING\u2026';
+    el.style.color='var(--muted)';
+  } else if(state==='ok'){
+    _syncLastTs=Date.now();
+    el.style.display='inline';
+    el.textContent='synced just now';
+    el.style.color='var(--green)';
+    // Tick every 30s to show "synced Xm ago"
+    clearInterval(_syncTickId);
+    _syncTickId=setInterval(function(){
+      if(!_syncLastTs)return;
+      const m=Math.floor((Date.now()-_syncLastTs)/60000);
+      const el2=document.getElementById('syncIndicator');
+      if(el2){el2.textContent=m<1?'synced just now':('synced '+m+'m ago');}
+    },30000);
+  } else if(state==='error'){
+    el.style.display='inline';
+    el.textContent='sync failed \u26a0';
+    el.style.color='var(--red,#C0392B)';
+  }
+}
+
+async function syncFromSleeper(){
+  _updateSyncIndicator('syncing');
+  const badge=document.getElementById('sleeperBadge');
+  if(badge)badge.style.display='inline-block';
+  let ok=true;
+  // 1. Refresh live rosters (updates TEAMS in memory, rebuilds team cards)
+  try{
+    if(typeof loadLiveRosters==='function')await loadLiveRosters();
+  }catch(e){ok=false;console.warn('[syncFromSleeper] roster refresh error:',e);}
+  // 2. Refresh trade log (surfaces ungraded Sleeper trades since latestTs)
+  try{
+    if(typeof loadLiveTradeLog==='function')await loadLiveTradeLog();
+  }catch(e){ok=false;console.warn('[syncFromSleeper] trade log refresh error:',e);}
+  // 3. If power rankings tab is active, reload it too
+  try{
+    const prEl=document.getElementById('powerRankings');
+    if(prEl&&prEl.classList.contains('active')&&typeof loadPowerRankings==='function')
+      await loadPowerRankings();
+  }catch(e){}
+  // 4. Recompute stat bar with freshest data
+  try{if(typeof computeStatBar==='function')computeStatBar();}catch(e){}
+  _updateSyncIndicator(ok?'ok':'error');
+}
 </script>
 <!-- v25.2 · static footer (sync pill removed with auto-sync orchestrator) -->
 <div class="v25-footer" id="v25Footer">
@@ -4423,7 +4514,16 @@ const tier=pct!==null?scoutTier(pct):isDraftPick?{bg:'rgba(147,51,234,.15)',fg:'
 <script>
 // Fallback: ensure stats load even if DOMContentLoaded handler crashes early
 setTimeout(function(){
-  try{if(typeof loadLiveRosters==='function')loadLiveRosters();}catch(e){}
+  // If the primary syncFromSleeper() call hasn't fired yet (e.g. DOMContentLoaded failed), run it now
+  try{
+    if(typeof syncFromSleeper==='function'&&!window._syncIntervalStarted){
+      window._syncIntervalStarted=true;
+      syncFromSleeper();
+      setInterval(syncFromSleeper,15*60*1000);
+    } else if(typeof loadLiveRosters==='function'){
+      loadLiveRosters();
+    }
+  }catch(e){}
   try{if(typeof v25FetchAgesFromSleeper==='function')v25FetchAgesFromSleeper();}catch(e){}
   setTimeout(function(){try{if(typeof computeDynastyPulse==='function')computeDynastyPulse();}catch(e){}},5000);
 },1500);
