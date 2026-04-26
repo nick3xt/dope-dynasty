@@ -4687,7 +4687,7 @@ const tier=pct!==null?scoutTier(pct):isDraftPick?{bg:'rgba(147,51,234,.15)',fg:'
       <div class="atab-team-hdr">
         <span class="atab-team-emoji">${t.emoji||'🏈'}</span>
         <span class="atab-team-name">${t.name}</span>
-        <span class="gpill g${(getTeamGrade(handle)||t.grade||'B')[0]}">${getTeamGrade(handle)||t.grade||'B'}</span>
+        <span class="gpill g${(getTeamGrade(key)||t.grade||'B')[0]}">${getTeamGrade(key)||t.grade||'B'}</span>
         <span style="flex:1"></span>
         <span class="atab-chevron">▼</span>
       </div><div class="atab-team-body">${rhtml}</div></div>`;
