@@ -1843,7 +1843,6 @@ const sortedEntries=Object.entries(TEAMS).sort(([ha],[hb])=>{
           <div style="font-weight:800;font-size:14px;display:flex;align-items:center;gap:6px;flex-wrap:wrap">${t.name}${t.commissioner?'<span class="you-tag" style="background:#2980B9">⚙️ COMMISH</span>':''}${t.champ?'<span class="champ-badge">🏆 CHAMP</span>':''}</div>
           <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--green)">${t.handle}</div>
         </div>
-        <div class="tgrade g${(getTeamGrade(h)||t.grade||'B')[0]}" style="font-family:'Bebas Neue',sans-serif;font-size:22px;margin-right:8px">${getTeamGrade(h)||t.grade}</div>
         <div class="ttype ${t.type}" style="margin-right:10px">${t.typeLabel}</div>
         <div class="rh-chevron">▼</div>
       </div>
