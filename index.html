@@ -1096,7 +1096,7 @@ html, body {
       winner.style.color='#00FF87';
       cls=aWins?'ta-result win-b':'ta-result win-a';
       if(ratio<1.15){gradeWin='B';gradeLose='C';desc='A-side wins on value — reasonable offer, likely needs a sweetener to get done.';}
-      else if(ratio<1.30){gradeWin='B+';gradeLose='C-';desc='A-side wins significantly — real dynasty managers won't take this as-is. Add a pick or young player.';}
+      else if(ratio<1.30){gradeWin='B+';gradeLose='C-';desc='A-side wins significantly — real dynasty managers wont take this as-is. Add a pick or young player.';}
       else if(ratio<1.50){gradeWin='A-';gradeLose='D+';desc='Major value gap — this offer will get laughed at in any serious dynasty league.';}
       else{gradeWin='A+';gradeLose='F';desc='Highway robbery — one side should be embarrassed sending this.';}
       labelWin=aWins?'TEAM A WINS':'TEAM B WINS';
@@ -1120,7 +1120,7 @@ html, body {
       '<span style="font-size:10px;color:var(--muted)">'+desc+'</span><br>'+
       '<span style="font-size:9px;opacity:.6;font-family:monospace">Raw A: '+rawA+' → Adj: '+vA+' &middot; Raw B: '+rawB+' → Adj: '+vB+' &middot; Ratio: '+ratio.toFixed(2)+'x</span>'+
       fillerWarn+
-      (contextNotes.length>0?'<div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);margin-top:8px;font-style:italic">'+contextNotes.join(' ')+'</div>':'');
+      (contextNotes.length>0?'<div style="font-family:monospace;font-size:9px;color:var(--muted);margin-top:8px;font-style:italic">'+contextNotes.join(' ')+'</div>':'');
     result.scrollIntoView({behavior:'smooth',block:'nearest'});
   }
 
