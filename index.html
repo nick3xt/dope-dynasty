@@ -255,19 +255,6 @@ body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);min-he
 .stat-box-val{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--green);}
 .stat-box-lbl{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;margin-top:4px;}
 
-/* MODAL */
-.modal-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;max-width:520px;width:100%;padding:24px;position:relative;}
-.modal-close{position:absolute;top:12px;right:12px;background:none;border:none;color:var(--muted);font-size:18px;cursor:pointer;}
-.modal-head{display:flex;gap:16px;margin-bottom:20px;}
-.modal-headshot{width:60px;height:60px;border-radius:50%;background:var(--bg3);flex-shrink:0;overflow:hidden;}
-.modal-name{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px;}
-.modal-meta{display:flex;gap:6px;margin:4px 0;flex-wrap:wrap;}
-.modal-owner{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);margin-top:4px;}
-.modal-position{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);}
-.modal-section{margin-bottom:16px;}
-.modal-section-title{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--muted);margin-bottom:8px;}
-.modal-note{font-family:'DM Mono',monospace;font-size:11px;line-height:1.7;color:rgba(255,255,255,.8);}
-.placeholder-circle{width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:22px;}
 .modal-overlay{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.92);z-index:1000;align-items:center;justify-content:center;padding:16px;overflow-y:auto;}
 .modal-overlay.active{display:flex;}
 .modal{background:var(--bg);border:1px solid var(--border);border-radius:8px;width:100%;max-width:480px;margin-top:0;overflow:hidden;}
@@ -2930,9 +2917,9 @@ async function loadLiveRosters(){
     if(banner)banner.remove();
     // Recompute grades and re-render with live data
     computeTeamGrades();
-    renderTeams();
     try{computeDynastyPulse();}catch(e){}
-    // Rebuild Teams tab cards with live roster data
+    // Rebuild Teams tab cards with live roster data — reset guard so live data refreshes
+    window._tgb=false;
     try{buildTeamsGrid();}catch(e){}
     // Rebuild analytics tab with updated roster names
     const analyticsEl=document.getElementById('analyticsContent');
@@ -2943,7 +2930,7 @@ async function loadLiveRosters(){
     console.warn('Live roster load failed, using static data:',e);
     // Still run grade computation on static data
     computeTeamGrades();
-    renderTeams();
+    window._tgb=false;
     try{buildTeamsGrid();}catch(e){}
   }
 }
