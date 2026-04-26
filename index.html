@@ -1654,7 +1654,7 @@ function auditPickSyncVsGradedTrades(){
   if(typeof GRADED_TRADES==='undefined')return;
   const pickRe=/\d{4}\s*(1st|2nd|3rd|4th|5th|6th|7th)/i;
   let issues=0;
-  GRADED_TRADES.sort((a,b)=>b.num-a.num).forEach(tr=>{
+  GRADED_TRADES.forEach(tr=>{
     const hA=pickTeamHandle(tr.sA?.teamName),hB=pickTeamHandle(tr.sB?.teamName);
     if(!hA||!hB)return;
     const aPicks=(tr.sA?.receives||[]).filter(x=>pickRe.test(x));
@@ -2205,7 +2205,7 @@ function renderAssetNotesPanel(tr){
 
 // ==== RENDER: GRADED TRADE BOARD (v25 — full backfill: every trade re-graded on load) ====
 function renderGradedTrades(){
-  const cards=[...GRADED_TRADES].reverse();
+  const cards=[...GRADED_TRADES].sort((a,b)=>b.num-a.num);
   // Backfill runs silently — regrade happens on every render, no visible admin readout.
   // Audit trail is available in console (window.__v25_regrade_count) for debugging.
   window.__v25_regrade_count=cards.length;
