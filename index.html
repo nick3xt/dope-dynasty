@@ -33,6 +33,8 @@ body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);min-he
 /* NAV */
 /* ── NAV: DESKTOP ── */
 .nav-wrap{position:relative;}
+.nav-emoji-label{display:none;font-size:20px;padding:8px 10px 8px 14px;align-items:center;flex-shrink:0;}
+@media(max-width:640px){.nav-emoji-label{display:flex;}}
 .nav-wrap::after{content:'';position:absolute;right:0;top:0;bottom:0;width:32px;background:linear-gradient(to right,transparent,var(--bg));pointer-events:none;}
 .nav{display:flex;gap:0;border-bottom:2px solid rgba(255,255,255,.06);overflow-x:auto;scrollbar-width:none;flex-wrap:nowrap;background:rgba(0,0,0,.3);backdrop-filter:blur(8px);}
 .nav::-webkit-scrollbar{display:none;}
@@ -50,40 +52,31 @@ body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);min-he
 .nav-burger:active{transform:scale(.93);box-shadow:0 2px 8px rgba(0,0,0,.5);}
 .nav-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9998;backdrop-filter:blur(3px);}
 .nav-backdrop.active{display:block;}
-/* ── NAV: MOBILE DRAWER ── */
+/* ── NAV: MOBILE PERSISTENT TAB STRIP ── */
 @media(max-width:640px){
-  .nav-burger{display:flex;}
-  .nav-wrap{position:relative;}
+  .nav-burger{display:none!important;}
+  .nav-backdrop{display:none!important;}
+  .nav-wrap{position:sticky;top:0;z-index:9000;background:#0D0D12;border-bottom:1px solid rgba(255,255,255,.08);}
   .nav{
-    display:flex;flex-direction:column;
-    position:fixed;top:0;left:-280px;width:270px;height:100vh;
-    background:#0D0D12;border-right:1px solid rgba(255,255,255,.08);
-    z-index:9999;overflow-y:auto;flex-wrap:nowrap;
-    box-shadow:4px 0 32px rgba(0,0,0,.8);
-    transition:left .25s cubic-bezier(.4,0,.2,1);
-    padding-top:64px;
+    display:flex;flex-direction:row;
+    position:static;left:auto;width:100%;height:auto;
+    background:transparent;border-right:none;
+    overflow-x:auto;overflow-y:hidden;flex-wrap:nowrap;
+    box-shadow:none;transition:none;padding-top:0;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch;
   }
-  .nav.mobile-open{left:0;}
+  .nav::-webkit-scrollbar{display:none;}
+  .nav::before{display:none;}
   .nb{
-    border:none;text-align:left;
-    padding:16px 24px;width:100%;white-space:normal;
-    font-size:13px;letter-spacing:1.5px;
-    border-bottom:1px solid rgba(255,255,255,.05);
-    display:flex;align-items:center;gap:12px;
+    border:none;text-align:center;
+    padding:10px 14px;width:auto;flex-shrink:0;
+    white-space:nowrap;font-size:10px;letter-spacing:1px;
+    border-bottom:none;
+    display:flex;align-items:center;gap:6px;
   }
-  .nb::after{display:none;}
-  .nb.active{background:rgba(0,255,135,.07);color:var(--green);border-left:3px solid var(--green);padding-left:21px;}
-  .nb.new-tab.active{background:rgba(212,175,55,.07);color:var(--gold);border-left:3px solid var(--gold);padding-left:21px;}
-  .nb:last-child{border-bottom:none;}
-  /* Nav header inside drawer */
-  .nav::before{
-    content:'🏈 D.O.P.E';
-    position:absolute;top:0;left:0;right:0;
-    padding:18px 24px 14px;
-    font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;color:var(--gold);
-    border-bottom:1px solid rgba(255,255,255,.08);
-    background:#0D0D12;
-  }
+  .nb::after{bottom:0;height:2px;}
+  .nb.active{background:rgba(0,255,135,.07);color:var(--green);border-left:none;padding-left:14px;}
+  .nb.new-tab.active{background:rgba(212,175,55,.07);color:var(--gold);border-left:none;padding-left:14px;}
 }
 
 /* TABS */
@@ -489,6 +482,7 @@ html, body {
 <button class="nav-burger" id="navBurger" onclick="toggleMobileNav()" aria-label="Open navigation menu">🏈</button>
 <div class="nav-backdrop" id="navBackdrop" onclick="closeMobileNav()"></div>
 <div class="nav" id="mainNav">
+  <span class="nav-emoji-label">🏈</span>
   <button class="nb active" onclick="showTab('teams',this);closeMobileNav()">🏆 TEAMS</button>
   <button class="nb new-tab" onclick="showTab('powerrankings',this);closeMobileNav()">📊 POWER RANKINGS</button>
   <button class="nb" onclick="showTab('analytics',this);closeMobileNav()">📈 ANALYTICS</button>
@@ -498,7 +492,7 @@ html, body {
   <button class="nb" onclick="showTab('aianalyzer',this);closeMobileNav()">⚡ AI ANALYZER</button>
   <button class="nb" onclick="showTab('dynastyduos',this);closeMobileNav()">👥 DYNASTY DUOS</button>
   <button class="nb new-tab" onclick="showTab('ta2',this);closeMobileNav()">⚖️ TRADE GRADES</button>
-  <button class="nb" style="margin-top:auto;color:rgba(255,255,255,.25);font-size:8px;" onclick="closeMobileNav()">✕ CLOSE</button>
+
 </div>
 </div>
 
