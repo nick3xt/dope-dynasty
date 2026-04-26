@@ -4715,7 +4715,7 @@ setTimeout(function(){
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',doFix);else doFix();
   window.toggleMobileNav=function(){var nav=document.getElementById('mainNav');var bd=document.getElementById('navBackdrop');var burger=document.getElementById('navBurger');if(!nav)return;var isOpen=nav.classList.contains('mobile-open');nav.classList.toggle('mobile-open',!isOpen);if(bd)bd.classList.toggle('active',!isOpen);if(burger)burger.innerHTML=isOpen?'&#9776;&nbsp; MENU':'&#10005;&nbsp; CLOSE'};
   window.openMobileNav=function(){var n=document.getElementById('mobileNav')||document.querySelector('.nav-links')||document.getElementById('navWrap');if(n){n.classList.add('mobile-open');n.style.display='flex';}};
-  window.closeMobileNav=function(){var n=document.getElementById('mobileNav')||document.querySelector('.nav-links')||document.getElementById('navWrap');if(n){n.classList.remove('mobile-open');n.style.display='';}}
+  window.closeMobileNav=function(){var nav=document.getElementById('mainNav');var bd=document.getElementById('navBackdrop');var burger=document.getElementById('navBurger');if(nav)nav.classList.remove('mobile-open');if(bd)bd.classList.remove('active');if(burger)burger.innerHTML='&#9776;&nbsp; MENU';}
 })();
 </script>
 </body>
