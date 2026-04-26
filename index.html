@@ -2159,7 +2159,7 @@ const sortedEntries=Object.entries(TEAMS).sort(([ha],[hb])=>{
           <div style="font-weight:800;font-size:14px;display:flex;align-items:center;gap:6px;flex-wrap:wrap">${t.name}${t.commissioner?'<span class="you-tag" style="background:#2980B9">⚙️ COMMISH</span>':''}${t.champ?'<span class="champ-badge">🏆 CHAMP</span>':''}</div>
           <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--green)">${t.handle}</div>
         </div>
-        <div class="tgrade g${t.grade[0]}" style="font-family:'Bebas Neue',sans-serif;font-size:22px;margin-right:8px">${t.grade}</div>
+        <div class="tgrade g${(getTeamGrade(r.h)||t.grade||'B')[0]}" style="font-family:'Bebas Neue',sans-serif;font-size:22px;margin-right:8px">${getTeamGrade(r.h)||t.grade}</div>
         <div class="ttype ${t.type}" style="margin-right:10px">${t.typeLabel}</div>
         <div class="rh-chevron">▼</div>
       </div>
@@ -2208,7 +2208,8 @@ function renderRankings(){
     const tc=t.color;
     const rankColor=r.rank===1?'#D4AF37':r.rank===2?'#C0C0C0':r.rank===3?'#CD7F32':'var(--muted)';
     const initials=t.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
-    const gradeColor=gradeColorMap[t.grade]||'var(--muted)';
+    const derivedGrade=getTeamGrade(r.h);
+    const gradeColor_=gradeColor(derivedGrade);
     const typeColor=typeColorMap[t.typeLabel]||'var(--muted)';
     const avatarUrl=t.avatar?`https://sleepercdn.com/avatars/thumbs/${t.avatar}`:'';
     const avatarInner=avatarUrl
@@ -2247,7 +2248,7 @@ function renderRankings(){
           ${assetsHtml}
         </div>
         <div class="pr-body-right">
-          <div class="pr-body-lbl">📊 DYNASTY SCORES</div>
+          <div class="pr-body-lbl">📊 TEAM STATUS</div>
           ${scoreHtml}
         </div>
       </div>
@@ -2952,6 +2953,56 @@ function show2027Modal(p){
   document.getElementById('playerModal').classList.add('active');
 }
 
+
+// ==== DERIVED GRADE FROM RANKINGS SCORE ====
+function scoreToGrade(score){
+  if(score>=90)return'A+';
+  if(score>=83)return'A';
+  if(score>=75)return'A-';
+  if(score>=65)return'B+';
+  if(score>=55)return'B';
+  if(score>=47)return'B-';
+  if(score>=40)return'C+';
+  return'C';
+}
+function gradeColor(g){
+  if(!g)return'var(--muted)';
+  if(g==='A+')return'#00FF87';
+  if(g[0]==='A')return'#22c55e';
+  if(g==='B+')return'#4fc3f7';
+  if(g[0]==='B')return'#4fc3f7';
+  if(g[0]==='C')return'var(--gold)';
+  return'#ef5350';
+}
+function getTeamGrade(handle){
+  if(typeof RANKINGS==='undefined')return'—';
+  const r=RANKINGS.find(x=>x.h===handle);
+  return r?scoreToGrade(r.score):'—';
+}
+// 3-icon status row — replaces WIN-NOW/YOUTH/DEPTH bars
+function statusRow(t,handle){
+  const r=(typeof RANKINGS!=='undefined')?RANKINGS.find(x=>x.h===handle):null;
+  const score=r?r.score:50;
+  // Window
+  const win=score>=85?{icon:'🏆',label:'NOW',color:'#00FF87'}
+    :score>=70?{icon:'⚡',label:'2026',color:'#D4AF37'}
+    :{icon:'🔮',label:'2027+',color:'#9B59B6'};
+  // Future capital (youth score)
+  const yth=t.youth||50;
+  const fut=yth>=82?{icon:'🌟',label:'LOADED',color:'#00FF87'}
+    :yth>=65?{icon:'📈',label:'BUILDING',color:'#D4AF37'}
+    :{icon:'⚠️',label:'AGING',color:'#ef5350'};
+  // Picks
+  const pk=(t.picks||[]).length;
+  const picks=pk>=9?{icon:'💰',label:'RICH',color:'#00FF87'}
+    :pk>=5?{icon:'📋',label:'AVG',color:'#D4AF37'}
+    :{icon:'🪙',label:'THIN',color:'#ef5350'};
+  const cell=(obj)=>`<div style="display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;">
+    <div style="font-size:14px">${obj.icon}</div>
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:11px;color:${obj.color}">${obj.label}</div>
+  </div>`;
+  return`<div style="display:flex;gap:4px;border-top:1px solid var(--border);margin-top:8px;padding-top:8px;">${cell(win)}${cell(fut)}${cell(picks)}</div>`;
+}
 // ==== SLEEPER API: POWER RANKINGS ====
 // ==== PR HELPER: score bar ====
 function prScoreBar(label,val,color){
@@ -2982,12 +3033,9 @@ function buildPrCard(rank,teamName,avatarUrl,wins,losses,ties,ptsFor,ptsAgainst,
     <span style="font-family:'DM Mono',monospace;font-size:7px;padding:1px 5px;border:1px solid ${POS_COLOR[p.pos]||'var(--muted)'};color:${POS_COLOR[p.pos]||'var(--muted)'};flex-shrink:0">${p.pos}</span>
     <span class="pr-asset-name">${p.name}</span>
   </div>`).join(''):`<div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted)">No FC data yet</div>`;
-  const scoreHtml=t?[
-    prScoreBar('WIN-NOW',t.winNow,'#00FF87'),
-    prScoreBar('YOUTH',t.youth,'#2980B9'),
-    prScoreBar('DEPTH',t.depth,'var(--orange)')
-  ].join(''):'';
-  const gradeColor={'A+':'#00FF87','A':'#00FF87','A-':'#22c55e','B+':'#2980B9','B':'#2980B9','B-':'#5ba8d8','C+':'var(--orange)','C':'var(--orange)'}[t?.grade]||'var(--muted)';
+  const scoreHtml=t?(typeof statusRow==='function'?statusRow(t,teamKey):''):'';
+  const derivedGrade_=(typeof getTeamGrade==='function'&&teamKey)?getTeamGrade(teamKey):(t?t.grade:'—');
+  const gradeColor=(typeof window.gradeColor==='function')?window.gradeColor(derivedGrade_):({'A+':'#00FF87','A':'#00FF87','A-':'#22c55e','B+':'#2980B9','B':'#2980B9','B-':'#5ba8d8','C+':'var(--orange)','C':'var(--orange)'}[derivedGrade_]||'var(--muted)');
   const typeColors={'WIN NOW':'#00FF87','CONTENDING':'#2980B9','REBUILDING':'var(--orange)','DYNASTY':'var(--gold)'}[t?.typeLabel]||'var(--muted)';
   const recordStr=isOffseason?'OFF-SEASON':`${wins}W — ${losses}L${ties>0?` — ${ties}T`:''}`;
   const ptsStr=isOffseason?'':'· '+ptsFor.toLocaleString()+' PTS';
@@ -3010,8 +3058,9 @@ function buildPrCard(rank,teamName,avatarUrl,wins,losses,ties,ptsFor,ptsAgainst,
           <span class="pr-stat-pill" style="color:var(--muted)">${ptsStr}</span>
         </div>
       </div>
-      <div class="pr-grade-col">
-        <div class="pr-type" style="color:${typeColors};border:1px solid ${typeColors}44;padding:4px 10px;font-size:11px">${t?t.typeLabel:''}</div>
+      <div class="pr-grade-col" style="display:flex;flex-direction:column;align-items:center;gap:3px;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:${gradeColor};line-height:1">${derivedGrade_}</div>
+        <div style="font-family:'DM Mono',monospace;font-size:7px;color:${typeColors};letter-spacing:1px;text-align:center">${t?t.typeLabel:''}</div>
       </div>
     </div>
     <div class="pr-body">
@@ -3020,7 +3069,6 @@ function buildPrCard(rank,teamName,avatarUrl,wins,losses,ties,ptsFor,ptsAgainst,
         ${assetsHtml}
       </div>
       <div class="pr-body-right">
-        <div class="pr-body-lbl">📊 DYNASTY SCORES</div>
         ${scoreHtml}
       </div>
     </div>
@@ -4445,7 +4493,7 @@ async function buildLeagueAvatarStrip(){
           <div style="position:absolute;bottom:-2px;right:-4px;background:var(--bg);border:1px solid ${rColor};border-radius:10px;padding:1px 5px;font-family:'Bebas Neue',sans-serif;font-size:9px;color:${rColor};line-height:1.2">#${rank}</div>
         </div>
         <div style="font-family:'DM Mono',monospace;font-size:7px;color:var(--muted);letter-spacing:0.5px;white-space:nowrap;max-width:58px;overflow:hidden;text-overflow:ellipsis;text-align:center">${t.name}</div>
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:11px;color:${t.grade&&t.grade[0]==='A'?'var(--green)':t.grade&&t.grade[0]==='B'?'#4fc3f7':t.grade&&t.grade[0]==='C'?'var(--gold)':'#ef5350'}">${t.grade||'—'}</div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:11px;color:${(()=>{const g=getTeamGrade(handle);return g[0]==='A'?'var(--green)':g[0]==='B'?'#4fc3f7':g[0]==='C'?'var(--gold)':'#ef5350'})()}">${getTeamGrade(handle)||'—'}</div>
       </div>`;
     }).join('<div style="width:1px;background:var(--border);height:40px;flex-shrink:0;align-self:center;opacity:0.4"></div>');
   }
@@ -4609,7 +4657,7 @@ const tier=pct!==null?scoutTier(pct):isDraftPick?{bg:'rgba(147,51,234,.15)',fg:'
       <div class="atab-team-hdr">
         <span class="atab-team-emoji">${t.emoji||'🏈'}</span>
         <span class="atab-team-name">${t.name}</span>
-        <span class="gpill g${(t.grade||'B')[0]}">${t.grade||'B'}</span>
+        <span class="gpill g${(getTeamGrade(handle)||t.grade||'B')[0]}">${getTeamGrade(handle)||t.grade||'B'}</span>
         <span style="flex:1"></span>
         <span class="atab-chevron">▼</span>
       </div><div class="atab-team-body">${rhtml}</div></div>`;
@@ -4707,14 +4755,14 @@ function buildTeamsGrid(){
     var keys=Object.keys(TEAMS).sort(function(a,b){return((rl[a]&&rl[a].rank)||99)-((rl[b]&&rl[b].rank)||99);});
     function gc(g){if(!g)return'var(--muted)';if(g[0]==='A')return'var(--green)';if(g[0]==='B')return'#4fc3f7';if(g[0]==='C')return'var(--gold)';return'#ef5350';}
     var cards=keys.map(function(key){
-      var t=TEAMS[key],r=rl[key]||{},pk=t.picks?t.picks.length:0,c=gc(t.grade),bg=t.color||'#1a2a1a';
+      var t=TEAMS[key],r=rl[key]||{},pk=t.picks?t.picks.length:0;var derivedG=(typeof getTeamGrade==="function")?getTeamGrade(key):t.grade;var c=gc(derivedG),bg=t.color||'#1a2a1a';
       var init=(t.name||'').split(' ').map(function(w){return w[0]||'';}).join('').substring(0,2).toUpperCase();
       return '<div style="background:var(--bg2);border:1px solid var(--border);border-left:4px solid '+bg+';border-radius:6px;padding:14px;">'
         +'<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">'
         +'<div style="width:34px;height:34px;border-radius:50%;background:'+bg+';display:flex;align-items:center;justify-content:center;font-family:Bebas Neue,sans-serif;font-size:13px;color:#fff;flex-shrink:0;">'+init+'</div>'
         +'<div style="flex:1;min-width:0;"><div style="font-family:Bebas Neue,sans-serif;font-size:14px;letter-spacing:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+t.name+'</div>'
         +'<div style="font-family:DM Mono,monospace;font-size:9px;color:var(--muted);">'+(t.handle||'')+'</div></div>'
-        +'<div style="text-align:right;"><div style="font-family:Bebas Neue,sans-serif;font-size:22px;color:'+c+';">'+t.grade+'</div>'
+        +'<div style="text-align:right;"><div style="font-family:Bebas Neue,sans-serif;font-size:22px;color:'+c+';">'+derivedG+'</div>'
         +'<div style="font-family:DM Mono,monospace;font-size:8px;color:var(--muted);">'+(t.typeLabel||'')+'</div></div></div>'
         +'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:8px;">'
         +'<div style="background:var(--bg3);border-radius:4px;padding:5px;text-align:center;"><div style="font-family:DM Mono,monospace;font-size:7px;color:var(--muted);letter-spacing:1px;">DYN OVR</div><div style="font-family:Bebas Neue,sans-serif;font-size:18px;color:'+c+';">'+(r.score||'—')+'</div></div>'
