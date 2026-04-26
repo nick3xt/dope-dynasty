@@ -489,7 +489,6 @@ html, body {
 <div class="nav-backdrop" id="navBackdrop" onclick="closeMobileNav()"></div>
 <div class="nav" id="mainNav">
   <button class="nb active" onclick="showTab('teams',this);closeMobileNav()">🏆 TEAMS</button>
-  <button class="nb new-tab" onclick="showTab('powerrankings',this);closeMobileNav()">📊 POWER RANKINGS</button>
   <button class="nb" onclick="showTab('analytics',this);closeMobileNav()">📈 ANALYTICS</button>
   <button class="nb" onclick="showTab('trades',this);closeMobileNav()">🤝 TRADE LOG</button>
   <button class="nb" onclick="showTab('prospects2027',this);closeMobileNav()">🌟 2027 PROSPECTS</button>
@@ -511,12 +510,7 @@ html, body {
   <div id="teamGrid"></div>
 </div>
 
-<!-- POWER RANKINGS TAB (Live Sleeper) -->
-<div class="sec" id="powerrankings">
-  <div class="sec-title">LIVE POWER RANKINGS</div>
-  <div class="sec-sub">Pulled live from Sleeper API · Sorted by wins then points · Top 3 key assets shown · Last Updated: April 13, 2026</div>
-  <div id="prContent"><div class="pr-loading"><span class="loading-spin"></span>Fetching league data from Sleeper...</div></div>
-</div>
+
 
 <!-- ANALYTICS TAB -->
 <div class="sec" id="analytics">
@@ -1747,7 +1741,6 @@ function showTab(id,btn){
   if(btn)btn.classList.add('active');
   closeMobileNav();
   if(id==='teams')loadLiveRosters();
-  if(id==='powerrankings')loadPowerRankings();
   if(id==='trades')loadLiveTradeLog();
   if(id==='rankings')renderRankings();
   if(id==='warroom'){
@@ -4165,7 +4158,7 @@ async function buildLeagueAvatarStrip(){
       const imgHtml=avatarId
         ?`<img src="https://sleepercdn.com/avatars/thumbs/${avatarId}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.style.display='none';this.nextSibling.style.display='flex'"><span style="display:none;align-items:center;justify-content:center;width:100%;height:100%;font-family:'Bebas Neue',sans-serif;font-size:16px;color:${tc}">${initials}</span>`
         :`<span style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-family:'Bebas Neue',sans-serif;font-size:16px;color:${tc}">${initials}</span>`;
-      return`<div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0;padding:0 10px;cursor:pointer;" onclick="showTab('powerrankings',document.querySelector('.nb:nth-child(2)'))">
+      return`<div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0;padding:0 10px;cursor:pointer;" onclick="showTab('teams',document.querySelector('.nb'))">
         <div style="position:relative;">
           <div style="width:48px;height:48px;border-radius:50%;border:2px solid ${tc};overflow:hidden;background:var(--bg3);">${imgHtml}</div>
           <div style="position:absolute;bottom:-2px;right:-4px;background:var(--bg);border:1px solid ${rColor};border-radius:10px;padding:1px 5px;font-family:'Bebas Neue',sans-serif;font-size:9px;color:${rColor};line-height:1.2">#${rank}</div>
@@ -4215,7 +4208,6 @@ window.addEventListener('DOMContentLoaded',()=>{
   fetchSleeperUserAvatars();
   fetchFantasyCalc();
   // Load power rankings on page load
-  loadPowerRankings();
   // Initialize AI Analyzer
   populateAISelect();
   // v25 — fresh Sleeper ages (cached 24h)
@@ -4536,7 +4528,6 @@ function buildTeamsGrid(){
 }
 
 setTimeout(function(){
-  try{if(typeof loadPowerRankings==='function')loadPowerRankings();}catch(e){}
   try{if(typeof renderDynastyDuos==='function')renderDynastyDuos();}catch(e){}
   try{buildTeamsGrid();}catch(e){}
   try{computeLeaguePulse();}catch(e){}
