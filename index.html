@@ -507,30 +507,7 @@ html, body {
   
   
 
-  <!-- OVR LEGEND -->
-  <div style="display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 18px 0;padding:14px 16px;background:#111;border:1px solid #222;border-radius:8px;align-items:center;">
-    <span style="font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:1px;margin-right:4px;"><span style="color:#fff;">DYNASTY OVR</span><span style="color:#444;"> · Dynasty trade value · 0–99 scale</span></span>
-    <div style="display:flex;align-items:center;gap:6px;">
-      <span style="font-family:'Bebas Neue',sans-serif;font-size:14px;min-width:30px;text-align:center;padding:1px 5px;border-radius:3px;background:linear-gradient(135deg,#FFD700,#FF8C00);color:#000;">99</span>
-      <span style="font-size:11px;color:#bbb;">95–99 &nbsp;<span style="color:#FFD700;font-weight:700;">FRANCHISE</span></span>
-    </div>
-    <div style="display:flex;align-items:center;gap:6px;">
-      <span style="font-family:'Bebas Neue',sans-serif;font-size:14px;min-width:30px;text-align:center;padding:1px 5px;border-radius:3px;background:linear-gradient(135deg,#3A7BD5,#7B68EE);color:#fff;">91</span>
-      <span style="font-size:11px;color:#bbb;">88–94 &nbsp;<span style="color:#7B68EE;font-weight:700;">ELITE</span></span>
-    </div>
-    <div style="display:flex;align-items:center;gap:6px;">
-      <span style="font-family:'Bebas Neue',sans-serif;font-size:14px;min-width:30px;text-align:center;padding:1px 5px;border-radius:3px;background:linear-gradient(135deg,#1a7a1a,#27ae60);color:#fff;">83</span>
-      <span style="font-size:11px;color:#bbb;">78–87 &nbsp;<span style="color:#27ae60;font-weight:700;">STAR</span></span>
-    </div>
-    <div style="display:flex;align-items:center;gap:6px;">
-      <span style="font-family:'Bebas Neue',sans-serif;font-size:14px;min-width:30px;text-align:center;padding:1px 5px;border-radius:3px;background:linear-gradient(135deg,#8B6914,#c9a227);color:#fff;">72</span>
-      <span style="font-size:11px;color:#bbb;">65–77 &nbsp;<span style="color:#c9a227;font-weight:700;">ASSET</span></span>
-    </div>
-    <div style="display:flex;align-items:center;gap:6px;">
-      <span style="font-family:'Bebas Neue',sans-serif;font-size:14px;min-width:30px;text-align:center;padding:1px 5px;border-radius:3px;background:#333;color:#666;">58</span>
-      <span style="font-size:11px;color:#bbb;">&lt;65 &nbsp;<span style="color:#666;font-weight:700;">DEPTH</span></span>
-    </div>
-  </div>
+
 
   <div id="teamGrid"></div>
 </div>
@@ -4468,6 +4445,21 @@ function computeLeaguePulse(){
 }
 window.computeDynastyPulse=computeLeaguePulse;
 
+function ovrLabel(v){
+  if(v>=95)return{lbl:'FRANCHISE',c:'#FFD700'};
+  if(v>=88)return{lbl:'ELITE',c:'#7B68EE'};
+  if(v>=78)return{lbl:'STAR',c:'#27ae60'};
+  if(v>=65)return{lbl:'ASSET',c:'#c9a227'};
+  return{lbl:'DEPTH',c:'#666'};
+}
+function toggleTeamSnap(key){
+  var el=document.getElementById('tsnap_'+key);
+  var arr=document.getElementById('tsarr_'+key);
+  if(!el)return;
+  var open=el.style.display!=='none';
+  el.style.display=open?'none':'block';
+  if(arr)arr.textContent=open?'▼ ROSTER':'▲ CLOSE';
+}
 function buildTeamsGrid(){
   try{
     var grid=document.getElementById('teamGrid');
@@ -4477,9 +4469,44 @@ function buildTeamsGrid(){
     var keys=Object.keys(TEAMS).sort(function(a,b){return((rl[a]&&rl[a].rank)||99)-((rl[b]&&rl[b].rank)||99);});
     function gc(g){if(!g)return'var(--muted)';if(g[0]==='A')return'var(--green)';if(g[0]==='B')return'#4fc3f7';if(g[0]==='C')return'var(--gold)';return'#ef5350';}
     var cards=keys.map(function(key){
-      var t=TEAMS[key],r=rl[key]||{},pk=t.picks?t.picks.length:0;var derivedG=(typeof getTeamGrade==="function")?getTeamGrade(key):t.grade;var c=gc(derivedG),bg=t.color||'#1a2a1a';
+      var t=TEAMS[key],r=rl[key]||{},pk=t.picks?t.picks.length:0;
+      var derivedG=(typeof getTeamGrade==='function')?getTeamGrade(key):t.grade;
+      var c=gc(derivedG),bg=t.color||'#1a2a1a';
       var init=(t.name||'').split(' ').map(function(w){return w[0]||'';}).join('').substring(0,2).toUpperCase();
-      return '<div style="background:var(--bg2);border:1px solid var(--border);border-left:4px solid '+bg+';border-radius:6px;padding:14px;">'
+      // Build player rows for expanded view
+      var allPlayers=[];
+      var posOrder=['QB','RB','WR','TE'];
+      posOrder.forEach(function(pos){
+        var arr=(t.roster&&t.roster[pos])||[];
+        arr.forEach(function(p){allPlayers.push({n:p.n||p,pos:pos});});
+      });
+      // Sort by OVR desc
+      allPlayers.sort(function(a,b){
+        var oa=(typeof getDynastyOVR==='function')?getDynastyOVR(a.n,a.pos):50;
+        var ob=(typeof getDynastyOVR==='function')?getDynastyOVR(b.n,b.pos):50;
+        return ob-oa;
+      });
+      var posC={QB:'var(--gold)',RB:'#00FF87',WR:'#2980B9',TE:'var(--orange)'};
+      var playerRows=allPlayers.slice(0,12).map(function(p){
+        var ov=(typeof getDynastyOVR==='function')?getDynastyOVR(p.n,p.pos):50;
+        var ol=ovrLabel(ov);
+        return '<div style="display:flex;align-items:center;gap:7px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04);">'
+          +'<span style="font-family:DM Mono,monospace;font-size:7px;padding:1px 4px;border:1px solid '+(posC[p.pos]||'var(--muted)')+';color:'+(posC[p.pos]||'var(--muted)')+';flex-shrink:0;">'+p.pos+'</span>'
+          +'<span style="font-family:DM Mono,monospace;font-size:10px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+p.n+'</span>'
+          +'<span style="font-family:Bebas Neue,sans-serif;font-size:13px;color:'+ol.c+';flex-shrink:0;min-width:22px;text-align:right;">'+ov+'</span>'
+          +'<span style="font-family:DM Mono,monospace;font-size:7px;color:'+ol.c+';flex-shrink:0;min-width:54px;">'+ol.lbl+'</span>'
+          +'</div>';
+      }).join('');
+      var legendHtml='<div style="display:flex;flex-wrap:wrap;gap:8px;padding:8px 0 6px 0;border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:6px;">'
+        +'<span style="font-family:DM Mono,monospace;font-size:7px;color:#FFD700;">95–99 FRANCHISE</span>'
+        +'<span style="font-family:DM Mono,monospace;font-size:7px;color:#7B68EE;">88–94 ELITE</span>'
+        +'<span style="font-family:DM Mono,monospace;font-size:7px;color:#27ae60;">78–87 STAR</span>'
+        +'<span style="font-family:DM Mono,monospace;font-size:7px;color:#c9a227;">65–77 ASSET</span>'
+        +'<span style="font-family:DM Mono,monospace;font-size:7px;color:#666;">&lt;65 DEPTH</span>'
+        +'</div>';
+      return '<div style="background:var(--bg2);border:1px solid var(--border);border-left:4px solid '+bg+';border-radius:6px;overflow:hidden;">'
+        // ── clickable header ──
+        +'<div onclick="toggleTeamSnap(this.dataset.key)" data-key="'+key+'" style="padding:14px;cursor:pointer;">'
         +'<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">'
         +'<div style="width:34px;height:34px;border-radius:50%;background:'+bg+';display:flex;align-items:center;justify-content:center;font-family:Bebas Neue,sans-serif;font-size:13px;color:#fff;flex-shrink:0;">'+init+'</div>'
         +'<div style="flex:1;min-width:0;"><div style="font-family:Bebas Neue,sans-serif;font-size:14px;letter-spacing:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+t.name+'</div>'
@@ -4493,9 +4520,16 @@ function buildTeamsGrid(){
         +'</div>'
         +'<div style="border-top:1px solid var(--border);padding-top:7px;">'
         +'<div style="font-family:DM Mono,monospace;font-size:7px;color:var(--muted);letter-spacing:1px;margin-bottom:2px;">WINDOW 2025–2027 · '+(t.typeLabel||'CONTENDING')+'</div>'
-        +'<div style="font-family:DM Mono,monospace;font-size:8px;color:var(--text);line-height:1.4;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;">'+(t.summary||'').substring(0,130)+'</div></div></div>';
+        +'<div style="font-family:DM Mono,monospace;font-size:8px;color:var(--text);line-height:1.4;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;">'+(t.summary||'').substring(0,130)+'</div></div>'
+        +'<div style="margin-top:8px;text-align:center;"><span id="tsarr_'+key+'" style="font-family:DM Mono,monospace;font-size:8px;color:var(--muted);letter-spacing:1px;">▼ ROSTER</span></div>'
+        +'</div>'
+        // ── expandable roster ──
+        +'<div id="tsnap_'+key+'" style="display:none;padding:0 14px 12px 14px;border-top:1px solid var(--border);">'
+        +'<div style="padding-top:8px;">'+legendHtml+playerRows+'</div>'
+        +'</div>'
+        +'</div>';
     }).join('');
-    grid.innerHTML='<div style="margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border);"><div style="font-family:Bebas Neue,sans-serif;font-size:24px;letter-spacing:2px;margin-bottom:3px;">🏆 ALL 10 TEAMS — DYNASTY SNAPSHOT</div><div style="font-family:DM Mono,monospace;font-size:9px;color:var(--muted);letter-spacing:1px;">SORTED BY DYNASTY RANK · LIVE SLEEPER DATA · v25.2</div></div><div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;">'+cards+'</div>';
+    grid.innerHTML='<div style="margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--border);"><div style="font-family:Bebas Neue,sans-serif;font-size:24px;letter-spacing:2px;margin-bottom:3px;">🏆 ALL 10 TEAMS — DYNASTY SNAPSHOT</div><div style="font-family:DM Mono,monospace;font-size:9px;color:var(--muted);letter-spacing:1px;">SORTED BY DYNASTY RANK · LIVE SLEEPER DATA · v25.2 · TAP CARD TO SEE ROSTER</div></div><div style="display:flex;flex-direction:column;gap:10px;">'+cards+'</div>';
     window._tgb=true;
   }catch(e){console.warn('buildTeamsGrid:',e);}
 }
@@ -4503,11 +4537,9 @@ function buildTeamsGrid(){
 setTimeout(function(){
   try{if(typeof loadPowerRankings==='function')loadPowerRankings();}catch(e){}
   try{if(typeof renderDynastyDuos==='function')renderDynastyDuos();}catch(e){}
-  setTimeout(function(){
-    try{buildTeamsGrid();}catch(e){}
-    try{computeLeaguePulse();}catch(e){}
-  },3000);
-},2000);
+  try{buildTeamsGrid();}catch(e){}
+  try{computeLeaguePulse();}catch(e){}
+},500);
 
 </script>
 
