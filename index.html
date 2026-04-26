@@ -4473,30 +4473,52 @@ function buildTeamsGrid(){
       var derivedG=(typeof getTeamGrade==='function')?getTeamGrade(key):t.grade;
       var c=gc(derivedG),bg=t.color||'#1a2a1a';
       var init=(t.name||'').split(' ').map(function(w){return w[0]||'';}).join('').substring(0,2).toUpperCase();
-      // Build player rows for expanded view
-      var allPlayers=[];
-      var posOrder=['QB','RB','WR','TE'];
-      posOrder.forEach(function(pos){
-        var arr=(t.roster&&t.roster[pos])||[];
-        arr.forEach(function(p){allPlayers.push({n:p.n||p,pos:pos});});
-      });
-      // Sort by OVR desc
-      allPlayers.sort(function(a,b){
-        var oa=(typeof getDynastyOVR==='function')?getDynastyOVR(a.n,a.pos):50;
-        var ob=(typeof getDynastyOVR==='function')?getDynastyOVR(b.n,b.pos):50;
-        return ob-oa;
-      });
+      // Build position-grouped roster rows for expanded view
       var posC={QB:'var(--gold)',RB:'#00FF87',WR:'#2980B9',TE:'var(--orange)'};
-      var playerRows=allPlayers.slice(0,12).map(function(p){
-        var ov=(typeof getDynastyOVR==='function')?getDynastyOVR(p.n,p.pos):50;
+      function playerRow(p,pos,isTaxi){
+        var ov=(typeof getDynastyOVR==='function')?getDynastyOVR(p.n||p,pos):50;
         var ol=ovrLabel(ov);
         return '<div style="display:flex;align-items:center;gap:7px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04);">'
-          +'<span style="font-family:DM Mono,monospace;font-size:7px;padding:1px 4px;border:1px solid '+(posC[p.pos]||'var(--muted)')+';color:'+(posC[p.pos]||'var(--muted)')+';flex-shrink:0;">'+p.pos+'</span>'
-          +'<span style="font-family:DM Mono,monospace;font-size:10px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+p.n+'</span>'
+          +'<span style="font-family:DM Mono,monospace;font-size:7px;padding:1px 4px;border:1px solid '+(posC[pos]||'var(--muted)')+';color:'+(posC[pos]||'var(--muted)')+';flex-shrink:0;">'+pos+'</span>'
+          +(isTaxi?'<span style="font-family:DM Mono,monospace;font-size:6px;padding:1px 3px;background:#2d2d00;color:#c9a227;border-radius:2px;flex-shrink:0;">TAXI</span>':'')
+          +'<span style="font-family:DM Mono,monospace;font-size:10px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+(p.n||p)+'</span>'
           +'<span style="font-family:Bebas Neue,sans-serif;font-size:13px;color:'+ol.c+';flex-shrink:0;min-width:22px;text-align:right;">'+ov+'</span>'
           +'<span style="font-family:DM Mono,monospace;font-size:7px;color:'+ol.c+';flex-shrink:0;min-width:54px;">'+ol.lbl+'</span>'
           +'</div>';
-      }).join('');
+      }
+      var taxiPlayers=(t.roster&&t.roster.TAXI)||[];
+      var taxiNames=taxiPlayers.map(function(p){return p.n||p;});
+      var playerRows='';
+      ['QB','RB','WR','TE'].forEach(function(pos){
+        var posPlayers=(t.roster&&t.roster[pos])||[];
+        // Include WRT flex players in appropriate position bucket
+        if(pos==='WR'&&t.roster&&t.roster.WRT){
+          t.roster.WRT.forEach(function(p){posPlayers=posPlayers.concat([p]);});
+        }
+        var sorted=[...posPlayers].sort(function(a,b){
+          var oa=(typeof getDynastyOVR==='function')?getDynastyOVR(a.n||a,pos):50;
+          var ob=(typeof getDynastyOVR==='function')?getDynastyOVR(b.n||b,pos):50;
+          return ob-oa;
+        });
+        if(!sorted.length)return;
+        var posLabel={QB:'QUARTERBACKS',RB:'RUNNING BACKS',WR:'WIDE RECEIVERS',TE:'TIGHT ENDS'}[pos]||pos;
+        playerRows+='<div style="font-family:DM Mono,monospace;font-size:7px;color:'+(posC[pos]||'var(--muted)')+';letter-spacing:2px;margin:8px 0 3px 0;padding-top:6px;border-top:1px solid rgba(255,255,255,.06);">'+posLabel+'</div>';
+        sorted.forEach(function(p){
+          var isTaxi=taxiNames.indexOf(p.n||p)!==-1;
+          playerRows+=playerRow(p,pos,isTaxi);
+        });
+      });
+      // Add any remaining taxi players not already in a position group
+      var addedNames=[];
+      ['QB','RB','WR','TE'].forEach(function(pos){((t.roster&&t.roster[pos])||[]).forEach(function(p){addedNames.push(p.n||p);});});
+      var extraTaxi=taxiPlayers.filter(function(p){return addedNames.indexOf(p.n||p)===-1;});
+      if(extraTaxi.length){
+        playerRows+='<div style="font-family:DM Mono,monospace;font-size:7px;color:#c9a227;letter-spacing:2px;margin:8px 0 3px 0;padding-top:6px;border-top:1px solid rgba(255,255,255,.06);">TAXI SQUAD</div>';
+        extraTaxi.forEach(function(p){
+          var pos=(p.g||'WR');
+          playerRows+=playerRow(p,pos,true);
+        });
+      }
       var legendHtml='<div style="display:flex;flex-wrap:wrap;gap:8px;padding:8px 0 6px 0;border-bottom:1px solid rgba(255,255,255,.07);margin-bottom:6px;">'
         +'<span style="font-family:DM Mono,monospace;font-size:7px;color:#FFD700;">95–99 FRANCHISE</span>'
         +'<span style="font-family:DM Mono,monospace;font-size:7px;color:#7B68EE;">88–94 ELITE</span>'
