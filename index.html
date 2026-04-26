@@ -31,28 +31,59 @@ body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);min-he
 @media(max-width:600px){.stat-item{padding:8px 4px;}}
 
 /* NAV */
+/* ── NAV: DESKTOP ── */
 .nav-wrap{position:relative;}
-.nav-wrap::after{content:'›';position:absolute;right:0;top:0;bottom:1px;width:44px;background:linear-gradient(to right,transparent,var(--bg) 70%);display:flex;align-items:center;justify-content:flex-end;padding-right:10px;color:var(--muted);font-size:20px;pointer-events:none;transition:opacity .3s;}
-.nav-wrap.scrolled-end::after{opacity:0;}
-.nav{display:flex;gap:0;border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;flex-wrap:nowrap;}
+.nav-wrap::after{content:'';position:absolute;right:0;top:0;bottom:0;width:32px;background:linear-gradient(to right,transparent,var(--bg));pointer-events:none;}
+.nav{display:flex;gap:0;border-bottom:2px solid rgba(255,255,255,.06);overflow-x:auto;scrollbar-width:none;flex-wrap:nowrap;background:rgba(0,0,0,.3);backdrop-filter:blur(8px);}
 .nav::-webkit-scrollbar{display:none;}
-.nb{background:none;border:none;color:var(--muted);font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;padding:14px 18px;cursor:pointer;text-transform:uppercase;border-right:1px solid var(--border);transition:all .2s;white-space:nowrap;flex-shrink:0;}
-.nb:hover{color:var(--text);background:rgba(255,255,255,.03);}
-.nb.active{color:var(--green);border-bottom:2px solid var(--green);}
-.nb.new-tab{color:var(--gold);}
-.nb.new-tab.active{color:var(--gold);border-bottom:2px solid var(--gold);}
-/* MOBILE HAMBURGER NAV */
-.nav-burger{display:flex;align-items:center;justify-content:center;background:var(--bg2);border:2px solid var(--accent,#7c3aed);border-radius:10px;color:var(--text,#e2e8f0);width:52px;height:52px;min-width:52px;font-size:28px;cursor:pointer;z-index:9999;padding:0;flex-shrink:0;}
-.nav-burger:active{background:var(--bg3);}
-.nav-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:98;}
+.nb{background:none;border:none;color:rgba(255,255,255,.4);font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;padding:15px 20px;cursor:pointer;text-transform:uppercase;transition:all .2s;white-space:nowrap;flex-shrink:0;position:relative;}
+.nb:hover{color:rgba(255,255,255,.85);background:rgba(255,255,255,.04);}
+.nb::after{content:'';position:absolute;bottom:-2px;left:50%;right:50%;height:2px;background:var(--green);transition:all .25s;opacity:0;}
+.nb:hover::after{left:20%;right:20%;opacity:.4;}
+.nb.active{color:#fff;font-weight:700;}
+.nb.active::after{left:0;right:0;opacity:1;}
+.nb.new-tab{color:rgba(212,175,55,.6);}
+.nb.new-tab.active{color:var(--gold);}
+.nb.new-tab::after{background:var(--gold);}
+/* ── NAV: MOBILE BUTTON ── */
+.nav-burger{display:none;position:fixed;top:12px;left:12px;z-index:10001;background:rgba(10,10,14,.85);border:1.5px solid rgba(255,255,255,.1);border-radius:12px;width:46px;height:46px;font-size:26px;cursor:pointer;backdrop-filter:blur(12px);box-shadow:0 4px 20px rgba(0,0,0,.6);transition:transform .15s,box-shadow .15s;padding:0;line-height:1;align-items:center;justify-content:center;}
+.nav-burger:active{transform:scale(.93);box-shadow:0 2px 8px rgba(0,0,0,.5);}
+.nav-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9998;backdrop-filter:blur(3px);}
 .nav-backdrop.active{display:block;}
+/* ── NAV: MOBILE DRAWER ── */
 @media(max-width:640px){
-  .nav-burger{display:flex;align-items:center;justify-content:center;gap:0;position:fixed;top:10px;left:10px;z-index:10001;}
+  .nav-burger{display:flex;}
   .nav-wrap{position:relative;}
-  .nav{display:none;flex-direction:column;position:fixed;top:70px;left:0;right:0;background:var(--bg2);border:1px solid var(--border);border-top:none;z-index:10000;overflow-y:auto;flex-wrap:wrap;box-shadow:0 8px 32px rgba(0,0,0,.6);}
-  .nav.mobile-open{display:flex;}
-  .nb{border-right:none;border-bottom:1px solid var(--border);text-align:left;padding:18px 24px;width:100%;white-space:normal;font-size:15px;letter-spacing:1.5px;}
+  .nav{
+    display:flex;flex-direction:column;
+    position:fixed;top:0;left:-280px;width:270px;height:100vh;
+    background:#0D0D12;border-right:1px solid rgba(255,255,255,.08);
+    z-index:9999;overflow-y:auto;flex-wrap:nowrap;
+    box-shadow:4px 0 32px rgba(0,0,0,.8);
+    transition:left .25s cubic-bezier(.4,0,.2,1);
+    padding-top:64px;
+  }
+  .nav.mobile-open{left:0;}
+  .nb{
+    border:none;text-align:left;
+    padding:16px 24px;width:100%;white-space:normal;
+    font-size:13px;letter-spacing:1.5px;
+    border-bottom:1px solid rgba(255,255,255,.05);
+    display:flex;align-items:center;gap:12px;
+  }
+  .nb::after{display:none;}
+  .nb.active{background:rgba(0,255,135,.07);color:var(--green);border-left:3px solid var(--green);padding-left:21px;}
+  .nb.new-tab.active{background:rgba(212,175,55,.07);color:var(--gold);border-left:3px solid var(--gold);padding-left:21px;}
   .nb:last-child{border-bottom:none;}
+  /* Nav header inside drawer */
+  .nav::before{
+    content:'🏈 D.O.P.E';
+    position:absolute;top:0;left:0;right:0;
+    padding:18px 24px 14px;
+    font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;color:var(--gold);
+    border-bottom:1px solid rgba(255,255,255,.08);
+    background:#0D0D12;
+  }
 }
 
 /* TABS */
@@ -455,7 +486,7 @@ html, body {
 <span id="pulseWindow" style="display:none"></span><span id="pulseWindowBar" style="display:none"></span>
 <span id="pulseGrade" style="display:none"></span><span id="pulseType" style="display:none"></span>
 <div class="nav-wrap" id="navWrap">
-<button class="nav-burger" id="navBurger" onclick="toggleMobileNav()" aria-label="Open navigation menu">&#9776;&nbsp; MENU</button>
+<button class="nav-burger" id="navBurger" onclick="toggleMobileNav()" aria-label="Open navigation menu">🏈</button>
 <div class="nav-backdrop" id="navBackdrop" onclick="closeMobileNav()"></div>
 <div class="nav" id="mainNav">
   <button class="nb active" onclick="showTab('teams',this);closeMobileNav()">🏆 TEAMS</button>
@@ -465,7 +496,8 @@ html, body {
   <button class="nb" onclick="showTab('prospects2027',this);closeMobileNav()">🌟 2027 PROSPECTS</button>
   <button class="nb new-tab" onclick="showTab('warroom',this);closeMobileNav()">📊 MARKET BOARD</button>
   <button class="nb" onclick="showTab('aianalyzer',this);closeMobileNav()">⚡ AI ANALYZER</button>
-  <button class="nb" onclick="showTab('dynastyduos',this);closeMobileNav()">&#x1F465; DYNASTY DUOS</button>
+  <button class="nb" onclick="showTab('dynastyduos',this);closeMobileNav()">👥 DYNASTY DUOS</button>
+  <button class="nb" style="margin-top:auto;color:rgba(255,255,255,.25);font-size:8px;" onclick="closeMobileNav()">✕ CLOSE</button>
 </div>
 </div>
 
@@ -4239,7 +4271,7 @@ function toggleMobileNav(){
   const isOpen=nav.classList.contains('mobile-open');
   nav.classList.toggle('mobile-open',!isOpen);
   backdrop.classList.toggle('active',!isOpen);
-  burger.textContent=isOpen?'\u2630\u00a0 MENU':'\u2715\u00a0 CLOSE';
+  burger.textContent=isOpen?'🏈':'✕';
 }
 function closeMobileNav(){
   const nav=document.getElementById('mainNav');
@@ -4490,7 +4522,7 @@ setTimeout(function(){
     if(b)b.onclick=function(){window.toggleMobileNav();};
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',doFix);else doFix();
-  window.toggleMobileNav=function(){var nav=document.getElementById('mainNav');var bd=document.getElementById('navBackdrop');var burger=document.getElementById('navBurger');if(!nav)return;var isOpen=nav.classList.contains('mobile-open');nav.classList.toggle('mobile-open',!isOpen);if(bd)bd.classList.toggle('active',!isOpen);if(burger)burger.innerHTML=isOpen?'&#9776;&nbsp; MENU':'&#10005;&nbsp; CLOSE'};
+  window.toggleMobileNav=function(){var nav=document.getElementById('mainNav');var bd=document.getElementById('navBackdrop');var burger=document.getElementById('navBurger');if(!nav)return;var isOpen=nav.classList.contains('mobile-open');nav.classList.toggle('mobile-open',!isOpen);if(bd)bd.classList.toggle('active',!isOpen);if(burger)burger.textContent=isOpen?'🏈':'✕';};
   window.openMobileNav=function(){var n=document.getElementById('mobileNav')||document.querySelector('.nav-links')||document.getElementById('navWrap');if(n){n.classList.add('mobile-open');n.style.display='flex';}};
   window.closeMobileNav=function(){var nav=document.getElementById('mainNav');var bd=document.getElementById('navBackdrop');var burger=document.getElementById('navBurger');if(nav)nav.classList.remove('mobile-open');if(bd)bd.classList.remove('active');if(burger)burger.innerHTML='&#9776;&nbsp; MENU';}
 })();
