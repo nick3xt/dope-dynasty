@@ -1134,7 +1134,7 @@ html, body {
     <div class="war-panel">
       <div class="war-panel-header">
         <span class="war-panel-icon">🔴</span>
-        <span class="war-panel-title">SELL NOW — LAMARIO BROS</span>
+        <span class="war-panel-title">SELL NOW — HIGH VALUE TARGETS</span>
         <span class="war-panel-badge badge-watch">EXIT WINDOW</span>
       </div>
       <div class="war-panel-body" id="sellNowList">
@@ -1146,7 +1146,7 @@ html, body {
     <div class="war-panel full-width">
       <div class="war-panel-header">
         <span class="war-panel-icon">📋</span>
-        <span class="war-panel-title">PICK CAPITAL — LAMARIO BROS vs LEAGUE AVG</span>
+        <span class="war-panel-title">PICK CAPITAL — ALL TEAMS</span>
         <span class="war-panel-badge badge-buy">CAPITAL</span>
       </div>
       <div class="war-panel-body" id="pickCapitalMap">
@@ -4021,10 +4021,16 @@ function updateAITeamAvatar(h){
 function populateAISelect(){
   const sel=document.getElementById('aiTeamSelect');
   if(!sel)return;
-  Object.entries(TEAMS).forEach(([handle,team])=>{
+  // Remove any options beyond the placeholder
+  while(sel.options.length>1)sel.remove(1);
+  // Sort teams by RANKINGS rank
+  const rankMap={};
+  (typeof RANKINGS!=='undefined'?RANKINGS:[]).forEach(r=>{rankMap[r.h]=r.rank;});
+  const sorted=Object.entries(TEAMS).sort((a,b)=>(rankMap[a[0]]||99)-(rankMap[b[0]]||99));
+  sorted.forEach(([handle,team])=>{
     const opt=document.createElement('option');
     opt.value=handle;
-    opt.textContent=team.name;
+    opt.textContent='#'+(rankMap[handle]||'?')+' '+team.name;
     sel.appendChild(opt);
   });
 }
@@ -4291,29 +4297,28 @@ function renderMarketBoard(){
       </div>`).join('') || '<div style="padding:12px;font-family:\'DM Mono\',monospace;font-size:9px;color:var(--muted)">No immediate buy targets detected</div>';
   }
 
-  // SELL NOW: Lamario Bros roster, age 30+ or grade trd
-  const lamario=TEAMS['ColonelSanders4'];
+  // SELL NOW: League-wide — age 30+ with high OVR (sell while value is high)
   const sellSignals=[];
-  if(lamario){
-    ['QB','RB','WR','TE','IR'].forEach(pos=>(lamario.roster[pos]||[]).forEach(p=>{
+  Object.entries(TEAMS).forEach(([handle,team])=>{
+    ['QB','RB','WR','TE'].forEach(pos=>(team.roster[pos]||[]).forEach(p=>{
       const age=(typeof V25_AGE_LIVE!=='undefined'&&V25_AGE_LIVE[p.n])||(typeof AGES!=='undefined'&&AGES[p.n])||null;
       const ovr=getDynastyOVR(p.n,p.g);
-      if((age&&age>=30)||(p.g==='trd')) sellSignals.push({...p,pos,age,ovr});
+      if(age&&age>=30&&ovr>=50) sellSignals.push({...p,pos,age,ovr,teamName:team.name,handle});
     }));
-  }
-  sellSignals.sort((a,b)=>(b.age||0)-(a.age||0));
+  });
+  sellSignals.sort((a,b)=>b.ovr-a.ovr);
 
   const sellEl=document.getElementById('sellNowList');
   if(sellEl){
     sellEl.innerHTML = sellSignals.slice(0,8).map((p,i)=>{
       const reason = p.age&&p.age>=30
-        ? `Age ${p.age} — dynasty cliff approaching. Sell before 2026 decline becomes obvious.`
-        : `Trade-grade asset. Estate will be outbid by Josh Allen-level assets in 2027. Move now.`;
+        ? `Age ${p.age} — dynasty cliff approaching. Smart managers sell high before decline sets in.`
+        : `Age ${p.age||'?'} — still productive but value is near peak. Strike while the market is hot.`;
       return `<div class="war-item">
         <div class="war-item-rank">${i+1}</div>
         <div class="war-item-content">
           <div class="war-item-name">${p.n} — ${p.pos}${p.age?', Age '+p.age:''}</div>
-          <div><span class="war-item-tag" style="background:#E74C3C22;color:#E74C3C;border:1px solid #E74C3C44">SELL</span><span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--muted)">OVR ${p.ovr}</span></div>
+          <div><span class="war-item-tag" style="background:#E74C3C22;color:#E74C3C;border:1px solid #E74C3C44">SELL</span><span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--muted)">OVR ${p.ovr} · ${p.teamName||''}</span></div>
           <div class="war-item-note">${reason}</div>
         </div>
         <div class="war-item-value" style="color:#E74C3C">↓</div>
@@ -4321,42 +4326,28 @@ function renderMarketBoard(){
     }).join('') || '<div style="padding:12px;font-family:\'DM Mono\',monospace;font-size:9px;color:var(--muted)">No immediate sell signals</div>';
   }
 
-  // PICK VALUE MAP
+  // PICK VALUE MAP — all teams ranked by total picks
   const pickEl=document.getElementById('pickCapitalMap');
-  if(pickEl&&lamario){
-    const lPicks=lamario.picks||[];
-    // Compute league average picks per team
-    let totalPicks=0, teamCount=0;
-    Object.values(TEAMS).forEach(t=>{totalPicks+=(t.picks||[]).length;teamCount++;});
-    const avgPicks=Math.round(totalPicks/Math.max(teamCount,1));
-
-    const round1=lPicks.filter(p=>p.includes('1st')).length;
-    const round2=lPicks.filter(p=>p.includes('2nd')).length;
-    const round3=lPicks.filter(p=>p.includes('3rd')).length;
-    const round4=lPicks.filter(p=>p.includes('4th')).length;
-    const total=lPicks.length;
-
-    const barWidth=(val,max)=>Math.max(4,Math.round((val/Math.max(max,1))*100));
-    const leagueR1=Math.round(Object.values(TEAMS).reduce((s,t)=>s+(t.picks||[]).filter(p=>p.includes('1st')).length,0)/Math.max(teamCount,1));
-
-    pickEl.innerHTML = `
-      <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);margin-bottom:12px">LAMARIO BROS DRAFT CAPITAL vs LEAGUE AVERAGE (${avgPicks} picks avg)</div>
-      <div style="display:grid;gap:10px;">
-        ${[['1ST ROUND',round1,leagueR1,'#00FF87'],['2ND ROUND',round2,2,'#7DDB7D'],['3RD ROUND',round3,2,'#D4AF37'],['4TH ROUND',round4,2,'#aaa']].map(([lbl,val,avg,color])=>`
-          <div>
-            <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
-              <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--muted)">${lbl}</span>
-              <span style="font-family:'DM Mono',monospace;font-size:8px;color:${color}">${val} picks ${val<avg?'(below avg)':val>avg?'(above avg)':'(avg)'}</span>
-            </div>
-            <div style="background:var(--bg3);border-radius:4px;height:8px;overflow:hidden;display:flex;gap:2px;">
-              <div style="background:${color};width:${barWidth(val,8)}%;border-radius:4px;transition:width .5s;"></div>
-              <div style="background:${color}33;width:${barWidth(avg,8)}%;border-radius:4px;"></div>
-            </div>
-          </div>`).join('')}
-        <div style="margin-top:10px;font-family:'DM Mono',monospace;font-size:9px;color:var(--muted)">
-          ${lPicks.map(p=>`<span style="display:inline-block;background:var(--bg3);border-radius:4px;padding:3px 8px;margin:2px;color:var(--text)">${p}</span>`).join('')}
-        </div>
+  if(pickEl){
+    const rankMap2={};
+    (typeof RANKINGS!=='undefined'?RANKINGS:[]).forEach(r=>{rankMap2[r.h]=r.rank;});
+    const teamsSorted=Object.entries(TEAMS).sort((a,b)=>(rankMap2[a[0]]||99)-(rankMap2[b[0]]||99));
+    const maxPicks=Math.max(...teamsSorted.map(([,t])=>(t.picks||[]).length),1);
+    const rows=teamsSorted.map(([handle,t])=>{
+      const picks=t.picks||[];
+      const r1=picks.filter(p=>p.includes('1st')).length;
+      const total=picks.length;
+      const pct=Math.round((total/maxPicks)*100);
+      const r1Color=r1>=3?'#00FF87':r1>=2?'#D4AF37':r1===1?'#4fc3f7':'var(--muted)';
+      return `<div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--border);">
+        <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--muted);width:18px;text-align:right">#${rankMap2[handle]||'?'}</div>
+        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--text);width:110px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${t.name}</div>
+        <div style="flex:1;background:var(--bg3);border-radius:3px;height:6px;overflow:hidden"><div style="background:var(--gold);width:${pct}%;height:100%;border-radius:3px;transition:width .5s"></div></div>
+        <div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--gold);width:28px;text-align:right">${total} pk</div>
+        <div style="font-family:'DM Mono',monospace;font-size:8px;color:${r1Color};width:36px;text-align:right">${r1} 1sts</div>
       </div>`;
+    }).join('');
+    pickEl.innerHTML=`<div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);margin-bottom:10px;letter-spacing:1px;">ALL 10 TEAMS — DRAFT CAPITAL RANKED</div>${rows}`;
   }
 }
 
@@ -4677,7 +4668,7 @@ function buildTeamsGrid(){
         +'<div style="text-align:right;"><div style="font-family:Bebas Neue,sans-serif;font-size:22px;color:'+c+';">'+t.grade+'</div>'
         +'<div style="font-family:DM Mono,monospace;font-size:8px;color:var(--muted);">'+(t.typeLabel||'')+'</div></div></div>'
         +'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:8px;">'
-        +'<div style="background:var(--bg3);border-radius:4px;padding:5px;text-align:center;"><div style="font-family:DM Mono,monospace;font-size:7px;color:var(--muted);letter-spacing:1px;">DYN OVR</div><div style="font-family:Bebas Neue,sans-serif;font-size:18px;color:'+c+';">'+(t.winNow||'—')+'</div></div>'
+        +'<div style="background:var(--bg3);border-radius:4px;padding:5px;text-align:center;"><div style="font-family:DM Mono,monospace;font-size:7px;color:var(--muted);letter-spacing:1px;">DYN OVR</div><div style="font-family:Bebas Neue,sans-serif;font-size:18px;color:'+c+';">'+(r.score||'—')+'</div></div>'
         +'<div style="background:var(--bg3);border-radius:4px;padding:5px;text-align:center;"><div style="font-family:DM Mono,monospace;font-size:7px;color:var(--muted);letter-spacing:1px;">PICKS</div><div style="font-family:Bebas Neue,sans-serif;font-size:18px;color:var(--gold);">'+pk+'</div></div>'
         +'<div style="background:var(--bg3);border-radius:4px;padding:5px;text-align:center;"><div style="font-family:DM Mono,monospace;font-size:7px;color:var(--muted);letter-spacing:1px;">RANK</div><div style="font-family:Bebas Neue,sans-serif;font-size:18px;color:var(--text);">#'+(r.rank||'—')+'</div></div>'
         +'</div>'
