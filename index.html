@@ -4584,7 +4584,26 @@ setTimeout(function(){
 </style>
 
 <div class="sec-title">⚖️ TRADE GRADES</div>
-<div class="sec-sub" style="margin-bottom:18px;">Position-relative dynasty rankings · Every player + every pick · SF/PPR</div>
+<div class="sec-sub" style="margin-bottom:14px;">Position-relative dynasty rankings · Every player + every pick · SF/PPR</div>
+
+<!-- Grade Legend -->
+<div style="background:#0D0D14;border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:14px 16px;margin-bottom:18px;">
+  <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.4);text-transform:uppercase;margin-bottom:10px;">HOW GRADES WORK</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:6px;">
+    <div style="display:flex;align-items:center;gap:8px;"><span style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#00FF87;min-width:28px;">A+</span><span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(255,255,255,.4);">Elite · Top 3 at pos</span></div>
+    <div style="display:flex;align-items:center;gap:8px;"><span style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#00FF87;min-width:28px;">A</span><span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(255,255,255,.4);">Franchise · Top 6</span></div>
+    <div style="display:flex;align-items:center;gap:8px;"><span style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#4fc3f7;min-width:28px;">A-</span><span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(255,255,255,.4);">Top Asset · Top 10</span></div>
+    <div style="display:flex;align-items:center;gap:8px;"><span style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#4fc3f7;min-width:28px;">B+</span><span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(255,255,255,.4);">Strong · Top 15</span></div>
+    <div style="display:flex;align-items:center;gap:8px;"><span style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#D4AF37;min-width:28px;">B</span><span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(255,255,255,.4);">Starter · Top 22</span></div>
+    <div style="display:flex;align-items:center;gap:8px;"><span style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#D4AF37;min-width:28px;">B-</span><span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(255,255,255,.4);">Solid · Top 30</span></div>
+    <div style="display:flex;align-items:center;gap:8px;"><span style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#E67E22;min-width:28px;">C+</span><span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(255,255,255,.4);">Depth · Top 40</span></div>
+    <div style="display:flex;align-items:center;gap:8px;"><span style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#E67E22;min-width:28px;">C</span><span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(255,255,255,.4);">Bench · Top 55</span></div>
+    <div style="display:flex;align-items:center;gap:8px;"><span style="font-family:'Bebas Neue',sans-serif;font-size:18px;color:#aaa;min-width:28px;">C-</span><span style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(255,255,255,.4);">Taxi / Deep</span></div>
+  </div>
+  <div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.05);font-family:'DM Mono',monospace;font-size:8px;color:rgba(255,255,255,.3);line-height:1.7;">
+    ⚡ <strong style="color:rgba(255,255,255,.5)">Points</strong> are position-relative — a QB11 (B+) is worth more than a WR11 (B+) in SF because starting QBs are scarcer. The team that <strong style="color:rgba(255,255,255,.5)">receives</strong> more points wins the trade.
+  </div>
+</div>
 
 <div class="tv2-wrap">
   <div class="tv2-side tv2-side-a">
@@ -4657,8 +4676,6 @@ function tv2Pts(pos,rank){
 const TV2_PICK_PTS={
   '2028 1st Round Pick (Early)':172,'2028 1st Round Pick':142,'2028 2nd Round Pick':58,'2028 3rd Round Pick':20,'2028 4th Round Pick':8,
   '2027 1st Round Pick (Early)':152,'2027 1st Round Pick':118,'2027 2nd Round Pick':44,'2027 3rd Round Pick':18,'2027 4th Round Pick':7,
-  '2026 1st Round Pick (Early)':95,'2026 1st Round Pick':80,'2026 2nd Round Pick':30,'2026 3rd Round Pick':12,'2026 4th Round Pick':4,
-  '2025 1st Round Pick':60,'2025 2nd Round Pick':22,'2025 3rd Round Pick':8,
 };
 
 function tv2PickPts(name){
@@ -4742,14 +4759,11 @@ function tv2AllPlayers(){
           }
         });
       });
-      // All picks on this team
-      (t.picks||[]).forEach(pk=>{
-        if(!seen.has(pk)){seen.add(pk);const pts=tv2PickPts(pk);all.push({name:pk,pos:'PICK',rank:null,pts});}
-      });
+      // Skip team-specific picks (e.g. "2027 1st via Nxbosta") — use generic picks only
     });
   }
-  // 3. Generic pick options
-  ['2026','2027','2028'].forEach(yr=>{
+  // 3. Generic picks — 2027 and 2028 only (2026 draft starts tomorrow)
+  ['2027','2028'].forEach(yr=>{
     ['1st Round Pick (Early)','1st Round Pick','2nd Round Pick','3rd Round Pick','4th Round Pick'].forEach(rd=>{
       const n=yr+' '+rd;if(!seen.has(n)){seen.add(n);const pts=tv2PickPts(n);all.push({name:n,pos:'PICK',rank:null,pts});}
     });
@@ -4807,14 +4821,17 @@ function tv2Analyze(){
   const barB=document.getElementById('tv2BarB');
   const lblA=document.getElementById('tv2BarLblA');
   const lblB=document.getElementById('tv2BarLblB');
-  const maxPts=Math.max(totA,totB,1);
-  barA.style.width=Math.round((totA/maxPts)*120)+'px';
-  barB.style.width=Math.round((totB/maxPts)*120)+'px';
-  lblA.textContent='A: '+Math.round(totA)+' pts';
-  lblB.textContent='B: '+Math.round(totB)+' pts';
+  // totA = what A sends = what B receives. Winner is who RECEIVES more.
+  // A wins = B sends more (totB > totA), i.e. A gets a better haul
+  const aReceives=totB, bReceives=totA;
+  const maxPts=Math.max(aReceives,bReceives,1);
+  barA.style.width=Math.round((aReceives/maxPts)*120)+'px';
+  barB.style.width=Math.round((bReceives/maxPts)*120)+'px';
+  lblA.textContent='A gets: '+Math.round(aReceives)+' pts';
+  lblB.textContent='B gets: '+Math.round(bReceives)+' pts';
   verdict.className='tv2-verdict';
   const delta=totA>0&&totB>0?Math.abs(totA-totB)/Math.max(totA,totB):1;
-  const aWins=totA>totB;
+  const aWins=totB>totA;  // A wins when B sends more (A receives more)
   function genNote(side,other){
     const arr=side==='A'?tv2A:tv2B;const oarr=side==='A'?tv2B:tv2A;
     const hasQB=arr.some(x=>x.pos==='QB');
