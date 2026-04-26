@@ -5032,11 +5032,11 @@ function tv2Analyze(){
   } else {
     verdict.classList.add(aWins?'side-a':'side-b');
     winner.style.color=aWins?'#4fc3f7':'#E67E22';
-    winner.textContent='TEAM '+(aWins?'B WINS':'A WINS');
+    winner.textContent='TEAM '+(aWins?'A WINS':'B WINS');
     const loser=aWins?'B':'A';
     const edge=delta<.12?'slight edge':delta<.25?'clear winner':'dominant winner';
-    winner.textContent='TEAM '+(aWins?'B':'A')+' — '+edge.toUpperCase();
-    sub.textContent=genNote(aWins?'B':'A',aWins?'A':'B');
+    winner.textContent='TEAM '+(aWins?'A':'B')+' — '+edge.toUpperCase();
+    sub.textContent=genNote(aWins?'A':'B',aWins?'B':'A');
   }
   verdict.style.display='block';
   verdict.scrollIntoView({behavior:'smooth',block:'nearest'});
