@@ -832,14 +832,14 @@ html, body {
   <div class="ta-grid">
     <div class="ta-side">
       <div class="ta-side-title">🔵 Team A Gives</div>
-      <input class="ta-search" id="taSearchA" placeholder="Search player or pick..." oninput="taSearch('A')" onfocus="taShowSug('A')" onblur="setTimeout(()=>taHideSug('A'),200)" autocomplete="off">
+      <input class="ta-search" id="taSearchA" placeholder="Search player or pick..." oninput="taSearch('A')" onfocus="taShowSug('A')" onblur="setTimeout(()=>taHideSug('A'),500)" autocomplete="off">
       <div class="ta-suggestions" id="taSugA"></div>
       <div class="ta-assets" id="taAssetsA"></div>
       <div class="ta-total"><span class="ta-total-label">Total Value</span><span class="ta-total-val" id="taTotalA">0</span></div>
     </div>
     <div class="ta-side">
       <div class="ta-side-title">🔴 Team B Gives</div>
-      <input class="ta-search" id="taSearchB" placeholder="Search player or pick..." oninput="taSearch('B')" onfocus="taShowSug('B')" onblur="setTimeout(()=>taHideSug('B'),200)" autocomplete="off">
+      <input class="ta-search" id="taSearchB" placeholder="Search player or pick..." oninput="taSearch('B')" onfocus="taShowSug('B')" onblur="setTimeout(()=>taHideSug('B'),500)" autocomplete="off">
       <div class="ta-suggestions" id="taSugB"></div>
       <div class="ta-assets" id="taAssetsB"></div>
       <div class="ta-total"><span class="ta-total-label">Total Value</span><span class="ta-total-val" id="taTotalB">0</span></div>
@@ -910,9 +910,24 @@ html, body {
   let taA=[],taB=[];
 
   function taGetAllPlayers(){
-    const players=Object.keys(TA_VALUES);
+    const seen=new Set(Object.keys(TA_VALUES));
+    const players=[...seen];
+    // Pull ALL players from every team roster
+    if(typeof TEAMS!=='undefined'){
+      Object.values(TEAMS).forEach(t=>{
+        ['QB','RB','WR','TE','IR','TAXI'].forEach(pos=>{
+          (t.roster[pos]||[]).forEach(p=>{
+            if(p.n && !seen.has(p.n)){seen.add(p.n);players.push(p.n);}
+          });
+        });
+        // Pull all picks
+        (t.picks||[]).forEach(pk=>{
+          if(!seen.has(pk)){seen.add(pk);players.push(pk);}
+        });
+      });
+    }
     if(typeof SLEEPER_IDS!=='undefined'){
-      Object.keys(SLEEPER_IDS).forEach(nm=>{if(!TA_VALUES[nm])players.push(nm);});
+      Object.keys(SLEEPER_IDS).forEach(nm=>{if(!seen.has(nm)){seen.add(nm);players.push(nm);}});
     }
     return players;
   }
@@ -950,7 +965,8 @@ html, body {
     sug.innerHTML=matches.map(p=>{
       const v=taGetValue(p);
       const pos=taGetPos(p);
-      return `<div class="ta-suggestion" onmousedown="taAdd('${side}','${p.replace(/'/g,"\\'")}',${v},'${pos}')"><span><span class="ta-pos-badge ta-pos-${pos}">${pos}</span>${p}</span><span class="sval">${v}</span></div>`;
+      const safeName=p.replace(/'/g,"\\'");
+      return `<div class="ta-suggestion" ontouchstart="event.preventDefault();taAdd('${side}','${safeName}',${v},'${pos}')" onclick="taAdd('${side}','${safeName}',${v},'${pos}')"><span><span class="ta-pos-badge ta-pos-${pos}">${pos}</span>${p}</span><span class="sval">${v}</span></div>`;
     }).join('');
     sug.style.display=matches.length?'block':'none';
   }
