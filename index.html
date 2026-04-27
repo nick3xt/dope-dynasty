@@ -4345,14 +4345,28 @@ async function buildLeagueAvatarStrip(){
   const rankMap={};
   (typeof RANKINGS!=='undefined'?RANKINGS:[]).forEach(r=>{rankMap[r.h]=r.rank;});
   const sorted=Object.entries(TEAMS).sort((a,b)=>(rankMap[a[0]]||99)-(rankMap[b[0]]||99));
+  // Build name→espnId lookup from BEST_ASSETS for headshot quality fallback
+  const espnByName={};
+  if(typeof BEST_ASSETS!=='undefined'){
+    Object.values(BEST_ASSETS).forEach(ba=>{if(ba&&ba.name)espnByName[ba.name]=ba.espnId;});
+  }
   strip.innerHTML=sorted.map(([handle,t])=>{
-    const ba=(typeof BEST_ASSETS!=='undefined')&&BEST_ASSETS[handle];
     const tc=t.color||'var(--border)';
     const initials=(t.name||'').split(' ').map(w=>w[0]||'').join('').substring(0,2).toUpperCase();
-    const imgHtml=ba
-      ?`<img src="https://a.espncdn.com/i/headshots/nfl/players/full/${ba.espnId}.png" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" onerror="this.onerror=null;this.src='https://sleepercdn.com/content/nfl/players/thumb/${ba.sleeperId}.jpg'">`
+    // Derive best asset dynamically from current roster (reflects computeCurrentRosters() trades)
+    let bestPlayer=null,bestOvr=-1;
+    ['QB','RB','WR','TE'].forEach(pos=>{
+      (t.roster&&t.roster[pos]||[]).forEach(p=>{
+        const ovr=getDynastyOVR(p.n,p.g);
+        if(ovr>bestOvr){bestOvr=ovr;bestPlayer=p;}
+      });
+    });
+    const assetName=bestPlayer?bestPlayer.n:'';
+    const espnId=bestPlayer?espnByName[bestPlayer.n]:null;
+    const sid=bestPlayer?getSleeperId(bestPlayer.n):null;
+    const imgHtml=(espnId||sid)
+      ?`<img src="${espnId?`https://a.espncdn.com/i/headshots/nfl/players/full/${espnId}.png`:`https://sleepercdn.com/content/nfl/players/thumb/${sid}.jpg`}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;" ${espnId&&sid?`onerror="this.onerror=null;this.src='https://sleepercdn.com/content/nfl/players/thumb/${sid}.jpg'"`:``}>`
       :`<span style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-family:'Bebas Neue',sans-serif;font-size:16px;color:${tc}">${initials}</span>`;
-    const assetName=ba?ba.name:'';
     return`<div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0;padding:0 10px;cursor:pointer;" onclick="showTab('teams',document.querySelector('.nb'))">
       <div style="width:48px;height:48px;border-radius:50%;border:2px solid ${tc};overflow:hidden;background:var(--bg3);">${imgHtml}</div>
       <div style="font-family:'DM Mono',monospace;font-size:7px;color:var(--muted);letter-spacing:0.5px;white-space:nowrap;max-width:58px;overflow:hidden;text-overflow:ellipsis;text-align:center">${t.name}</div>
