@@ -1017,6 +1017,41 @@ const GRADED_TRADES=[
     sB:{teamName:'LEGETTEITPOPPIN',receives:['Emeka Egbuka','Ashton Jeanty','2027 2nd Pick']},
     analysisA:'NxBosta wins this trade decisively — landing CeeDee Lamb (elite WR1), a punishing runner in Kenneth Walker, and two future picks to keep the pipeline full. At roughly 18,600 KTC versus 15,400 on the other side, that is a 3,200-point swing in their favor and a clear signal this roster is built to compete now.',
     analysisB:'Egbuka and Jeanty are legitimate young talents with dynasty ceilings worth dreaming on, but surrendering Lamb in the same deal is a steep ask. LegetteitPoppin is wagering on upside over proven production — a bold bet that will look genius or regrettable depending on how fast the youth arrives.'
+  },
+  {
+    num:14,date:'Apr 27, 2026',
+    sA:{teamName:'VIKITA',receives:['2026 4th Round Pick']},
+    sB:{teamName:'ROHO',receives:["Ja'Tavion Sanders"]},
+    analysisA:'VIKITA cashes in a late pick for a high-upside receiving weapon.',
+    analysisB:"ROHO sells a boom-or-bust tight end for draft capital."
+  },
+  {
+    num:15,date:'Apr 27, 2026',
+    sA:{teamName:'DRCHAMA',receives:['2026 3rd Round Pick']},
+    sB:{teamName:'LAMARIO BROS',receives:['2026 4th Round Pick','2026 3rd Round Pick']},
+    analysisA:'DRCHAMA consolidates future capital with a single mid-round chip.',
+    analysisB:"LAMARIO BROS upgrades their pick slot without giving up roster value."
+  },
+  {
+    num:16,date:'Apr 27, 2026',
+    sA:{teamName:'YARAKABI',receives:['DeMario Douglas']},
+    sB:{teamName:'ROHO',receives:['2026 4th Round Pick']},
+    analysisA:'YARAKABI adds a gadget receiver for depth at minimal cost.',
+    analysisB:"ROHO flips a depth piece for a 2026 pick to replenish their war chest."
+  },
+  {
+    num:17,date:'Apr 27, 2026',
+    sA:{teamName:'CKHOSHOR',receives:['Elic Ayomanor']},
+    sB:{teamName:'ROHO',receives:['2026 4th Round Pick']},
+    analysisA:'CKHOSHOR lands a high-upside rookie WR for a late-round pick.',
+    analysisB:"ROHO converts a roster spot into draft capital."
+  },
+  {
+    num:18,date:'Apr 27, 2026',
+    sA:{teamName:'DRCHAMA',receives:['2028 1st Round Pick']},
+    sB:{teamName:'YARAKABI',receives:['2026 1st Round Pick']},
+    analysisA:'DRCHAMA sells now — mortgaging the future for an immediate window.',
+    analysisB:"YARAKABI acquires premium future capital by giving up a near-term first."
   }
 ];
 const STATIC_FEED=[
@@ -1696,7 +1731,7 @@ try{auditPickSyncVsGradedTrades();}catch(e){console.warn('[pick-sync] audit fail
 // Baseline rosters in TEAMS reflect state after all trades up to #13.
 // Any trades added to GRADED_TRADES with num > ROSTER_BASELINE_TRADE_NUM
 // will be automatically applied to rosters on page load.
-const ROSTER_BASELINE_TRADE_NUM = 13;
+const ROSTER_BASELINE_TRADE_NUM = 18;
 
 const TEAM_DISPLAY_TO_KEY = {
   'NXBOSTA': 'Nxbosta',
@@ -2580,7 +2615,7 @@ async function loadLiveTradeLog(){
   tl.innerHTML=renderGradedTrades();
   // In background, check Sleeper for any NEW trades beyond our static data
   try{
-    const latestTs=1776629401434; // status_updated of trade #9 (Apr 5 2026) — skip known trades
+    const latestTs=1777420800000; // status_updated through Apr 28 2026 — skip known trades 1-18
     const [txResults,usersRes,rostersRes]=await Promise.all([
       Promise.allSettled([0,1,2,3,4,5,6,7,8].map(w=>fetch(`https://api.sleeper.app/v1/league/${SLEEPER_LEAGUE_ID}/transactions/${w}`).then(r=>r.json()))),
       fetch(`https://api.sleeper.app/v1/league/${SLEEPER_LEAGUE_ID}/users`),
