@@ -1599,6 +1599,20 @@ const GRADED_TRADES=[
     sB:{teamName:'LAMARIO BROS',receives:['2026 4th Round Pick (4.10)']},
     analysisA:'CKHOSHOR adds a developmental JAX back. Upside is capped in a crowded backfield, but the price was right.',
     analysisB:'LAMARIO BROS converts RB depth into a 2026 4th — clean cap management heading into draft weekend.'
+  },
+  {
+    num:21,date:'Apr 29, 2026',
+    sA:{teamName:'VIKITA',receives:["2026 4th Round Pick (Rd 4.06, via davidshah)"]},
+    sB:{teamName:'LEGION OF BOOM',receives:["Ja'Tavion Sanders (TE, CAR)"]},
+    analysisA:"VIKITA nets a 2026 4th with a clean slot — pure capital conversion heading into the draft.",
+    analysisB:"LEGION OF BOOM moves a depth TE for a live pick to replenish the war chest."
+  },
+  {
+    num:22,date:'Apr 29, 2026',
+    sA:{teamName:'LAMARIO BROS',receives:["2026 4th Round Pick (Rd 4.04, via DrChama)","2026 3rd Round Pick (Rd 3.08)"]},
+    sB:{teamName:'DRCHAMA',receives:["2026 3rd Round Pick (Rd 3.07, via LeGetteItPoppin)"]},
+    analysisA:"LAMARIO BROS acquires two picks for one — netting a 3rd and a 4th by surrendering a single 3rd. Clear capital gain.",
+    analysisB:"DrChama consolidates into one 3rd-round slot, simplifying the board at the cost of net pick volume."
   }
 ];
 const STATIC_FEED=[
@@ -2278,7 +2292,7 @@ try{auditPickSyncVsGradedTrades();}catch(e){console.warn('[pick-sync] audit fail
 // Baseline rosters in TEAMS reflect state after all trades up to #13.
 // Any trades added to GRADED_TRADES with num > ROSTER_BASELINE_TRADE_NUM
 // will be automatically applied to rosters on page load.
-const ROSTER_BASELINE_TRADE_NUM = 20;
+const ROSTER_BASELINE_TRADE_NUM = 22;
 
 const TEAM_DISPLAY_TO_KEY = {
   'NXBOSTA': 'Nxbosta',
@@ -5945,81 +5959,6 @@ tv2Render('A');tv2Render('B');
 </ul>
 </div>
 
-
-<div class="lore-chapter">
-<h2>Trade Log — 2026 Offseason (Confirmed)</h2>
-
-<div class="gtrade-card" style="margin-bottom:16px;">
-  <div style="padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;">
-    <span style="font-size:.7rem;color:var(--muted);font-family:monospace;">TRADE #19</span>
-    <span style="font-size:.75rem;font-weight:700;color:var(--accent);">NXBOSTA ↔ DRCHAMA</span>
-  </div>
-  <div style="padding:12px 16px;display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:.8rem;">
-    <div>
-      <div style="color:var(--green);font-size:.65rem;font-weight:700;letter-spacing:.08em;margin-bottom:6px;">NXBOSTA RECEIVES</div>
-      <div style="color:var(--text);">Travis Kelce · TE · KC</div>
-    </div>
-    <div>
-      <div style="color:#E74C3C;font-size:.65rem;font-weight:700;letter-spacing:.08em;margin-bottom:6px;">NXBOSTA SENDS</div>
-      <div style="color:var(--text);">Jalen Noel · WR · HOU</div>
-      <div style="color:var(--muted);font-size:.75em;margin-top:2px;">+ 2028 4th Round Pick</div>
-    </div>
-  </div>
-</div>
-
-<div class="gtrade-card" style="margin-bottom:16px;">
-  <div style="padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;">
-    <span style="font-size:.7rem;color:var(--muted);font-family:monospace;">TRADE #20</span>
-    <span style="font-size:.75rem;font-weight:700;color:var(--accent);">LAMARIO BROS ↔ CKHOSHOR89</span>
-  </div>
-  <div style="padding:12px 16px;display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:.8rem;">
-    <div>
-      <div style="color:var(--green);font-size:.65rem;font-weight:700;letter-spacing:.08em;margin-bottom:6px;">CKHOSHOR89 RECEIVES</div>
-      <div style="color:var(--text);">LeQuint Allen · RB · JAX</div>
-    </div>
-    <div>
-      <div style="color:#E74C3C;font-size:.65rem;font-weight:700;letter-spacing:.08em;margin-bottom:6px;">LAMARIO BROS RECEIVES</div>
-      <div style="color:var(--muted);font-size:.75em;margin-top:2px;">2026 4th Round Pick (4.10)</div>
-    </div>
-  </div>
-</div>
-
-<div class="gtrade-card" style="margin-bottom:16px;">
-  <div style="padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;">
-    <span style="font-size:.7rem;color:var(--muted);font-family:monospace;">TRADE #21</span>
-    <span style="font-size:.75rem;font-weight:700;color:var(--accent);">VIKITA ↔ ROHO</span>
-  </div>
-  <div style="padding:12px 16px;display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:.8rem;">
-    <div>
-      <div style="color:var(--green);font-size:.65rem;font-weight:700;letter-spacing:.08em;margin-bottom:6px;">ROHO RECEIVES</div>
-      <div style="color:var(--text);">Ja'Tavion Sanders · TE · CAR</div>
-    </div>
-    <div>
-      <div style="color:#E74C3C;font-size:.65rem;font-weight:700;letter-spacing:.08em;margin-bottom:6px;">VIKITA RECEIVES</div>
-      <div style="color:var(--muted);font-size:.75em;margin-top:2px;">2026 4th Round Pick (4.06, via davidshah)</div>
-    </div>
-  </div>
-</div>
-
-<div class="gtrade-card" style="margin-bottom:16px;">
-  <div style="padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;">
-    <span style="font-size:.7rem;color:var(--muted);font-family:monospace;">TRADE #22</span>
-    <span style="font-size:.75rem;font-weight:700;color:var(--accent);">LAMARIO BROS ↔ DRCHAMA</span>
-  </div>
-  <div style="padding:12px 16px;display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:.8rem;">
-    <div>
-      <div style="color:var(--green);font-size:.65rem;font-weight:700;letter-spacing:.08em;margin-bottom:6px;">LAMARIO BROS RECEIVES</div>
-      <div style="color:var(--muted);font-size:.75em;margin-top:2px;">2026 4th Round Pick (4.04, via DrChama)</div>
-      <div style="color:var(--muted);font-size:.75em;margin-top:2px;">2026 3rd Round Pick (3.08)</div>
-    </div>
-    <div>
-      <div style="color:#E74C3C;font-size:.65rem;font-weight:700;letter-spacing:.08em;margin-bottom:6px;">DRCHAMA RECEIVES</div>
-      <div style="color:var(--muted);font-size:.75em;margin-top:2px;">2026 3rd Round Pick (3.07, via LeGetteItPoppin)</div>
-    </div>
-  </div>
-</div>
-
-</div>
 
 <p class="lore-footer">DOPE Dynasty War Room · 2026 Season Report · All takes are final. No refunds. No trades reconsidered.</p>
 </div>
