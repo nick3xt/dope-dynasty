@@ -2374,6 +2374,14 @@ const DYNASTY_OVR={
   'Christian McCaffrey':74,'RJ Harvey':74,'Jordan Addison':74,'Alec Pierce':74,'Bhayshul Tuten':74,"Wan'Dale Robinson":74,'David Montgomery':74,'Jarquez Hunter':74,'Kyle Williams':74,"D'Andre Swift":73,'Parker Washington':73,'Terry McLaurin':73,'Isaiah Likely':73,'Zach Charbonnet':73,'Romeo Doubs':73,'Michael Pittman':73,'Matthew Golden':73,'Ricky Pearsall':73,'Dalton Kincaid':73,'Tyjae Spears':72,'Christian Watson':72,'DK Metcalf':72,'Xavier Worthy':72,'Jayden Higgins':72,'Rico Dowdle':72,'Chuba Hubbard':72,'Tyler Allgeier':72,'Michael Penix':72,'Michael Penix Jr.':72,'Courtland Sutton':72,'Marvin Mims':72,'Beaux Collins':71,'J.K. Dobbins':71,'Kyle Monangai':71,'Quentin Johnston':71,'Tua Tagovailoa':71,'Jaylen Warren':71,'Blake Corum':71,'Jakobi Meyers':71,'Jayden Reed':71,'Chris Godwin':71,'Shedeur Sanders':71,'Chig Okonkwo':71,'Josh Downs':71,'Derrick Henry':70,'T.J. Hockenson':70,'Jalen McMillan':70,'Jaylen McMillan':70,'Mason Taylor':70,'Jonathon Brooks':70,'Rhamondre Stevenson':70,'Tre Harris':70,'Mark Andrews':70,'AJ Barner':70,'Jalen Coker':70,'Brandon Aiyuk':70,'Khalil Shakir':70,'Rachaad White':70,'DeMario Douglas':70,'Tez Johnson':70,'Audric Estime':70,'Evan Engram':70,'Trevor Etienne':70,
   // Below 70 — Low Depth
   'Matthew Stafford':69,'Jacory Croskey-Merritt':69,'Trey Benson':69,'Terrance Ferguson':69,'Gunnar Helm':69,'Geno Smith':69,'Justin Fields':69,'Tony Pollard':69,'Rashid Shaheed':69,'Isiah Pacheco':69,'Woody Marks':69,'Pat Bryant':69,'Braelon Allen':69,'Jerry Jeudy':69,'Dylan Sampson':69,'Brian Robinson':69,'Kaleb Johnson':69,'Keon Coleman':69,'Dontayvion Wicks':69,'Ollie Gordon':69,'George Kittle':68,'Davante Adams':68,'Dallas Goedert':68,'Keaton Mitchell':68,'Keaaton Mitchell':68,'Adonai Mitchell':68,'Troy Franklin':68,'Anthony Richardson':68,'Devin Neal':68,'Jaylen Wright':68,'Mike Evans':67,'Xavier Legette':67,'Darnell Mooney':67,'Isaac Guerendo':67,'Elic Ayomanor':67,'Keenan Allen':67,'DeAndre Hopkins':67,'Jonah Coleman':66,'Devaughn Vele':66,'Deebo Samuel':66,'Travis Kelce':65,'Tyreek Hill':65,'Mac Jones':65,'Kareem Hunt':65,'Raheim Sanders':64,'Alvin Kamara':64,'George Holani':64,'Austin Ekeler':64,'Ezekiel Elliott':63,'Deshaun Watson':63,'Kimani Vidal':62,'Aaron Rodgers':58,
+  // === ROOKIE/BACKUP OVR CORRECTIONS (KTC-aligned) ===
+  'Carson Beck':70,
+  'Ty Simpson':57,
+  'Kenyon Sadiq':72,
+  'Eli Raridon':56,
+  'Oscar Delp':56,
+  'Elijah Arroyo':73,
+  'Cade Klubnik':63,
 };
 
 function getDynastyOVR(name,grade){
@@ -3570,7 +3578,12 @@ async function loadLiveRosters(){
       });
       function getStatus(name,def){
         const k=name.toLowerCase().replace(/\s+/g,' ').trim();
-        return staticStatusMap[k]||def;
+        if(staticStatusMap[k])return staticStatusMap[k];
+        const fc=(typeof FC_LIVE!=='undefined'&&FC_LIVE[name])||FC_FALLBACK[name]||0;
+        if(fc>=8000)return'unt';
+        if(fc>=5500)return'star';
+        if(fc>=2800)return'trd';
+        return def;
       }
       function makePlayer(id,def){
         const name=idToName[id];
@@ -3606,15 +3619,48 @@ async function loadLiveRosters(){
     // Rebuild analytics tab with updated roster names
     const analyticsEl=document.getElementById('analyticsContent');
     if(analyticsEl){analyticsEl.dataset.loaded='';buildAnalyticsTab();analyticsEl.dataset.loaded='1';}
+    try{generateLiveDuos();}catch(e){console.warn('generateLiveDuos failed:',e);}
   }catch(e){
     const banner=document.getElementById('liveRosterBanner');
     if(banner)banner.remove();
     console.warn('Live roster load failed, using static data:',e);
-    // Still run grade computation on static data
     computeTeamGrades();
     window._tgb=false;
     try{buildTeamsGrid();}catch(e){}
   }
+}
+
+function generateLiveDuos(){
+  function stackDesc(qb,skill){return qb.n+' and '+skill.n+' share the same '+qb.nfl+' NFL offense — a natural dynasty stack that multiplies upside every week they take the field together.';}
+  function wrPairDesc(w1,w2){return w1.n+' and '+w2.n+' give this roster two legitimate WR contributors with proven target floors. Holding two premium WRs insulates against the boom-bust variance that sinks dynasty rosters.';}
+  function rbPairDesc(r1,r2){return r1.n+' and '+r2.n+' form one of the deeper RB rooms in the league — depth that weathers the inevitable attrition of a fantasy season.';}
+  function qbTeDesc(qb,te){return qb.n+' anchors the SF floor while '+te.n+' locks up the most scarce position in dynasty. Elite QB combined with genuine TE value separates contenders from pretenders.';}
+  function autoGenDuos(teamKey,presentNames){
+    const team=TEAMS[teamKey];const allPlayers=[];
+    ['QB','RB','WR','TE'].forEach(pos=>{(team.roster[pos]||[]).forEach(p=>{if(presentNames.has(p.n))allPlayers.push({...p,pos,ovr:getDynastyOVR(p.n,p.g)});});});
+    allPlayers.sort((a,b)=>b.ovr-a.ovr);
+    const duos=[];const used=new Set();
+    const qbs=allPlayers.filter(p=>p.pos==='QB');
+    const skills=allPlayers.filter(p=>p.pos!=='QB');
+    for(const qb of qbs){if(used.has(qb.n))continue;const mate=skills.find(p=>p.nfl===qb.nfl&&!used.has(p.n));if(mate){duos.push({label:qb.nfl+' STACK',type:'Stack',p1:qb.n,p1pos:'QB',p2:mate.n,p2pos:mate.pos,desc:stackDesc(qb,mate)});used.add(qb.n);used.add(mate.n);break;}}
+    const topWRs=allPlayers.filter(p=>p.pos==='WR'&&!used.has(p.n));if(topWRs.length>=2&&topWRs[0].ovr>=75){duos.push({label:'WR FIREPOWER',type:'Core Duo',p1:topWRs[0].n,p1pos:'WR',p2:topWRs[1].n,p2pos:'WR',desc:wrPairDesc(topWRs[0],topWRs[1])});used.add(topWRs[0].n);used.add(topWRs[1].n);}
+    const topRBs=allPlayers.filter(p=>p.pos==='RB'&&!used.has(p.n));if(topRBs.length>=2&&topRBs[0].ovr>=72){duos.push({label:'RB TANDEM',type:'Core Duo',p1:topRBs[0].n,p1pos:'RB',p2:topRBs[1].n,p2pos:'RB',desc:rbPairDesc(topRBs[0],topRBs[1])});}
+    if(duos.length<2){const topQB=allPlayers.find(p=>p.pos==='QB'&&!used.has(p.n));const topTE=allPlayers.find(p=>p.pos==='TE'&&!used.has(p.n)&&p.ovr>=70);if(topQB&&topTE){duos.push({label:'QB + TE ANCHOR',type:'Core Duo',p1:topQB.n,p1pos:'QB',p2:topTE.n,p2pos:'TE',desc:qbTeDesc(topQB,topTE)});}}
+    return duos.slice(0,3);
+  }
+  Object.keys(DYNASTY_DUOS).forEach(teamKey=>{
+    const team=TEAMS[teamKey];if(!team)return;
+    const presentNames=new Set();
+    ['QB','RB','WR','TE','IR','TAXI'].forEach(pos=>{(team.roster[pos]||[]).forEach(p=>{if(p.n)presentNames.add(p.n);});});
+    const existing=DYNASTY_DUOS[teamKey].duos||[];
+    const validDuos=existing.filter(d=>presentNames.has(d.p1)&&presentNames.has(d.p2));
+    if(validDuos.length===existing.length)return;
+    const needed=Math.max(0,2-validDuos.length);
+    const autoGenerated=needed>0?autoGenDuos(teamKey,presentNames).filter(d=>!validDuos.find(v=>v.p1===d.p1&&v.p2===d.p2)).slice(0,needed):[];
+    DYNASTY_DUOS[teamKey].duos=[...validDuos,...autoGenerated].slice(0,3);
+    console.log('[duos] Updated',teamKey,': kept',validDuos.length,'auto',autoGenerated.length);
+  });
+  const duosGrid=document.getElementById('duosGrid');if(duosGrid&&duosGrid.innerHTML.length>0){renderDynastyDuos();}
 }
 
 // Helper: match Sleeper display_name to TEAMS key
