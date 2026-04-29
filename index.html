@@ -1273,27 +1273,85 @@ html, body {
   <div class="sec-sub">Dynasty intel — Buy signals · Sell windows · Pick capital · Market trending</div>
 
   <div id="marketBoardContent" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:20px">
-    <!-- BUY NOW -->
+    <!-- DYNASTY RISERS -->
     <div class="war-panel">
-      <div class="war-panel-header">
+      <div class="war-panel-header" style="background:rgba(0,255,135,.08);border-bottom:1px solid rgba(0,255,135,.25);">
         <span class="war-panel-icon">🟢</span>
-        <span class="war-panel-title">BUY NOW</span>
-        <span class="war-panel-badge badge-hot">TARGETS</span>
+        <span class="war-panel-title" style="color:var(--green);">↑ DYNASTY RISERS</span>
+        <span class="war-panel-badge" style="background:rgba(0,255,135,.15);color:var(--green);border:1px solid rgba(0,255,135,.4);">BUY WINDOW</span>
       </div>
-      <div class="war-panel-body" id="buyNowList">
-        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted)">Loading market data...</div>
+      <div class="war-panel-body" id="risersPanel">
+        <div class="war-item" style="box-shadow:0 0 8px rgba(0,255,135,.18);border:1px solid rgba(0,255,135,.2);border-radius:4px;padding:10px 12px;margin-bottom:8px;background:var(--bg2);">
+          <div class="war-item-content"><div class="war-item-name" style="color:var(--green);">Travis Hunter — NXBOSTA</div><div class="war-item-note">WR/CB dual-threat at 22 — when healthy, the most valuable non-QB dynasty asset in this league</div></div>
+        </div>
+        <div class="war-item" style="box-shadow:0 0 8px rgba(0,255,135,.18);border:1px solid rgba(0,255,135,.2);border-radius:4px;padding:10px 12px;margin-bottom:8px;background:var(--bg2);">
+          <div class="war-item-content"><div class="war-item-name" style="color:var(--green);">Omarion Hampton — CKHOSHOR89</div><div class="war-item-note">Top rookie RB with LAC bell-cow upside — dynasty league-winner if he secures the full workload</div></div>
+        </div>
+        <div class="war-item" style="box-shadow:0 0 8px rgba(0,255,135,.18);border:1px solid rgba(0,255,135,.2);border-radius:4px;padding:10px 12px;margin-bottom:8px;background:var(--bg2);">
+          <div class="war-item-content"><div class="war-item-name" style="color:var(--green);">Tetairoa McMillan — GARGAR BANKS</div><div class="war-item-note">70 rec, 1,014 yds, 7 TDs as a rookie in CAR — year 2 breakout incoming at 22</div></div>
+        </div>
+        <div class="war-item" style="box-shadow:0 0 8px rgba(0,255,135,.18);border:1px solid rgba(0,255,135,.2);border-radius:4px;padding:10px 12px;margin-bottom:8px;background:var(--bg2);">
+          <div class="war-item-content"><div class="war-item-name" style="color:var(--green);">Malik Nabers — LAMARIO BROS</div><div class="war-item-note">Elite WR talent at 22 — injury-shortened 2025 suppressed value, healthy year 2 ceiling is WR1</div></div>
+        </div>
+        <div class="war-item" style="box-shadow:0 0 8px rgba(0,255,135,.18);border:1px solid rgba(0,255,135,.2);border-radius:4px;padding:10px 12px;margin-bottom:8px;background:var(--bg2);">
+          <div class="war-item-content"><div class="war-item-name" style="color:var(--green);">Emeka Egbuka — LEGETTEITPOPPIN</div><div class="war-item-note">63 rec, 938 yds, 6 TDs in year 1 with TB — ascending WR2 with WR1 ceiling by 2027</div></div>
+        </div>
+        <div class="war-item" style="box-shadow:0 0 8px rgba(0,255,135,.18);border:1px solid rgba(0,255,135,.2);border-radius:4px;padding:10px 12px;margin-bottom:8px;background:var(--bg2);">
+          <div class="war-item-content"><div class="war-item-name" style="color:var(--green);">TreVeyon Henderson — YARAKABI</div><div class="war-item-note">911 rush yds, 9 TDs in 2025 as NE RB1 — 23yo with full starting role and upside to spare</div></div>
+        </div>
+        <div class="war-item" style="box-shadow:0 0 8px rgba(0,255,135,.18);border:1px solid rgba(0,255,135,.2);border-radius:4px;padding:10px 12px;margin-bottom:8px;background:var(--bg2);">
+          <div class="war-item-content"><div class="war-item-name" style="color:var(--green);">Xavier Worthy — DRCHAMA</div><div class="war-item-note">4.21 speed + Mahomes connection = deep-ball lottery every week — buy low while everyone sleeps on him</div></div>
+        </div>
+        <div class="war-item" style="box-shadow:0 0 8px rgba(0,255,135,.18);border:1px solid rgba(0,255,135,.2);border-radius:4px;padding:10px 12px;margin-bottom:8px;background:var(--bg2);">
+          <div class="war-item-content"><div class="war-item-name" style="color:var(--green);">Bucky Irving — DAVIDSHAH</div><div class="war-item-note">TB RB1 at 23 — 820 rush yds in 2025, locked into a starting role with room to grow</div></div>
+        </div>
+        <div class="war-item" style="box-shadow:0 0 8px rgba(0,255,135,.18);border:1px solid rgba(0,255,135,.2);border-radius:4px;padding:10px 12px;margin-bottom:8px;background:var(--bg2);">
+          <div class="war-item-content"><div class="war-item-name" style="color:var(--green);">Jayden Higgins — LEGION OF BOOM</div><div class="war-item-note">41 rec, 525 yds, 6 TDs as a rookie in HOU — elite size-speed WR with year-2 leap incoming</div></div>
+        </div>
+        <div class="war-item" style="box-shadow:0 0 8px rgba(0,255,135,.18);border:1px solid rgba(0,255,135,.2);border-radius:4px;padding:10px 12px;margin-bottom:8px;background:var(--bg2);">
+          <div class="war-item-content"><div class="war-item-name" style="color:var(--green);">Marvin Harrison Jr. — VIKITA</div><div class="war-item-note">23yo ARI WR1 with generational pedigree — KTC top-10 asset, value only goes up from here</div></div>
+        </div>
       </div>
     </div>
 
-    <!-- SELL NOW -->
+    <!-- DYNASTY FALLERS -->
     <div class="war-panel">
-      <div class="war-panel-header">
+      <div class="war-panel-header" style="background:rgba(192,57,43,.08);border-bottom:1px solid rgba(192,57,43,.25);">
         <span class="war-panel-icon">🔴</span>
-        <span class="war-panel-title">SELL NOW — HIGH VALUE TARGETS</span>
-        <span class="war-panel-badge badge-watch">EXIT WINDOW</span>
+        <span class="war-panel-title" style="color:#E74C3C;">↓ DYNASTY FALLERS</span>
+        <span class="war-panel-badge" style="background:rgba(192,57,43,.15);color:#E74C3C;border:1px solid rgba(192,57,43,.4);">EXIT WINDOW</span>
       </div>
-      <div class="war-panel-body" id="sellNowList">
-        <div style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted)">Loading sell signals...</div>
+      <div class="war-panel-body" id="fallersPanel">
+        <div class="war-item" style="box-shadow:0 0 8px rgba(192,57,43,.2);border:1px solid rgba(192,57,43,.22);border-radius:4px;padding:10px 12px;margin-bottom:8px;background:var(--bg2);">
+          <div class="war-item-content"><div class="war-item-name" style="color:#E74C3C;">Travis Kelce — NXBOSTA</div><div class="war-item-note">36yo TE acquired via trade — floor production only, no dynasty future here</div></div>
+        </div>
+        <div class="war-item" style="box-shadow:0 0 8px rgba(192,57,43,.2);border:1px solid rgba(192,57,43,.22);border-radius:4px;padding:10px 12px;margin-bottom:8px;background:var(--bg2);">
+          <div class="war-item-content"><div class="war-item-name" style="color:#E74C3C;">LeQuint Allen — CKHOSHOR89</div><div class="war-item-note">Acquired via trade from LAMARIO BROS — JAX depth back with no clear path to featured role</div></div>
+        </div>
+        <div class="war-item" style="box-shadow:0 0 8px rgba(192,57,43,.2);border:1px solid rgba(192,57,43,.22);border-radius:4px;padding:10px 12px;margin-bottom:8px;background:var(--bg2);">
+          <div class="war-item-content"><div class="war-item-name" style="color:#E74C3C;">T.J. Hockenson — DRCHAMA</div><div class="war-item-note">Back from ACL twice now — MIN target share fading with age and competition</div></div>
+        </div>
+        <div class="war-item" style="box-shadow:0 0 8px rgba(192,57,43,.2);border:1px solid rgba(192,57,43,.22);border-radius:4px;padding:10px 12px;margin-bottom:8px;background:var(--bg2);">
+          <div class="war-item-content"><div class="war-item-name" style="color:#E74C3C;">Josh Jacobs — VIKITA</div><div class="war-item-note">28yo GB committee back — aging curve hits fast at RB, sell while the floor holds</div></div>
+        </div>
+        <div class="war-item" style="box-shadow:0 0 8px rgba(192,57,43,.2);border:1px solid rgba(192,57,43,.22);border-radius:4px;padding:10px 12px;margin-bottom:8px;background:var(--bg2);">
+          <div class="war-item-content"><div class="war-item-name" style="color:#E74C3C;">Mark Andrews — LAMARIO BROS</div><div class="war-item-note">30yo elite TE — high floor now but the dynasty clock is ticking, window is 1-2 years max</div></div>
+        </div>
+        <div class="war-item" style="box-shadow:0 0 8px rgba(192,57,43,.2);border:1px solid rgba(192,57,43,.22);border-radius:4px;padding:10px 12px;margin-bottom:8px;background:var(--bg2);">
+          <div class="war-item-content"><div class="war-item-name" style="color:#E74C3C;">Saquon Barkley — YARAKABI</div><div class="war-item-note">Elite floor at 28 but not a long-term dynasty hold — PHI usage will decline with age</div></div>
+        </div>
+        <div class="war-item" style="box-shadow:0 0 8px rgba(192,57,43,.2);border:1px solid rgba(192,57,43,.22);border-radius:4px;padding:10px 12px;margin-bottom:8px;background:var(--bg2);">
+          <div class="war-item-content"><div class="war-item-name" style="color:#E74C3C;">Christian McCaffrey — DAVIDSHAH</div><div class="war-item-note">30yo SF RB — injury history and age make him a sell-high candidate despite elite 2025 numbers</div></div>
+        </div>
+        <div class="war-item" style="box-shadow:0 0 8px rgba(192,57,43,.2);border:1px solid rgba(192,57,43,.22);border-radius:4px;padding:10px 12px;margin-bottom:8px;background:var(--bg2);">
+          <div class="war-item-content"><div class="war-item-name" style="color:#E74C3C;">A.J. Brown — LEGETTEITPOPPIN</div><div class="war-item-note">28yo with injury history — missed games in 2025, dynasty window narrowing despite elite talent</div></div>
+        </div>
+        <div class="war-item" style="box-shadow:0 0 8px rgba(192,57,43,.2);border:1px solid rgba(192,57,43,.22);border-radius:4px;padding:10px 12px;margin-bottom:8px;background:var(--bg2);">
+          <div class="war-item-content"><div class="war-item-name" style="color:#E74C3C;">Cam Ward — LEGION OF BOOM</div><div class="war-item-note">TEN QB1 at 24 — developmental ceiling with inconsistent 2025, not a locked-in SF anchor yet</div></div>
+        </div>
+        <div class="war-item" style="box-shadow:0 0 8px rgba(192,57,43,.2);border:1px solid rgba(192,57,43,.22);border-radius:4px;padding:10px 12px;margin-bottom:8px;background:var(--bg2);">
+          <div class="war-item-content"><div class="war-item-name" style="color:#E74C3C;">Jaylen Waddle — GARGAR BANKS</div><div class="war-item-note">Moved to DEN, supporting cast concern — target share and usage at risk in new scheme</div></div>
+        </div>
       </div>
     </div>
 
@@ -1494,15 +1552,15 @@ const GRADED_TRADES=[
   },
   {
     num:14,date:'Apr 27, 2026',
-    sA:{teamName:'VIKITA',receives:['2026 4th Round Pick']},
-    sB:{teamName:'ROHO',receives:["Ja'Tavion Sanders"]},
+    sA:{teamName:'VIKITA',receives:["2026 4th Round Pick (4.06, via davidshah)"]},
+    sB:{teamName:'ROHO',receives:["Ja'Tavion Sanders (TE, CAR)"]},
     analysisA:'VIKITA cashes in a late pick for a high-upside receiving weapon.',
     analysisB:"ROHO sells a boom-or-bust tight end for draft capital."
   },
   {
     num:15,date:'Apr 27, 2026',
-    sA:{teamName:'DRCHAMA',receives:['2026 3rd Round Pick']},
-    sB:{teamName:'LAMARIO BROS',receives:['2026 4th Round Pick','2026 3rd Round Pick']},
+    sA:{teamName:'DRCHAMA',receives:['2026 3rd Round Pick (3.08)']},
+    sB:{teamName:'LAMARIO BROS',receives:['2026 4th Round Pick (4.04, via DrChama)','2026 3rd Round Pick (3.07, via LeGetteItPoppin)']},
     analysisA:'DRCHAMA consolidates future capital with a single mid-round chip.',
     analysisB:"LAMARIO BROS upgrades their pick slot without giving up roster value."
   },
@@ -1526,6 +1584,21 @@ const GRADED_TRADES=[
     sB:{teamName:'YARAKABI',receives:['2026 1st Round Pick']},
     analysisA:'DRCHAMA sells now — mortgaging the future for an immediate window.',
     analysisB:"YARAKABI acquires premium future capital by giving up a near-term first."
+  }
+,
+  {
+    num:19,date:'Apr 29, 2026',
+    sA:{teamName:'NXBOSTA',receives:['Travis Kelce (TE, KC)']},
+    sB:{teamName:'DRCHAMA',receives:['Jaylin Noel (WR, HOU)','2028 4th Round Pick']},
+    analysisA:'NXBOSTA adds Kelce for short-term TE depth. At 36 the dynasty value is limited, but the name still prints points in KC.',
+    analysisB:'DrChama picks up Noel as a young WR asset plus a 2028 4th — adding youth and capital to an active rebuild.'
+  },
+  {
+    num:20,date:'Apr 29, 2026',
+    sA:{teamName:'CKHOSHOR',receives:['LeQuint Allen (RB, JAX)']},
+    sB:{teamName:'LAMARIO BROS',receives:['2026 4th Round Pick (4.10)']},
+    analysisA:'CKHOSHOR adds a developmental JAX back. Upside is capped in a crowded backfield, but the price was right.',
+    analysisB:'LAMARIO BROS converts RB depth into a 2026 4th — clean cap management heading into draft weekend.'
   }
 ];
 const STATIC_FEED=[
@@ -1612,7 +1685,7 @@ async function fetchSleeperUserAvatars(){
 const AGE_PRIME={QB:{young:[0,25],prime:[26,33],aging:[34,36],vet:[37,99]},RB:{young:[0,22],prime:[23,26],aging:[27,28],vet:[29,99]},WR:{young:[0,22],prime:[23,27],aging:[28,30],vet:[31,99]},TE:{young:[0,23],prime:[24,28],aging:[29,31],vet:[32,99]}};
 function getAgeClass(age,pos){const t=AGE_PRIME[pos]||AGE_PRIME.WR;if(age<=t.young[1])return'age-young';if(age<=t.prime[1])return'age-prime';if(age<=t.aging[1])return'age-aging';return'age-old';}
 
-const AGES={'Lamar Jackson':29,'Trevor Lawrence':27,'Daniel Jones':29,'Joe Flacco':41,'Tyson Bagent':26,'Jahmyr Gibbs':23,"De'Von Achane":23,'Travis Etienne':25,'Tank Bigsby':24,'Jaylen Wright':23,'Kenneth Gainwell':25,'Travis Hunter':22,'Tee Higgins':27,'Jameson Williams':24,'Mike Evans':32,'DJ Moore':28,'Michael Pittman Jr.':27,'Jakobi Meyers':28,'Ricky Pearsall':23,'Chris Godwin':30,'Romeo Wicks':24,'Velus Jones Jr.':28,'Tyquan Thornton':26,'Mark Andrews':30,'Dalton Kincaid':25,'Dawson Knox':28,'Cole Kmet':26,'Jonnu Smith':30,'Cam Skattebo':23,'Joe Mixon':29,'James Conner':29,'Bo Nix':26,'Baker Mayfield':31,'Tua Tagovailoa':28,'Gardner Minshew':30,'Teddy Bridgewater':34,'Jonathan Taylor':27,'C. McCaffrey':30,'James Cook':26,'Bucky Irving':23,'Chuba Hubbard':27,'Tyrone Tracy':25,'Kyle Monangai':23,'Amon-Ra St. Brown':26,'Justin Jefferson':27,'Rashee Rice':25,'Brian Thomas Jr.':23,'Rome Odunze':23,'Troy Franklin':23,'Ryan Flournoy':24,'Colston Loveland':22,'Juwan Johnson':28,'Jack Bech':23,'Xavier Restrepo':23,'Isaiah Neyor':24,'Jalen Hurts':27,'Brock Purdy':26,'Mac Jones':27,'Andy Dalton':38,'Matthew Stafford':38,'Kyren Williams':25,'Chase Brown':25,'Kenneth Walker III':25,'CeeDee Lamb':27,'DeVonta Smith':28,'A.J. Brown':28,'Sam LaPorta':25,'Josh Allen':30,'Dak Prescott':33,'Aaron Rodgers':42,'Sam Darnold':29,'Josh Jacobs':28,'Bhayshul Tuten':23,'Quinshon Judkins':23,'Chris Olave':26,'Zay Flowers':25,'Marvin Harrison Jr.':23,'Harold Fannin Jr.':23,'George Kittle':32,'Jayden Daniels':25,'Kyler Murray':28,'Shedeur Sanders':23,'Marcus Mariota':32,'Deshaun Watson':30,'Woody Marks':24,'Rachaad White':27,'Kaleb Johnson':22,'Audric Estime':24,'Ollie Gordon':23,'Raheim Sanders':24,'Roschon Johnson':24,'Kalel Mullings':23,'Luther Burden III':23,'Jaylen Waddle':28,'Tetairoa McMillan':22,'Jalen McMillan':24,'Keon Coleman':24,'Matthew Golden':23,'Christian Watson':26,'Kayshon Boutte':25,'Kyle Williams':23,'Jahan Dotson':25,'Joshua Palmer':28,'Brock Bowers':23,'Justin Herbert':28,'J.J. McCarthy':23,'Jacoby Brissett':34,'C.J. Stroud':25,'Ashton Jeanty':22,'Javonte Williams':26,'David Montgomery':29,'Najee Harris':27,'Jordan Mason':26,'Malik Nabers':22,'Ladd McConkey':24,'Emeka Egbuka':23,'Tyler Warren':23,'Cade Stover':26,'Elijah Arroyo':24,'Noah Fant':28,'Cade Otton':26,'Riley Leonard':22,'DJ Giddens':23,'Cam Ward':24,'Bryce Young':24,'Michael Penix Jr.':26,'Joe Milton III':24,'Malik Willis':26,'Bijan Robinson':24,'Breece Hall':25,'Josh Downs':25,'Drake London':25,'Jayden Higgins':23,'Quentin Johnston':24,'AJ Barner':24,'Isaiah Likely':26,'Caleb Williams':23,'Joe Burrow':29,'Spencer Rattler':26,'Jalen Milroe':23,'Saquon Barkley':28,'Alec Pierce':27,'Jalen Coker':23,'JaMarr Chase':25,'Nico Collins':27,'Tucker Kraft':25,'Tai Felton':23,'Arian Smith':24,'Patrick Mahomes':31,'Justin Fields':27,'Tyler Allgeier':25,'Kimani Vidal':24,'Garrett Wilson':25,'Calvin Ridley':30,'T.J. Hockenson':28,'Jared Wiley':24,'Tyler Shough':26,'Jaxson Dart':23,'Drake Maye':23,'J.K. Dobbins':28,'Jonathon Brooks':23,'Devin Singletary':29,'Aaron Jones':32,'Kendre Miller':24,'Jerry Jeudy':27,'Jordan Love':27,'Braelon Allen':22,'Blake Corum':24,'Trey Benson':24,'MarShawn Lloyd':23,'Jayden Reed':24,'Isaiah Bond':22,'Jared Goff':31,'Derrick Henry':32,'Courtland Sutton':30,'Xavier Worthy':23,'Keenan Allen':33,'Travis Kelce':36,'DK Metcalf':32,'Davante Adams':33,'Darnell Mooney':27,'Jordan Addison':24,'Omarion Hampton':22,'RJ Harvey':23,'Puka Nacua':25,'Jaxon Smith-Njigba':23,'George Pickens':24,'Terry McLaurin':30,'Trey McBride':26,'Mason Taylor':23,'Quinn Ewers':22,'Will Howard':23,'LeQuint Allen':23,'Damien Martinez':23,'Chris Rodriguez':23,'Parker Washington':24,'Sean Tucker':25,'Jerome Ford':24,'Cedric Tillman':23,'Dontayvion Wicks':24,'Noah Gray':27,'Damien Harris':28,'Erick All':24,'Geno Smith':34,'R. Stevenson':28,'Anthony Richardson':23,'Tyjae Spears':23,'Kimani Vidal':24,'D.J. Turner':24,'Velus Jones':28,'Malachi Corley':23,"Wan'Dale Robinson":24,'Rashod Bateman':25,'Brandon Aiyuk':27,'Deebo Samuel':29,'Elijah Mitchell':27,'Darius Slayton':28,"Wan'dale Robinson":24,'Keon Hatcher':23,'Jonathon Brooks':23,'Tank Dell':26,'Joshua Dobbs':30,'Zach Charbonnet':24,'Jaylen Warren':25,'Chig Okonkwo':26,'Michael Wilson':25,'KJ Hamler':26,'Beaux Collins':22,'Brian Robinson':27,'Christian McCaffrey':29,'D. Washington':25,'DeMario Douglas':26,'Devaughn Vele':24,'Devin Neal':23,'Donovan Edwards':23,'Elic Ayomanor':22,'Emari Demercado':26,'Evan Engram':31,'Gage Larvadain':25,'George Holani':25,'Isaac Guerendo':24,'Isiah Pacheco':27,'Jarquez Hunter':23,'Jeremy McNichols':30,'Kameron Johnson':24,'Kareem Hunt':30,'Keaaton Mitchell':23,'Khalil Shakir':25,'Kyle Pitts':25,'Marvin Mims':24,'Mitchell Evans':23,'Patrick Taylor':28,'Rhamondre Stevenson':28,'Romeo Doubs':25,'Tez Johnson':23,'Trevor Etienne':23,'Trevyon Henderson':23,'Ty Johnson':28,'Tyler Badie':26,'Tyreek Hill':32,'Xavier Legette':24};
+const AGES={'Lamar Jackson':29,'Trevor Lawrence':27,'Daniel Jones':29,'Joe Flacco':41,'Tyson Bagent':26,'Jahmyr Gibbs':24,"De'Von Achane":23,'Travis Etienne':25,'Tank Bigsby':24,'Jaylen Wright':23,'Kenneth Gainwell':25,'Travis Hunter':22,'Tee Higgins':27,'Jameson Williams':24,'Mike Evans':32,'DJ Moore':28,'Michael Pittman Jr.':27,'Jakobi Meyers':28,'Ricky Pearsall':23,'Chris Godwin':30,'Romeo Wicks':24,'Velus Jones Jr.':28,'Tyquan Thornton':26,'Mark Andrews':30,'Dalton Kincaid':25,'Dawson Knox':28,'Cole Kmet':26,'Jonnu Smith':30,'Cam Skattebo':23,'Joe Mixon':29,'James Conner':29,'Bo Nix':26,'Baker Mayfield':31,'Tua Tagovailoa':28,'Gardner Minshew':30,'Teddy Bridgewater':34,'Jonathan Taylor':27,'C. McCaffrey':30,'James Cook':26,'Bucky Irving':23,'Chuba Hubbard':27,'Tyrone Tracy':25,'Kyle Monangai':23,'Amon-Ra St. Brown':26,'Justin Jefferson':27,'Rashee Rice':25,'Brian Thomas Jr.':23,'Rome Odunze':23,'Troy Franklin':23,'Ryan Flournoy':24,'Colston Loveland':22,'Juwan Johnson':28,'Jack Bech':23,'Xavier Restrepo':23,'Isaiah Neyor':24,'Jalen Hurts':27,'Brock Purdy':26,'Mac Jones':27,'Andy Dalton':38,'Matthew Stafford':38,'Kyren Williams':25,'Chase Brown':25,'Kenneth Walker III':25,'CeeDee Lamb':27,'DeVonta Smith':28,'A.J. Brown':28,'Sam LaPorta':25,'Josh Allen':29,'Dak Prescott':33,'Aaron Rodgers':42,'Sam Darnold':29,'Josh Jacobs':28,'Bhayshul Tuten':23,'Quinshon Judkins':23,'Chris Olave':26,'Zay Flowers':25,'Marvin Harrison Jr.':23,'Harold Fannin Jr.':23,'George Kittle':32,'Jayden Daniels':25,'Kyler Murray':28,'Shedeur Sanders':23,'Marcus Mariota':32,'Deshaun Watson':30,'Woody Marks':24,'Rachaad White':27,'Kaleb Johnson':22,'Audric Estime':24,'Ollie Gordon':23,'Raheim Sanders':24,'Roschon Johnson':24,'Kalel Mullings':23,'Luther Burden III':23,'Jaylen Waddle':28,'Tetairoa McMillan':22,'Jalen McMillan':24,'Keon Coleman':24,'Matthew Golden':23,'Christian Watson':26,'Kayshon Boutte':25,'Kyle Williams':23,'Jahan Dotson':25,'Joshua Palmer':28,'Brock Bowers':23,'Justin Herbert':28,'J.J. McCarthy':23,'Jacoby Brissett':34,'C.J. Stroud':25,'Ashton Jeanty':22,'Javonte Williams':26,'David Montgomery':29,'Najee Harris':27,'Jordan Mason':26,'Malik Nabers':22,'Ladd McConkey':24,'Emeka Egbuka':23,'Tyler Warren':23,'Cade Stover':26,'Elijah Arroyo':24,'Noah Fant':28,'Cade Otton':26,'Riley Leonard':22,'DJ Giddens':23,'Cam Ward':24,'Bryce Young':24,'Michael Penix Jr.':26,'Joe Milton III':24,'Malik Willis':26,'Bijan Robinson':24,'Breece Hall':25,'Josh Downs':25,'Drake London':25,'Jayden Higgins':23,'Quentin Johnston':24,'AJ Barner':24,'Isaiah Likely':26,'Caleb Williams':23,'Joe Burrow':29,'Spencer Rattler':26,'Jalen Milroe':23,'Saquon Barkley':28,'Alec Pierce':27,'Jalen Coker':23,'JaMarr Chase':25,'Nico Collins':27,'Tucker Kraft':25,'Tai Felton':23,'Arian Smith':24,'Patrick Mahomes':31,'Justin Fields':27,'Tyler Allgeier':25,'Kimani Vidal':24,'Garrett Wilson':25,'Calvin Ridley':30,'T.J. Hockenson':28,'Jared Wiley':24,'Tyler Shough':26,'Jaxson Dart':23,'Drake Maye':23,'J.K. Dobbins':28,'Jonathon Brooks':23,'Devin Singletary':29,'Aaron Jones':32,'Kendre Miller':24,'Jerry Jeudy':27,'Jordan Love':27,'Braelon Allen':22,'Blake Corum':24,'Trey Benson':24,'MarShawn Lloyd':23,'Jayden Reed':24,'Isaiah Bond':22,'Jared Goff':31,'Derrick Henry':32,'Courtland Sutton':30,'Xavier Worthy':23,'Keenan Allen':33,'Travis Kelce':36,'DK Metcalf':32,'Davante Adams':33,'Darnell Mooney':27,'Jordan Addison':24,'Omarion Hampton':22,'RJ Harvey':23,'Puka Nacua':24,'Jaxon Smith-Njigba':23,'George Pickens':24,'Terry McLaurin':30,'Trey McBride':26,'Mason Taylor':23,'Quinn Ewers':22,'Will Howard':23,'LeQuint Allen':23,'Damien Martinez':23,'Chris Rodriguez':23,'Parker Washington':24,'Sean Tucker':25,'Jerome Ford':24,'Cedric Tillman':23,'Dontayvion Wicks':24,'Noah Gray':27,'Damien Harris':28,'Erick All':24,'Geno Smith':34,'R. Stevenson':28,'Anthony Richardson':23,'Tyjae Spears':23,'Kimani Vidal':24,'D.J. Turner':24,'Velus Jones':28,'Malachi Corley':23,"Wan'Dale Robinson":24,'Rashod Bateman':25,'Brandon Aiyuk':27,'Deebo Samuel':29,'Elijah Mitchell':27,'Darius Slayton':28,"Wan'dale Robinson":24,'Keon Hatcher':23,'Jonathon Brooks':23,'Tank Dell':26,'Joshua Dobbs':30,'Zach Charbonnet':24,'Jaylen Warren':25,'Chig Okonkwo':26,'Michael Wilson':25,'KJ Hamler':26,'Beaux Collins':22,'Brian Robinson':27,'Christian McCaffrey':29,'D. Washington':25,'DeMario Douglas':26,'Devaughn Vele':24,'Devin Neal':23,'Donovan Edwards':23,'Elic Ayomanor':22,'Emari Demercado':26,'Evan Engram':31,'Gage Larvadain':25,'George Holani':25,'Isaac Guerendo':24,'Isiah Pacheco':27,'Jarquez Hunter':23,'Jeremy McNichols':30,'Kameron Johnson':24,'Kareem Hunt':30,'Keaaton Mitchell':23,'Khalil Shakir':25,'Kyle Pitts':25,'Marvin Mims':24,'Mitchell Evans':23,'Patrick Taylor':28,'Rhamondre Stevenson':28,'Romeo Doubs':25,'Tez Johnson':23,'Trevor Etienne':23,'Trevyon Henderson':23,'Ty Johnson':28,'Tyler Badie':26,'Tyreek Hill':32,'Xavier Legette':24};
 
 // ==== V25 GRADING: AGE CURVES + POSITIONAL SCARCITY + AI WRITEUPS ====
 // (A) Age multipliers — applied to KTC/consensus value
@@ -2205,7 +2278,7 @@ try{auditPickSyncVsGradedTrades();}catch(e){console.warn('[pick-sync] audit fail
 // Baseline rosters in TEAMS reflect state after all trades up to #13.
 // Any trades added to GRADED_TRADES with num > ROSTER_BASELINE_TRADE_NUM
 // will be automatically applied to rosters on page load.
-const ROSTER_BASELINE_TRADE_NUM = 18;
+const ROSTER_BASELINE_TRADE_NUM = 20;
 
 const TEAM_DISPLAY_TO_KEY = {
   'NXBOSTA': 'Nxbosta',
@@ -5870,6 +5943,82 @@ tv2Render('A');tv2Render('B');
 <li><strong>CKHOSHOR89 — C</strong> · Smart asset management in a messy situation. Omar Cooper at 2.01 was the kind of value pick that ages well — a WR with legitimate upside drafted at a price that fits the rebuild timeline. Jaxon Smith-Njigba flashes. The vision is coming into focus. Get the pieces moving in the same direction and this roster becomes dangerous.</li>
 <li><strong>DRCHAMA — D</strong> · 💣 TEARDOWN. The draft picks are top-heavy and the overall roster has not kept pace. Ty Simpson is a moonshot and moonshots sometimes land, but the surrounding talent is too thin to hide it if he doesn't. The 2027 first acquired from CKHOSHOR is the most valuable asset on this roster right now. The rebuild starts here — or it should.</li>
 </ul>
+</div>
+
+
+<div class="lore-chapter">
+<h2>Trade Log — 2026 Offseason (Confirmed)</h2>
+
+<div class="gtrade-card" style="margin-bottom:16px;">
+  <div style="padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;">
+    <span style="font-size:.7rem;color:var(--muted);font-family:monospace;">TRADE #19</span>
+    <span style="font-size:.75rem;font-weight:700;color:var(--accent);">NXBOSTA ↔ DRCHAMA</span>
+  </div>
+  <div style="padding:12px 16px;display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:.8rem;">
+    <div>
+      <div style="color:var(--green);font-size:.65rem;font-weight:700;letter-spacing:.08em;margin-bottom:6px;">NXBOSTA RECEIVES</div>
+      <div style="color:var(--text);">Travis Kelce · TE · KC</div>
+    </div>
+    <div>
+      <div style="color:#E74C3C;font-size:.65rem;font-weight:700;letter-spacing:.08em;margin-bottom:6px;">NXBOSTA SENDS</div>
+      <div style="color:var(--text);">Jalen Noel · WR · HOU</div>
+      <div style="color:var(--muted);font-size:.75em;margin-top:2px;">+ 2028 4th Round Pick</div>
+    </div>
+  </div>
+</div>
+
+<div class="gtrade-card" style="margin-bottom:16px;">
+  <div style="padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;">
+    <span style="font-size:.7rem;color:var(--muted);font-family:monospace;">TRADE #20</span>
+    <span style="font-size:.75rem;font-weight:700;color:var(--accent);">LAMARIO BROS ↔ CKHOSHOR89</span>
+  </div>
+  <div style="padding:12px 16px;display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:.8rem;">
+    <div>
+      <div style="color:var(--green);font-size:.65rem;font-weight:700;letter-spacing:.08em;margin-bottom:6px;">CKHOSHOR89 RECEIVES</div>
+      <div style="color:var(--text);">LeQuint Allen · RB · JAX</div>
+    </div>
+    <div>
+      <div style="color:#E74C3C;font-size:.65rem;font-weight:700;letter-spacing:.08em;margin-bottom:6px;">LAMARIO BROS RECEIVES</div>
+      <div style="color:var(--muted);font-size:.75em;margin-top:2px;">2026 4th Round Pick (4.10)</div>
+    </div>
+  </div>
+</div>
+
+<div class="gtrade-card" style="margin-bottom:16px;">
+  <div style="padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;">
+    <span style="font-size:.7rem;color:var(--muted);font-family:monospace;">TRADE #21</span>
+    <span style="font-size:.75rem;font-weight:700;color:var(--accent);">VIKITA ↔ ROHO</span>
+  </div>
+  <div style="padding:12px 16px;display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:.8rem;">
+    <div>
+      <div style="color:var(--green);font-size:.65rem;font-weight:700;letter-spacing:.08em;margin-bottom:6px;">ROHO RECEIVES</div>
+      <div style="color:var(--text);">Ja'Tavion Sanders · TE · CAR</div>
+    </div>
+    <div>
+      <div style="color:#E74C3C;font-size:.65rem;font-weight:700;letter-spacing:.08em;margin-bottom:6px;">VIKITA RECEIVES</div>
+      <div style="color:var(--muted);font-size:.75em;margin-top:2px;">2026 4th Round Pick (4.06, via davidshah)</div>
+    </div>
+  </div>
+</div>
+
+<div class="gtrade-card" style="margin-bottom:16px;">
+  <div style="padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;">
+    <span style="font-size:.7rem;color:var(--muted);font-family:monospace;">TRADE #22</span>
+    <span style="font-size:.75rem;font-weight:700;color:var(--accent);">LAMARIO BROS ↔ DRCHAMA</span>
+  </div>
+  <div style="padding:12px 16px;display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:.8rem;">
+    <div>
+      <div style="color:var(--green);font-size:.65rem;font-weight:700;letter-spacing:.08em;margin-bottom:6px;">LAMARIO BROS RECEIVES</div>
+      <div style="color:var(--muted);font-size:.75em;margin-top:2px;">2026 4th Round Pick (4.04, via DrChama)</div>
+      <div style="color:var(--muted);font-size:.75em;margin-top:2px;">2026 3rd Round Pick (3.08)</div>
+    </div>
+    <div>
+      <div style="color:#E74C3C;font-size:.65rem;font-weight:700;letter-spacing:.08em;margin-bottom:6px;">DRCHAMA RECEIVES</div>
+      <div style="color:var(--muted);font-size:.75em;margin-top:2px;">2026 3rd Round Pick (3.07, via LeGetteItPoppin)</div>
+    </div>
+  </div>
+</div>
+
 </div>
 
 <p class="lore-footer">DOPE Dynasty War Room · 2026 Season Report · All takes are final. No refunds. No trades reconsidered.</p>
