@@ -2610,11 +2610,8 @@ function buildLeaderboardBar(){
     var t=TEAMS[r.h];if(!t)return'';
     var tc=t.color,grade=t.grade||'B',gc=gradeColors[grade]||'#fff';
     var nm=abbr[t.name]||t.name.slice(0,5).toUpperCase();
-    return'<a class="lb-chip" href="#" style="border-color:'+tc+'55;background:'+tc+'0D;" onclick="event.preventDefault();(function(){var nb=document.querySelectorAll('.nb')[0];showTab('teams',nb);setTimeout(function(){var el=document.getElementById('rth_'+r.h+'');if(el){el.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(function(){toggleTeam(''+r.h+'');},300);}},200);})();return false;">'
-      +'<span class="lb-rank">#'+r.rank+'</span>'
-      +'<span class="lb-name" style="color:'+tc+'">'+nm+'</span>'
-      +'<span class="lb-grade" style="color:'+gc+'">'+grade+'</span>'
-      +'</a>';
+    var rh=r.h;
+    return `<a class="lb-chip" href="#" style="border-color:${tc}55;background:${tc}0D;" onclick="event.preventDefault();(function(){var nb=document.querySelectorAll('.nb')[0];showTab('teams',nb);setTimeout(function(){var el=document.getElementById('rth_${rh}');if(el){el.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(function(){toggleTeam('${rh}');},300);}},200);})();return false;"><span class="lb-rank">#${r.rank}</span><span class="lb-name" style="color:${tc}">${nm}</span><span class="lb-grade" style="color:${gc}">${grade}</span></a>`;
   }).join('');
 }
 function renderTeams(){
@@ -5498,7 +5495,7 @@ function buildTeamsGrid(){
         +'<div style="width:34px;height:34px;border-radius:50%;background:'+bg+';display:flex;align-items:center;justify-content:center;font-family:Bebas Neue,sans-serif;font-size:13px;color:#fff;flex-shrink:0;">'+init+'</div>'
         +'<div style="flex:1;min-width:0;"><div style="font-family:Bebas Neue,sans-serif;font-size:14px;letter-spacing:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+t.name+'</div>'
         +'<div style="font-family:DM Mono,monospace;font-size:9px;color:var(--muted);">'+(t.handle||'')+'</div></div>'
-        '</div>
+        +'</div>'
         +'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:8px;">'
         +'<div style="background:var(--bg3);border-radius:4px;padding:5px;text-align:center;"><div style="font-family:DM Mono,monospace;font-size:7px;color:var(--muted);letter-spacing:1px;">DYN OVR</div><div style="font-family:Bebas Neue,sans-serif;font-size:18px;color:'+c+';">'+(r.score||'—')+'</div></div>'
         +'<div style="background:var(--bg3);border-radius:4px;padding:5px;text-align:center;"><div style="font-family:DM Mono,monospace;font-size:7px;color:var(--muted);letter-spacing:1px;">PICKS</div><div style="font-family:Bebas Neue,sans-serif;font-size:18px;color:var(--gold);">'+pk+'</div></div>'
