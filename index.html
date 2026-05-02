@@ -2674,6 +2674,7 @@ const sortedEntries=Object.entries(TEAMS).sort(([ha],[hb])=>{
     const br=RANKINGS.find(r=>r.h===hb);
     return(ar?.rank||99)-(br?.rank||99);
   });
+  const TEAM_GRADE_COLORS={'A+':'#00C851','A':'#2ecc71','A-':'#27ae60','B+':'#2196F3','B':'#1976D2','B-':'#90CAF9','C+':'#FFC107','C':'#f39c12','C-':'#e67e22','D+':'#FF4444','D':'#FF4444','D-':'#FF4444','S':'#FFD700'};
   container.innerHTML=sortedEntries.map(([h,t])=>{
     const ba=BEST_ASSETS[h];
     const rows=buildRows(t);
@@ -2681,17 +2682,32 @@ const sortedEntries=Object.entries(TEAMS).sort(([ha],[hb])=>{
     const handleInit=t.handle.replace('@','').slice(0,2).toUpperCase();
     const tavAvatarUrl=t.avatar?`https://sleepercdn.com/avatars/thumbs/${t.avatar}`:'';
     const tavInner=tavAvatarUrl?`<img src="${tavAvatarUrl}" style="width:100%;height:100%;object-fit:cover;border-radius:50%" onerror="this.style.display='none';this.nextSibling.style.display='flex'"><span style="display:none;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:13px;color:${t.color};letter-spacing:.5px;width:100%;height:100%">${handleInit}</span>`:`<span style="display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:13px;color:${t.color};letter-spacing:.5px;width:100%;height:100%">${handleInit}</span>`;
+    const grade=t.grade||'B';
+    const gc=TEAM_GRADE_COLORS[grade]||'#aaa';
+    const rankEntry=RANKINGS.find(r=>r.h===h)||{};
+    const ovrScore=rankEntry.score||'—';
+    const picksCount=(t.picks||[]).length;
+    const rankNum=rankEntry.rank||'—';
     return`<div class="roster-team-block" style="border-left:4px solid ${t.color};border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,.4);margin-bottom:16px;">
-      <div class="roster-team-header" id="rth_${h}" onclick="toggleTeam('${h}')" style="background:linear-gradient(90deg,${t.color}12 0%,transparent 60%);">
-        <div class="tav" data-av-key="${h}" style="width:36px;height:36px;border-radius:50%;flex-shrink:0;overflow:hidden;border:2px solid ${t.color};background:${t.color}22;display:flex;align-items:center;justify-content:center">
+      <div class="roster-team-header" id="rth_${h}" onclick="toggleTeam('${h}')" style="background:linear-gradient(90deg,${t.color}18 0%,transparent 70%);padding:14px 16px;cursor:pointer;">
+        <div class="tav" data-av-key="${h}" style="width:40px;height:40px;border-radius:50%;flex-shrink:0;overflow:hidden;border:2px solid ${t.color};background:${t.color}22;display:flex;align-items:center;justify-content:center">
           ${tavInner}
         </div>
-        <div style="flex:1;min-width:0">
-          <div style="font-weight:800;font-size:14px;display:flex;align-items:center;gap:6px;flex-wrap:wrap"><span style="font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;font-weight:700;min-width:20px;flex-shrink:0">#${(RANKINGS.find(r=>r.h===h)||{}).rank||''}</span>${t.name}${t.commissioner?'<span class="you-tag" style="background:#2980B9">⚙️ COMMISH</span>':''}${t.champ?'<span class="champ-badge">🏆 CHAMP</span>':''}</div>
-          <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--green)">${t.handle}</div>
+        <div style="flex:1;min-width:0;margin-left:2px;">
+          <div style="font-weight:800;font-size:14px;letter-spacing:.3px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:3px;"><span style="font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;font-weight:700;min-width:20px;flex-shrink:0">#${rankNum}</span>${t.name}${t.commissioner?'<span class="you-tag" style="background:#2980B9">⚙️ COMMISH</span>':''}${t.champ?'<span class="champ-badge">🏆 CHAMP</span>':''}</div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--green);margin-bottom:7px;">${t.handle}</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;">
+            <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);padding:2px 8px;border:1px solid var(--border);letter-spacing:1px;border-radius:2px;">DYN OVR&nbsp;<span style="color:var(--text);font-weight:700">${ovrScore}</span></span>
+            <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);padding:2px 8px;border:1px solid var(--border);letter-spacing:1px;border-radius:2px;">PICKS&nbsp;<span style="color:var(--green);font-weight:700">${picksCount}</span></span>
+            <span style="font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);padding:2px 8px;border:1px solid var(--border);letter-spacing:1px;border-radius:2px;">RANK&nbsp;<span style="color:${t.color};font-weight:700">#${rankNum}</span></span>
+            <span class="ttype ${t.type}" style="font-size:8px;padding:2px 7px;">${t.typeLabel}</span>
+          </div>
         </div>
-        <div class="ttype ${t.type}" style="margin-right:10px">${t.typeLabel}</div>
-        <div class="rh-chevron">▼</div>
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:60px;height:60px;border-radius:50%;border:2.5px solid ${gc};background:${gc}1A;flex-shrink:0;margin:0 10px;box-shadow:0 0 14px ${gc}55,inset 0 0 8px ${gc}0D;">
+          <span style="font-family:'Bebas Neue',sans-serif;font-size:30px;line-height:1;color:${gc};letter-spacing:0;text-shadow:0 0 8px ${gc}88;">${grade}</span>
+          <span style="font-family:'DM Mono',monospace;font-size:6px;letter-spacing:2px;color:${gc}99;margin-top:1px;">GRADE</span>
+        </div>
+        <div class="rh-chevron" style="flex-shrink:0;">▼</div>
       </div>
       <div class="roster-table-wrap" id="rtt_${h}">
         <div style="overflow-x:auto">
