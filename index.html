@@ -461,7 +461,6 @@ html, body {
 .prospect-card{display:flex;align-items:flex-start;gap:12px;background:#111115;border:1px solid rgba(212,175,55,0.12);border-radius:6px;padding:12px 14px;transition:all .2s;}
 .prospect-card.hidden{display:none;}
 .prospect-card:hover{border-color:rgba(212,175,55,0.3);}
-.needs-badge{display:inline-block;background:#D4AF3722;color:var(--gold);border:1px solid var(--gold);border-radius:4px;padding:2px 8px;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1px;margin-left:6px;}
 .draft-toggle{background:var(--bg3);border:1px solid var(--border);color:var(--muted);border-radius:4px;padding:3px 10px;font-family:'DM Mono',monospace;font-size:8px;cursor:pointer;transition:all .2s;margin-top:6px;}
 .draft-toggle.yes{background:#00FF8722;border-color:var(--green);color:var(--green);}
 .draft-toggle.no{background:#E74C3C22;border-color:#E74C3C;color:#E74C3C;}
@@ -1051,7 +1050,6 @@ html, body {
     <button class="pfbtn" onclick="filterProspects('RB',this)">RB</button>
     <button class="pfbtn" onclick="filterProspects('WR',this)">WR</button>
     <button class="pfbtn" onclick="filterProspects('TE',this)">TE</button>
-    <span style="font-family:'DM Mono',monospace;font-size:8px;color:var(--gold);margin-left:auto;align-self:center">= LAMARIO BROS NEED</span>
   </div>
   <div style="display:grid;gap:10px;margin-top:8px;" id="prospectGrid">
         <div style="display:flex;align-items:flex-start;gap:12px;background:#111115;border:1px solid rgba(212,175,55,0.12);border-radius:6px;padding:12px 14px;">
@@ -3418,18 +3416,14 @@ function render2027Preview(){
         +"<button class='pfbtn' onclick='filterProspects(\"RB\",this)'>RB</button>"
         +"<button class='pfbtn' onclick='filterProspects(\"WR\",this)'>WR</button>"
         +"<button class='pfbtn' onclick='filterProspects(\"TE\",this)'>TE</button>"
-        +"<span style='font-family:DM Mono,monospace;font-size:8px;color:var(--gold);margin-left:auto;align-self:center'>&#127944; = LAMARIO BROS NEED</span>"
       +"</div>"
       +"<div id='preview2027List'></div>";
     el=document.getElementById('preview2027List');
   }
   const GC={'A+':'#c084fc','A':'#c084fc','A-':'#a78bfa','B+':'#60a5fa','B':'#3b82f6','B-':'#6b7280'};
-  // IMPROVEMENT#7: Lamario Bros roster needs (TE and depth WR)
-  const LAMARIO_NEEDS={'TE':'Fills TE room gap &#x2014; Andrews/Kincaid both declining','WR':'Depth WR need &#x2014; room is thin outside Hunter/Higgins'};
   // Toggle state
   const draftPicks=window._draftPickToggles||{};
   el.innerHTML=DRAFT_CLASS_2027.map(p=>{
-    const needBadge=LAMARIO_NEEDS[p.pos]?`<span class='needs-badge' title='${LAMARIO_NEEDS[p.pos]}'>&#127944; LAMARIO NEED</span>`:'';
     const toggleKey='p'+p.rank;
     const toggleState=draftPicks[toggleKey]||'none';
     const toggleLabel=toggleState==='yes'?'&#x2705; YES, I\'d draft':toggleState==='no'?'&#x274C; Would pass':'Would you draft here?';
@@ -3438,7 +3432,7 @@ function render2027Preview(){
       <div class="prank ${p.rank<=3?'top':''}" style="color:${p.rank<=3?'#c084fc':'#6b7280'}">${p.rank}</div>
       <div style="width:38px;height:38px;border-radius:50%;background:rgba(147,51,234,.1);border:1px solid rgba(147,51,234,.35);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:14px;flex-shrink:0;color:#c084fc">${p.pos}</div>
       <div class="pinfo">
-        <div class="pn">${p.name}${needBadge}</div>
+        <div class="pn">${p.name}</div>
         <div style="font-family:'DM Mono',monospace;font-size:9px;color:#7c3aed;letter-spacing:.5px;margin-top:2px">${p.school} &#x00B7; Age ${p.age} &#x00B7; &#128302; 2027 ELIGIBLE</div>
         <div class="pd">${p.note.substring(0,80)}${p.note.length>80?'...':''}</div>
         <button class="draft-toggle ${toggleClass}" onclick="event.stopPropagation();toggleDraftPick('${toggleKey}','${p.rank}')">${toggleLabel}</button>
