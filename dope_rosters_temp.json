@@ -1,0 +1,2380 @@
+{
+  "generated": "2026-05-05",
+  "league": "D.O.P.E Dynasty War Room",
+  "format": "10-team Superflex PPR 0.5 TEP",
+  "teams": [
+    {
+      "name": "DAVID SHAH",
+      "handle": "davidshah",
+      "rank": 1,
+      "score": 95,
+      "grade": "A+",
+      "roster": {
+        "QB": [
+          {
+            "name": "Bo Nix",
+            "ovr": 85,
+            "age": 26
+          },
+          {
+            "name": "Baker Mayfield",
+            "ovr": 80,
+            "age": 31
+          },
+          {
+            "name": "Tua Tagovailoa",
+            "ovr": 71,
+            "age": 28
+          },
+          {
+            "name": "Gardner Minshew",
+            "ovr": 60,
+            "age": 29
+          },
+          {
+            "name": "Teddy Bridgewater",
+            "ovr": 58,
+            "age": 33
+          }
+        ],
+        "RB": [
+          {
+            "name": "James Cook",
+            "ovr": 85,
+            "age": 26
+          },
+          {
+            "name": "Jonathan Taylor",
+            "ovr": 85,
+            "age": 27
+          },
+          {
+            "name": "Bucky Irving",
+            "ovr": 80,
+            "age": 23
+          },
+          {
+            "name": "Christian McCaffrey",
+            "ovr": 74,
+            "age": 29
+          },
+          {
+            "name": "Chuba Hubbard",
+            "ovr": 72,
+            "age": 26
+          },
+          {
+            "name": "Kyle Monangai",
+            "ovr": 71,
+            "age": 23
+          },
+          {
+            "name": "Tyrone Tracy",
+            "ovr": 73,
+            "age": 26
+          },
+          {
+            "name": "Kenny McIntosh",
+            "ovr": 64,
+            "age": 26
+          },
+          {
+            "name": "Jaydon Blue",
+            "ovr": 61,
+            "age": 22
+          },
+          {
+            "name": "Rasheen Ali",
+            "ovr": 60,
+            "age": 25
+          }
+        ],
+        "WR": [
+          {
+            "name": "Amon-Ra St. Brown",
+            "ovr": 92,
+            "age": 26
+          },
+          {
+            "name": "Nico Collins",
+            "ovr": 83,
+            "age": 27
+          },
+          {
+            "name": "Rashee Rice",
+            "ovr": 80,
+            "age": 26
+          },
+          {
+            "name": "Brian Thomas",
+            "ovr": 79,
+            "age": 23
+          },
+          {
+            "name": "KC Concepcion",
+            "ovr": 76,
+            "age": 21
+          },
+          {
+            "name": "Troy Franklin",
+            "ovr": 68,
+            "age": 23
+          },
+          {
+            "name": "Ryan Flournoy",
+            "ovr": 66,
+            "age": 26
+          },
+          {
+            "name": "Bub Means",
+            "ovr": 65,
+            "age": 25
+          },
+          {
+            "name": "Jordan Whittington",
+            "ovr": 65,
+            "age": 25
+          },
+          {
+            "name": "Ja'Lynn Polk",
+            "ovr": 53,
+            "age": 24
+          },
+          {
+            "name": "Tahj Washington",
+            "ovr": 53,
+            "age": 24
+          }
+        ],
+        "TE": [
+          {
+            "name": "Colston Loveland",
+            "ovr": 89,
+            "age": 22
+          },
+          {
+            "name": "Tucker Kraft",
+            "ovr": 82,
+            "age": 25
+          },
+          {
+            "name": "Jake Ferguson",
+            "ovr": 75,
+            "age": 27
+          },
+          {
+            "name": "Zach Ertz",
+            "ovr": 59,
+            "age": 35
+          },
+          {
+            "name": "Pat Freiermuth",
+            "ovr": 58,
+            "age": 27
+          },
+          {
+            "name": "Darren Waller",
+            "ovr": 53,
+            "age": 33
+          },
+          {
+            "name": "Juwan Johnson",
+            "ovr": 52,
+            "age": 29
+          },
+          {
+            "name": "Jack Bech",
+            "ovr": 76,
+            "age": 23
+          },
+          {
+            "name": "Kaytron Allen",
+            "ovr": 70,
+            "age": 23
+          },
+          {
+            "name": "Malachi Fields",
+            "ovr": 66,
+            "age": 22
+          },
+          {
+            "name": "Ted Hurst",
+            "ovr": 61,
+            "age": 21
+          }
+        ],
+        "K": [],
+        "DEF": []
+      },
+      "picks": [
+        {
+          "year": 2026,
+          "round": 1,
+          "slot": "1.06",
+          "via": "own"
+        },
+        {
+          "year": 2026,
+          "round": 2,
+          "slot": "2.05",
+          "via": "own"
+        },
+        {
+          "year": 2026,
+          "round": 2,
+          "slot": "2.06",
+          "via": "own"
+        },
+        {
+          "year": 2026,
+          "round": 3,
+          "slot": "3.06",
+          "via": "own"
+        }
+      ]
+    },
+    {
+      "name": "LAMARIO BROS",
+      "handle": "ColonelSanders4",
+      "rank": 2,
+      "score": 88,
+      "grade": "A",
+      "roster": {
+        "QB": [
+          {
+            "name": "Lamar Jackson",
+            "ovr": 92,
+            "age": 27
+          },
+          {
+            "name": "C.J. Stroud",
+            "ovr": 79,
+            "age": 24
+          },
+          {
+            "name": "Carson Beck",
+            "ovr": 70,
+            "age": 23
+          },
+          {
+            "name": "Tyson Bagent",
+            "ovr": 58,
+            "age": 25
+          },
+          {
+            "name": "Joe Flacco",
+            "ovr": 56,
+            "age": 41
+          }
+        ],
+        "RB": [
+          {
+            "name": "Ashton Jeanty",
+            "ovr": 94,
+            "age": 22
+          },
+          {
+            "name": "De'Von Achane",
+            "ovr": 88,
+            "age": 24
+          },
+          {
+            "name": "Cam Skattebo",
+            "ovr": 77,
+            "age": 24
+          },
+          {
+            "name": "Travis Etienne",
+            "ovr": 77,
+            "age": 27
+          },
+          {
+            "name": "Jaylen Wright",
+            "ovr": 68,
+            "age": 23
+          },
+          {
+            "name": "Demond Claiborne",
+            "ovr": 77,
+            "age": 22
+          },
+          {
+            "name": "Tank Bigsby",
+            "ovr": 69,
+            "age": 23
+          },
+          {
+            "name": "Kenneth Gainwell",
+            "ovr": 66,
+            "age": 27
+          },
+          {
+            "name": "Eli Heidenreich",
+            "ovr": 64,
+            "age": 22
+          },
+          {
+            "name": "Jerome Ford",
+            "ovr": 63,
+            "age": 26
+          },
+          {
+            "name": "Joe Mixon",
+            "ovr": 63,
+            "age": 29
+          },
+          {
+            "name": "Chris Rodriguez",
+            "ovr": 60,
+            "age": 26
+          },
+          {
+            "name": "James Conner",
+            "ovr": 57,
+            "age": 31
+          }
+        ],
+        "WR": [
+          {
+            "name": "Jameson Williams",
+            "ovr": 78,
+            "age": 25
+          },
+          {
+            "name": "DJ Moore",
+            "ovr": 75,
+            "age": 29
+          },
+          {
+            "name": "Michael Pittman",
+            "ovr": 73,
+            "age": 28
+          },
+          {
+            "name": "Ricky Pearsall",
+            "ovr": 73,
+            "age": 25
+          },
+          {
+            "name": "Jakobi Meyers",
+            "ovr": 71,
+            "age": 29
+          },
+          {
+            "name": "Dontayvion Wicks",
+            "ovr": 69,
+            "age": 24
+          },
+          {
+            "name": "Mike Evans",
+            "ovr": 67,
+            "age": 32
+          },
+          {
+            "name": "Elijah Sarratt",
+            "ovr": 68,
+            "age": 22
+          },
+          {
+            "name": "Tyquan Thornton",
+            "ovr": 58,
+            "age": 25
+          }
+        ],
+        "TE": [
+          {
+            "name": "Dalton Kincaid",
+            "ovr": 73,
+            "age": 26
+          },
+          {
+            "name": "Mark Andrews",
+            "ovr": 70,
+            "age": 30
+          },
+          {
+            "name": "Cole Kmet",
+            "ovr": 64,
+            "age": 27
+          },
+          {
+            "name": "Dawson Knox",
+            "ovr": 56,
+            "age": 29
+          },
+          {
+            "name": "Malik Nabers",
+            "ovr": 94,
+            "age": 22
+          },
+          {
+            "name": "Daniel Jones",
+            "ovr": 76,
+            "age": 28
+          },
+          {
+            "name": "Cade Klubnik",
+            "ovr": 63,
+            "age": 22
+          },
+          {
+            "name": "Eli Raridon",
+            "ovr": 56,
+            "age": 22
+          },
+          {
+            "name": "Damien Martinez",
+            "ovr": 77,
+            "age": 22
+          },
+          {
+            "name": "Will Howard",
+            "ovr": 53,
+            "age": 24
+          }
+        ],
+        "K": [],
+        "DEF": []
+      },
+      "picks": [
+        {
+          "year": 2026,
+          "round": 2,
+          "slot": "2.08",
+          "via": "own"
+        },
+        {
+          "year": 2026,
+          "round": 3,
+          "slot": "3.05",
+          "via": "Nxbosta"
+        },
+        {
+          "year": 2026,
+          "round": 3,
+          "slot": "3.07",
+          "via": "LeGetteItPoppin"
+        },
+        {
+          "year": 2026,
+          "round": 4,
+          "slot": "4.05",
+          "via": "Nxbosta"
+        },
+        {
+          "year": 2026,
+          "round": 4,
+          "slot": "4.10",
+          "via": "CKHoshor"
+        },
+        {
+          "year": 2026,
+          "round": 4,
+          "slot": "4.04",
+          "via": "DrChama"
+        },
+        {
+          "year": 2027,
+          "round": 1,
+          "slot": null,
+          "via": "Nxbosta"
+        },
+        {
+          "year": 2027,
+          "round": 3,
+          "slot": null,
+          "via": "Nxbosta"
+        },
+        {
+          "year": 2027,
+          "round": 4,
+          "slot": null,
+          "via": "Nxbosta"
+        },
+        {
+          "year": 2028,
+          "round": 1,
+          "slot": null,
+          "via": "own"
+        },
+        {
+          "year": 2028,
+          "round": 2,
+          "slot": null,
+          "via": "own"
+        },
+        {
+          "year": 2028,
+          "round": 3,
+          "slot": null,
+          "via": "own"
+        },
+        {
+          "year": 2028,
+          "round": 4,
+          "slot": null,
+          "via": "own"
+        }
+      ]
+    },
+    {
+      "name": "YARAKABI",
+      "handle": "yarakabi",
+      "rank": 3,
+      "score": 87,
+      "grade": "A",
+      "roster": {
+        "QB": [
+          {
+            "name": "Caleb Williams",
+            "ovr": 90,
+            "age": 24
+          },
+          {
+            "name": "Joe Burrow",
+            "ovr": 90,
+            "age": 29
+          },
+          {
+            "name": "Jordan Love",
+            "ovr": 82,
+            "age": 27
+          },
+          {
+            "name": "Tanner McKee",
+            "ovr": 67,
+            "age": 26
+          },
+          {
+            "name": "Jalen Milroe",
+            "ovr": 62,
+            "age": 23
+          },
+          {
+            "name": "Will Levis",
+            "ovr": 61,
+            "age": 26
+          },
+          {
+            "name": "Spencer Rattler",
+            "ovr": 56,
+            "age": 25
+          },
+          {
+            "name": "Tyrod Taylor",
+            "ovr": 53,
+            "age": 36
+          }
+        ],
+        "RB": [
+          {
+            "name": "TreVeyon Henderson",
+            "ovr": 81,
+            "age": 23
+          },
+          {
+            "name": "Saquon Barkley",
+            "ovr": 75,
+            "age": 29
+          },
+          {
+            "name": "Blake Corum",
+            "ovr": 71,
+            "age": 25
+          },
+          {
+            "name": "Braelon Allen",
+            "ovr": 69,
+            "age": 22
+          },
+          {
+            "name": "Trey Benson",
+            "ovr": 69,
+            "age": 23
+          },
+          {
+            "name": "Jeremiyah Love",
+            "ovr": 89,
+            "age": 20
+          },
+          {
+            "name": "MarShawn Lloyd",
+            "ovr": 67,
+            "age": 25
+          },
+          {
+            "name": "Nicholas Singleton",
+            "ovr": 62,
+            "age": 22
+          }
+        ],
+        "WR": [
+          {
+            "name": "Ja'Marr Chase",
+            "ovr": 99,
+            "age": 26
+          },
+          {
+            "name": "Justin Jefferson",
+            "ovr": 91,
+            "age": 23
+          },
+          {
+            "name": "Rome Odunze",
+            "ovr": 81,
+            "age": 23
+          },
+          {
+            "name": "Alec Pierce",
+            "ovr": 74,
+            "age": 26
+          },
+          {
+            "name": "Jayden Reed",
+            "ovr": 71,
+            "age": 26
+          },
+          {
+            "name": "Jalen Coker",
+            "ovr": 70,
+            "age": 24
+          },
+          {
+            "name": "DeMario Douglas",
+            "ovr": 70,
+            "age": 25
+          },
+          {
+            "name": "Rashid Shaheed",
+            "ovr": 69,
+            "age": 27
+          },
+          {
+            "name": "Marquise Brown",
+            "ovr": 67,
+            "age": 28
+          },
+          {
+            "name": "Calvin Austin",
+            "ovr": 65,
+            "age": 27
+          },
+          {
+            "name": "Isaiah Bond",
+            "ovr": 62,
+            "age": 22
+          }
+        ],
+        "TE": [
+          {
+            "name": "Kenyon Sadiq",
+            "ovr": 72,
+            "age": 21
+          },
+          {
+            "name": "Chig Okonkwo",
+            "ovr": 71,
+            "age": 26
+          },
+          {
+            "name": "Hunter Henry",
+            "ovr": 60,
+            "age": 31
+          },
+          {
+            "name": "Theo Johnson",
+            "ovr": 57,
+            "age": 25
+          },
+          {
+            "name": "Ben Sinnott",
+            "ovr": 56,
+            "age": 23
+          },
+          {
+            "name": "Emmett Johnson",
+            "ovr": 74,
+            "age": 22
+          },
+          {
+            "name": "Tai Felton",
+            "ovr": 71,
+            "age": 23
+          },
+          {
+            "name": "Zachariah Branch",
+            "ovr": 70,
+            "age": 22
+          },
+          {
+            "name": "Brenen Thompson",
+            "ovr": 68,
+            "age": 22
+          }
+        ],
+        "K": [],
+        "DEF": []
+      },
+      "picks": [
+        {
+          "year": 2026,
+          "round": 1,
+          "slot": "1.01",
+          "via": "own"
+        },
+        {
+          "year": 2026,
+          "round": 1,
+          "slot": null,
+          "via": "from DrChama"
+        },
+        {
+          "year": 2026,
+          "round": 2,
+          "slot": "2.10",
+          "via": "own"
+        },
+        {
+          "year": 2026,
+          "round": 3,
+          "slot": "3.01",
+          "via": "own"
+        },
+        {
+          "year": 2026,
+          "round": 4,
+          "slot": "4.01",
+          "via": "own"
+        },
+        {
+          "year": 2027,
+          "round": 2,
+          "slot": null,
+          "via": "own"
+        },
+        {
+          "year": 2027,
+          "round": 4,
+          "slot": null,
+          "via": "own"
+        },
+        {
+          "year": 2028,
+          "round": 2,
+          "slot": null,
+          "via": "own"
+        },
+        {
+          "year": 2028,
+          "round": 3,
+          "slot": null,
+          "via": "own"
+        },
+        {
+          "year": 2028,
+          "round": 4,
+          "slot": null,
+          "via": "own"
+        }
+      ]
+    },
+    {
+      "name": "NXBOSTA",
+      "handle": "Nxbosta",
+      "rank": 4,
+      "score": 82,
+      "grade": "A-",
+      "roster": {
+        "QB": [
+          {
+            "name": "Justin Herbert",
+            "ovr": 87,
+            "age": 28
+          },
+          {
+            "name": "Trevor Lawrence",
+            "ovr": 84,
+            "age": 26
+          },
+          {
+            "name": "J.J. McCarthy",
+            "ovr": 79,
+            "age": 23
+          },
+          {
+            "name": "Geno Smith",
+            "ovr": 69,
+            "age": 35
+          },
+          {
+            "name": "Jacoby Brissett",
+            "ovr": 54,
+            "age": 33
+          }
+        ],
+        "RB": [
+          {
+            "name": "Jahmyr Gibbs",
+            "ovr": 96,
+            "age": 24
+          },
+          {
+            "name": "Kenneth Walker",
+            "ovr": 83,
+            "age": 25
+          },
+          {
+            "name": "David Montgomery",
+            "ovr": 74,
+            "age": 28
+          },
+          {
+            "name": "Jacory Croskey-Merritt",
+            "ovr": 69,
+            "age": 25
+          },
+          {
+            "name": "Alvin Kamara",
+            "ovr": 64,
+            "age": 30
+          },
+          {
+            "name": "Sean Tucker",
+            "ovr": 59,
+            "age": 24
+          },
+          {
+            "name": "Phil Mafah",
+            "ovr": 56,
+            "age": 23
+          },
+          {
+            "name": "Jordan Mason",
+            "ovr": 54,
+            "age": 26
+          }
+        ],
+        "WR": [
+          {
+            "name": "Drake London",
+            "ovr": 87,
+            "age": 24
+          },
+          {
+            "name": "Ladd McConkey",
+            "ovr": 82,
+            "age": 24
+          },
+          {
+            "name": "Michael Wilson",
+            "ovr": 78,
+            "age": 26
+          },
+          {
+            "name": "Jordan Addison",
+            "ovr": 74,
+            "age": 24
+          },
+          {
+            "name": "DK Metcalf",
+            "ovr": 72,
+            "age": 28
+          },
+          {
+            "name": "Davante Adams",
+            "ovr": 68,
+            "age": 33
+          },
+          {
+            "name": "Darnell Mooney",
+            "ovr": 67,
+            "age": 28
+          },
+          {
+            "name": "Christian Kirk",
+            "ovr": 66,
+            "age": 29
+          },
+          {
+            "name": "Darius Slayton",
+            "ovr": 56,
+            "age": 29
+          }
+        ],
+        "TE": [
+          {
+            "name": "Tyler Warren",
+            "ovr": 87,
+            "age": 23
+          },
+          {
+            "name": "Elijah Arroyo",
+            "ovr": 73,
+            "age": 23
+          },
+          {
+            "name": "Travis Kelce",
+            "ovr": 65,
+            "age": 36
+          },
+          {
+            "name": "Cade Otton",
+            "ovr": 65,
+            "age": 27
+          },
+          {
+            "name": "Cade Stover",
+            "ovr": 58,
+            "age": 25
+          },
+          {
+            "name": "Najee Harris",
+            "ovr": 64,
+            "age": 27
+          },
+          {
+            "name": "Oscar Delp",
+            "ovr": 56,
+            "age": 22
+          },
+          {
+            "name": "DJ Giddens",
+            "ovr": 66,
+            "age": 22
+          },
+          {
+            "name": "Riley Leonard",
+            "ovr": 56,
+            "age": 23
+          }
+        ],
+        "K": [],
+        "DEF": []
+      },
+      "picks": [
+        {
+          "year": 2026,
+          "round": 1,
+          "slot": "1.08",
+          "via": "own"
+        },
+        {
+          "year": 2027,
+          "round": 3,
+          "slot": null,
+          "via": "own"
+        },
+        {
+          "year": 2027,
+          "round": 1,
+          "slot": null,
+          "via": "own"
+        },
+        {
+          "year": 2027,
+          "round": 3,
+          "slot": null,
+          "via": "LeGetItPoppin"
+        }
+      ]
+    },
+    {
+      "name": "LEGETTEITPOPPIN",
+      "handle": "LeGetTeitPoppin",
+      "rank": 5,
+      "score": 78,
+      "grade": "A-",
+      "roster": {
+        "QB": [
+          {
+            "name": "Jalen Hurts",
+            "ovr": 87,
+            "age": 27
+          },
+          {
+            "name": "Brock Purdy",
+            "ovr": 84,
+            "age": 26
+          },
+          {
+            "name": "Matthew Stafford",
+            "ovr": 69,
+            "age": 38
+          },
+          {
+            "name": "Mac Jones",
+            "ovr": 65,
+            "age": 27
+          },
+          {
+            "name": "Andy Dalton",
+            "ovr": 54,
+            "age": 38
+          }
+        ],
+        "RB": [
+          {
+            "name": "Chase Brown",
+            "ovr": 81,
+            "age": 26
+          },
+          {
+            "name": "Kyren Williams",
+            "ovr": 79,
+            "age": 25
+          },
+          {
+            "name": "Javonte Williams",
+            "ovr": 78,
+            "age": 26
+          },
+          {
+            "name": "Brian Robinson",
+            "ovr": 69,
+            "age": 27
+          },
+          {
+            "name": "Isiah Pacheco",
+            "ovr": 69,
+            "age": 27
+          },
+          {
+            "name": "Isaac Guerendo",
+            "ovr": 67,
+            "age": 25
+          },
+          {
+            "name": "Kareem Hunt",
+            "ovr": 65,
+            "age": 30
+          },
+          {
+            "name": "Ty Johnson",
+            "ovr": 64,
+            "age": 28
+          },
+          {
+            "name": "Jeremy McNichols",
+            "ovr": 62,
+            "age": 30
+          },
+          {
+            "name": "Tyler Badie",
+            "ovr": 57,
+            "age": 26
+          },
+          {
+            "name": "Emari Demercado",
+            "ovr": 54,
+            "age": 27
+          },
+          {
+            "name": "Patrick Taylor",
+            "ovr": 53,
+            "age": 28
+          }
+        ],
+        "WR": [
+          {
+            "name": "Emeka Egbuka",
+            "ovr": 84,
+            "age": 23
+          },
+          {
+            "name": "A.J. Brown",
+            "ovr": 79,
+            "age": 28
+          },
+          {
+            "name": "Tee Higgins",
+            "ovr": 79,
+            "age": 27
+          },
+          {
+            "name": "DeVonta Smith",
+            "ovr": 78,
+            "age": 27
+          },
+          {
+            "name": "Romeo Doubs",
+            "ovr": 73,
+            "age": 26
+          },
+          {
+            "name": "Marvin Mims",
+            "ovr": 72,
+            "age": 24
+          },
+          {
+            "name": "Tez Johnson",
+            "ovr": 70,
+            "age": 23
+          },
+          {
+            "name": "Xavier Legette",
+            "ovr": 67,
+            "age": 25
+          },
+          {
+            "name": "Devaughn Vele",
+            "ovr": 66,
+            "age": 28
+          },
+          {
+            "name": "Deebo Samuel",
+            "ovr": 66,
+            "age": 30
+          },
+          {
+            "name": "Kameron Johnson",
+            "ovr": 62,
+            "age": 24
+          }
+        ],
+        "TE": [
+          {
+            "name": "Sam LaPorta",
+            "ovr": 81,
+            "age": 25
+          },
+          {
+            "name": "Kyle Pitts",
+            "ovr": 80,
+            "age": 25
+          },
+          {
+            "name": "Evan Engram",
+            "ovr": 70,
+            "age": 31
+          },
+          {
+            "name": "Justin Joly",
+            "ovr": 77,
+            "age": 21
+          },
+          {
+            "name": "Jarquez Hunter",
+            "ovr": 74,
+            "age": 23
+          },
+          {
+            "name": "Beaux Collins",
+            "ovr": 71,
+            "age": 23
+          },
+          {
+            "name": "Donovan Edwards",
+            "ovr": 80,
+            "age": 23
+          },
+          {
+            "name": "Gage Larvadain",
+            "ovr": 68,
+            "age": 24
+          }
+        ],
+        "K": [],
+        "DEF": []
+      },
+      "picks": [
+        {
+          "year": 2026,
+          "round": 4,
+          "slot": "4.07",
+          "via": "own"
+        },
+        {
+          "year": 2027,
+          "round": 2,
+          "slot": null,
+          "via": "own"
+        },
+        {
+          "year": 2027,
+          "round": 2,
+          "slot": null,
+          "via": "NxBosta"
+        },
+        {
+          "year": 2027,
+          "round": 4,
+          "slot": null,
+          "via": "own"
+        },
+        {
+          "year": 2028,
+          "round": 1,
+          "slot": null,
+          "via": "own"
+        },
+        {
+          "year": 2028,
+          "round": 2,
+          "slot": null,
+          "via": "own"
+        },
+        {
+          "year": 2028,
+          "round": 3,
+          "slot": null,
+          "via": "own"
+        },
+        {
+          "year": 2028,
+          "round": 4,
+          "slot": null,
+          "via": "own"
+        }
+      ]
+    },
+    {
+      "name": "CKHOSHOR",
+      "handle": "ckhoshor89",
+      "rank": 6,
+      "score": 67,
+      "grade": "B+",
+      "roster": {
+        "QB": [
+          {
+            "name": "Drake Maye",
+            "ovr": 96,
+            "age": 23
+          },
+          {
+            "name": "Jaxson Dart",
+            "ovr": 88,
+            "age": 22
+          },
+          {
+            "name": "Tyler Shough",
+            "ovr": 78,
+            "age": 26
+          }
+        ],
+        "RB": [
+          {
+            "name": "Omarion Hampton",
+            "ovr": 88,
+            "age": 23
+          },
+          {
+            "name": "RJ Harvey",
+            "ovr": 74,
+            "age": 25
+          },
+          {
+            "name": "J.K. Dobbins",
+            "ovr": 71,
+            "age": 27
+          },
+          {
+            "name": "Rhamondre Stevenson",
+            "ovr": 70,
+            "age": 28
+          },
+          {
+            "name": "Derrick Henry",
+            "ovr": 70,
+            "age": 32
+          },
+          {
+            "name": "Dylan Sampson",
+            "ovr": 69,
+            "age": 21
+          },
+          {
+            "name": "LeQuint Allen",
+            "ovr": 75,
+            "age": 21
+          },
+          {
+            "name": "Ray Davis",
+            "ovr": 65,
+            "age": 26
+          },
+          {
+            "name": "Isaiah Davis",
+            "ovr": 64,
+            "age": 24
+          },
+          {
+            "name": "Aaron Jones",
+            "ovr": 60,
+            "age": 31
+          },
+          {
+            "name": "Kendre Miller",
+            "ovr": 58,
+            "age": 23
+          },
+          {
+            "name": "Will Shipley",
+            "ovr": 58,
+            "age": 23
+          },
+          {
+            "name": "Devin Singletary",
+            "ovr": 54,
+            "age": 28
+          },
+          {
+            "name": "Brashard Smith",
+            "ovr": 52,
+            "age": 23
+          }
+        ],
+        "WR": [
+          {
+            "name": "Jaxon Smith-Njigba",
+            "ovr": 89,
+            "age": 24
+          },
+          {
+            "name": "Puka Nacua",
+            "ovr": 89,
+            "age": 24
+          },
+          {
+            "name": "George Pickens",
+            "ovr": 84,
+            "age": 25
+          },
+          {
+            "name": "Terry McLaurin",
+            "ovr": 73,
+            "age": 30
+          },
+          {
+            "name": "Parker Washington",
+            "ovr": 73,
+            "age": 24
+          },
+          {
+            "name": "Chris Godwin",
+            "ovr": 71,
+            "age": 30
+          },
+          {
+            "name": "Jerry Jeudy",
+            "ovr": 69,
+            "age": 27
+          },
+          {
+            "name": "Elic Ayomanor",
+            "ovr": 67,
+            "age": 22
+          },
+          {
+            "name": "Tre Tucker",
+            "ovr": 67,
+            "age": 25
+          },
+          {
+            "name": "Tory Horton",
+            "ovr": 58,
+            "age": 23
+          },
+          {
+            "name": "Rashod Bateman",
+            "ovr": 55,
+            "age": 26
+          }
+        ],
+        "TE": [
+          {
+            "name": "Trey McBride",
+            "ovr": 96,
+            "age": 26
+          },
+          {
+            "name": "Dallas Goedert",
+            "ovr": 68,
+            "age": 31
+          },
+          {
+            "name": "Michael Mayer",
+            "ovr": 61,
+            "age": 24
+          },
+          {
+            "name": "Pat Bryant",
+            "ovr": 69,
+            "age": 23
+          },
+          {
+            "name": "Terrance Ferguson",
+            "ovr": 69,
+            "age": 23
+          },
+          {
+            "name": "Ja'Kobi Lane",
+            "ovr": 77,
+            "age": 22
+          },
+          {
+            "name": "Omar Cooper",
+            "ovr": 75,
+            "age": 22
+          }
+        ],
+        "K": [],
+        "DEF": []
+      },
+      "picks": [
+        {
+          "year": 2026,
+          "round": 1,
+          "slot": "1.10",
+          "via": "own"
+        },
+        {
+          "year": 2026,
+          "round": 2,
+          "slot": "2.01",
+          "via": "own"
+        },
+        {
+          "year": 2026,
+          "round": 3,
+          "slot": "3.09",
+          "via": "own"
+        },
+        {
+          "year": 2026,
+          "round": 3,
+          "slot": "3.10",
+          "via": "own"
+        }
+      ]
+    },
+    {
+      "name": "VIKITA",
+      "handle": "vikita",
+      "rank": 7,
+      "score": 65,
+      "grade": "B+",
+      "roster": {
+        "QB": [
+          {
+            "name": "Josh Allen",
+            "ovr": 98,
+            "age": 29
+          },
+          {
+            "name": "Dak Prescott",
+            "ovr": 78,
+            "age": 32
+          },
+          {
+            "name": "Sam Darnold",
+            "ovr": 78,
+            "age": 28
+          },
+          {
+            "name": "Aaron Rodgers",
+            "ovr": 58,
+            "age": 42
+          }
+        ],
+        "RB": [
+          {
+            "name": "Quinshon Judkins",
+            "ovr": 81,
+            "age": 22
+          },
+          {
+            "name": "Josh Jacobs",
+            "ovr": 79,
+            "age": 28
+          },
+          {
+            "name": "Bhayshul Tuten",
+            "ovr": 74,
+            "age": 23
+          },
+          {
+            "name": "D'Andre Swift",
+            "ovr": 73,
+            "age": 27
+          },
+          {
+            "name": "Rico Dowdle",
+            "ovr": 72,
+            "age": 27
+          },
+          {
+            "name": "Tony Pollard",
+            "ovr": 69,
+            "age": 29
+          },
+          {
+            "name": "Tahj Brooks",
+            "ovr": 61,
+            "age": 23
+          },
+          {
+            "name": "Emanuel Wilson",
+            "ovr": 53,
+            "age": 26
+          }
+        ],
+        "WR": [
+          {
+            "name": "Chris Olave",
+            "ovr": 82,
+            "age": 25
+          },
+          {
+            "name": "Marvin Harrison",
+            "ovr": 80,
+            "age": 23
+          },
+          {
+            "name": "Zay Flowers",
+            "ovr": 79,
+            "age": 25
+          },
+          {
+            "name": "Adonai Mitchell",
+            "ovr": 68,
+            "age": 23
+          },
+          {
+            "name": "Stefon Diggs",
+            "ovr": 67,
+            "age": 32
+          },
+          {
+            "name": "Jaylin Lane",
+            "ovr": 65,
+            "age": 24
+          },
+          {
+            "name": "Isaiah Williams",
+            "ovr": 59,
+            "age": 25
+          },
+          {
+            "name": "Malik Washington",
+            "ovr": 58,
+            "age": 25
+          },
+          {
+            "name": "Luke McCaffrey",
+            "ovr": 57,
+            "age": 25
+          },
+          {
+            "name": "Jauan Jennings",
+            "ovr": 53,
+            "age": 28
+          },
+          {
+            "name": "Chimere Dike",
+            "ovr": 52,
+            "age": 24
+          },
+          {
+            "name": "Cooper Kupp",
+            "ovr": 52,
+            "age": 32
+          }
+        ],
+        "TE": [
+          {
+            "name": "Harold Fannin",
+            "ovr": 82,
+            "age": 21
+          },
+          {
+            "name": "George Kittle",
+            "ovr": 68,
+            "age": 32
+          },
+          {
+            "name": "Colby Parkinson",
+            "ovr": 62,
+            "age": 27
+          },
+          {
+            "name": "Dalton Schultz",
+            "ovr": 61,
+            "age": 29
+          },
+          {
+            "name": "Jake Tonges",
+            "ovr": 53,
+            "age": 26
+          },
+          {
+            "name": "Gunnar Helm",
+            "ovr": 69,
+            "age": 23
+          },
+          {
+            "name": "De'Zhaun Stribling",
+            "ovr": 85,
+            "age": 23
+          },
+          {
+            "name": "Kaelon Black",
+            "ovr": 72,
+            "age": 24
+          },
+          {
+            "name": "Konata Mumpfield",
+            "ovr": 55,
+            "age": 23
+          }
+        ],
+        "K": [],
+        "DEF": []
+      },
+      "picks": [
+        {
+          "year": 2026,
+          "round": 2,
+          "slot": "2.09",
+          "via": "own"
+        },
+        {
+          "year": 2026,
+          "round": 4,
+          "slot": "4.06",
+          "via": "own"
+        }
+      ]
+    },
+    {
+      "name": "LEGION OF BOOM",
+      "handle": "RoHo",
+      "rank": 8,
+      "score": 58,
+      "grade": "B",
+      "roster": {
+        "QB": [
+          {
+            "name": "Cam Ward",
+            "ovr": 80,
+            "age": 23
+          },
+          {
+            "name": "Bryce Young",
+            "ovr": 77,
+            "age": 24
+          },
+          {
+            "name": "Malik Willis",
+            "ovr": 75,
+            "age": 26
+          },
+          {
+            "name": "Michael Penix",
+            "ovr": 72,
+            "age": 25
+          },
+          {
+            "name": "Anthony Richardson",
+            "ovr": 68,
+            "age": 23
+          },
+          {
+            "name": "Taylen Green",
+            "ovr": 71,
+            "age": 23
+          },
+          {
+            "name": "Joe Milton",
+            "ovr": 55,
+            "age": 26
+          }
+        ],
+        "RB": [
+          {
+            "name": "Bijan Robinson",
+            "ovr": 94,
+            "age": 24
+          },
+          {
+            "name": "Breece Hall",
+            "ovr": 82,
+            "age": 24
+          },
+          {
+            "name": "Tyjae Spears",
+            "ovr": 72,
+            "age": 24
+          },
+          {
+            "name": "Devin Neal",
+            "ovr": 68,
+            "age": 22
+          },
+          {
+            "name": "Keaton Mitchell",
+            "ovr": 68,
+            "age": 24
+          },
+          {
+            "name": "Mike Washington",
+            "ovr": 62,
+            "age": 22
+          }
+        ],
+        "WR": [
+          {
+            "name": "CeeDee Lamb",
+            "ovr": 90,
+            "age": 27
+          },
+          {
+            "name": "Carnell Tate",
+            "ovr": 80,
+            "age": 21
+          },
+          {
+            "name": "Makai Lemon",
+            "ovr": 79,
+            "age": 21
+          },
+          {
+            "name": "Jayden Higgins",
+            "ovr": 72,
+            "age": 23
+          },
+          {
+            "name": "Josh Downs",
+            "ovr": 71,
+            "age": 24
+          },
+          {
+            "name": "Quentin Johnston",
+            "ovr": 71,
+            "age": 24
+          },
+          {
+            "name": "Khalil Shakir",
+            "ovr": 70,
+            "age": 26
+          },
+          {
+            "name": "Tyreek Hill",
+            "ovr": 65,
+            "age": 31
+          },
+          {
+            "name": "Chris Bell",
+            "ovr": 78,
+            "age": 21
+          },
+          {
+            "name": "Chris Brazzell",
+            "ovr": 65,
+            "age": 22
+          },
+          {
+            "name": "Antonio Williams",
+            "ovr": 56,
+            "age": 21
+          }
+        ],
+        "TE": [
+          {
+            "name": "Isaiah Likely",
+            "ovr": 73,
+            "age": 26
+          },
+          {
+            "name": "Mason Taylor",
+            "ovr": 70,
+            "age": 21
+          },
+          {
+            "name": "AJ Barner",
+            "ovr": 70,
+            "age": 24
+          },
+          {
+            "name": "Ja'Tavion Sanders",
+            "ovr": 78,
+            "age": 23
+          },
+          {
+            "name": "Erick All",
+            "ovr": 77,
+            "age": 25
+          },
+          {
+            "name": "Darnell Washington",
+            "ovr": 56,
+            "age": 24
+          },
+          {
+            "name": "Zach Charbonnet",
+            "ovr": 73,
+            "age": 25
+          },
+          {
+            "name": "Brandon Aiyuk",
+            "ovr": 70,
+            "age": 28
+          },
+          {
+            "name": "Trevor Etienne",
+            "ovr": 70,
+            "age": 21
+          }
+        ],
+        "K": [],
+        "DEF": []
+      },
+      "picks": [
+        {
+          "year": 2026,
+          "round": 1,
+          "slot": "1.03",
+          "via": "own"
+        },
+        {
+          "year": 2026,
+          "round": 2,
+          "slot": "2.03",
+          "via": "own"
+        },
+        {
+          "year": 2026,
+          "round": 2,
+          "slot": "2.07",
+          "via": "own"
+        },
+        {
+          "year": 2026,
+          "round": 3,
+          "slot": "3.03",
+          "via": "own"
+        },
+        {
+          "year": 2027,
+          "round": 1,
+          "slot": null,
+          "via": "own"
+        },
+        {
+          "year": 2027,
+          "round": 2,
+          "slot": null,
+          "via": "own"
+        },
+        {
+          "year": 2027,
+          "round": 4,
+          "slot": null,
+          "via": "own"
+        },
+        {
+          "year": 2028,
+          "round": 1,
+          "slot": null,
+          "via": "own"
+        },
+        {
+          "year": 2028,
+          "round": 2,
+          "slot": null,
+          "via": "own"
+        },
+        {
+          "year": 2028,
+          "round": 3,
+          "slot": null,
+          "via": "own"
+        },
+        {
+          "year": 2028,
+          "round": 4,
+          "slot": null,
+          "via": "own"
+        }
+      ]
+    },
+    {
+      "name": "GARGAR BANKS",
+      "handle": "Gargarbanks",
+      "rank": 9,
+      "score": 50,
+      "grade": "B-",
+      "roster": {
+        "QB": [
+          {
+            "name": "Jayden Daniels",
+            "ovr": 92,
+            "age": 25
+          },
+          {
+            "name": "Kyler Murray",
+            "ovr": 79,
+            "age": 28
+          },
+          {
+            "name": "Shedeur Sanders",
+            "ovr": 71,
+            "age": 24
+          },
+          {
+            "name": "Deshaun Watson",
+            "ovr": 63,
+            "age": 30
+          },
+          {
+            "name": "Marcus Mariota",
+            "ovr": 56,
+            "age": 32
+          }
+        ],
+        "RB": [
+          {
+            "name": "Audric Estime",
+            "ovr": 70,
+            "age": 22
+          },
+          {
+            "name": "Rachaad White",
+            "ovr": 70,
+            "age": 27
+          },
+          {
+            "name": "Kaleb Johnson",
+            "ovr": 69,
+            "age": 22
+          },
+          {
+            "name": "Ollie Gordon",
+            "ovr": 69,
+            "age": 22
+          },
+          {
+            "name": "Woody Marks",
+            "ovr": 69,
+            "age": 25
+          },
+          {
+            "name": "Raheim Sanders",
+            "ovr": 64,
+            "age": 23
+          },
+          {
+            "name": "Adam Randall",
+            "ovr": 63,
+            "age": 21
+          }
+        ],
+        "WR": [
+          {
+            "name": "Tetairoa McMillan",
+            "ovr": 86,
+            "age": 23
+          },
+          {
+            "name": "Luther Burden",
+            "ovr": 80,
+            "age": 22
+          },
+          {
+            "name": "Jaylen Waddle",
+            "ovr": 79,
+            "age": 27
+          },
+          {
+            "name": "Kyle Williams",
+            "ovr": 74,
+            "age": 23
+          },
+          {
+            "name": "Wan'Dale Robinson",
+            "ovr": 74,
+            "age": 25
+          },
+          {
+            "name": "Matthew Golden",
+            "ovr": 73,
+            "age": 22
+          },
+          {
+            "name": "Christian Watson",
+            "ovr": 72,
+            "age": 26
+          },
+          {
+            "name": "Jalen McMillan",
+            "ovr": 70,
+            "age": 24
+          },
+          {
+            "name": "Keon Coleman",
+            "ovr": 69,
+            "age": 22
+          },
+          {
+            "name": "Germie Bernard",
+            "ovr": 76,
+            "age": 22
+          },
+          {
+            "name": "Dont'e Thornton",
+            "ovr": 65,
+            "age": 23
+          },
+          {
+            "name": "Jahan Dotson",
+            "ovr": 63,
+            "age": 26
+          },
+          {
+            "name": "Kayshon Boutte",
+            "ovr": 58,
+            "age": 23
+          }
+        ],
+        "TE": [
+          {
+            "name": "Brock Bowers",
+            "ovr": 97,
+            "age": 23
+          },
+          {
+            "name": "Max Klare",
+            "ovr": 76,
+            "age": 22
+          },
+          {
+            "name": "Mike Gesicki",
+            "ovr": 55,
+            "age": 30
+          },
+          {
+            "name": "David Njoku",
+            "ovr": 53,
+            "age": 29
+          },
+          {
+            "name": "Fernando Mendoza",
+            "ovr": 79,
+            "age": 22
+          },
+          {
+            "name": "Jordyn Tyson",
+            "ovr": 78,
+            "age": 21
+          },
+          {
+            "name": "Jonah Coleman",
+            "ovr": 66,
+            "age": 22
+          },
+          {
+            "name": "Jadarian Price",
+            "ovr": 76,
+            "age": 22
+          }
+        ],
+        "K": [],
+        "DEF": []
+      },
+      "picks": [
+        {
+          "year": 2026,
+          "round": 1,
+          "slot": "1.02",
+          "via": "own"
+        },
+        {
+          "year": 2026,
+          "round": 1,
+          "slot": "1.05",
+          "via": "own"
+        },
+        {
+          "year": 2026,
+          "round": 1,
+          "slot": "1.07",
+          "via": "own"
+        },
+        {
+          "year": 2026,
+          "round": 2,
+          "slot": "2.02",
+          "via": "own"
+        },
+        {
+          "year": 2026,
+          "round": 3,
+          "slot": "3.02",
+          "via": "own"
+        },
+        {
+          "year": 2026,
+          "round": 4,
+          "slot": "4.02",
+          "via": "own"
+        },
+        {
+          "year": 2027,
+          "round": 1,
+          "slot": null,
+          "via": "own"
+        },
+        {
+          "year": 2027,
+          "round": 2,
+          "slot": null,
+          "via": "own"
+        },
+        {
+          "year": 2027,
+          "round": 3,
+          "slot": null,
+          "via": "own"
+        },
+        {
+          "year": 2027,
+          "round": 4,
+          "slot": null,
+          "via": "own"
+        }
+      ]
+    },
+    {
+      "name": "DRCHAMA",
+      "handle": "DrChama",
+      "rank": 10,
+      "score": 40,
+      "grade": "C+",
+      "roster": {
+        "QB": [
+          {
+            "name": "Patrick Mahomes",
+            "ovr": 87,
+            "age": 30
+          },
+          {
+            "name": "Jared Goff",
+            "ovr": 79,
+            "age": 31
+          },
+          {
+            "name": "Justin Fields",
+            "ovr": 69,
+            "age": 27
+          },
+          {
+            "name": "Ty Simpson",
+            "ovr": 57,
+            "age": 23
+          },
+          {
+            "name": "Trey Lance",
+            "ovr": 65,
+            "age": 25
+          },
+          {
+            "name": "Dillon Gabriel",
+            "ovr": 62,
+            "age": 25
+          },
+          {
+            "name": "Davis Mills",
+            "ovr": 62,
+            "age": 27
+          }
+        ],
+        "RB": [
+          {
+            "name": "Tyler Allgeier",
+            "ovr": 72,
+            "age": 26
+          },
+          {
+            "name": "Jaylen Warren",
+            "ovr": 71,
+            "age": 27
+          },
+          {
+            "name": "Jonathon Brooks",
+            "ovr": 70,
+            "age": 22
+          },
+          {
+            "name": "Kimani Vidal",
+            "ovr": 62,
+            "age": 24
+          },
+          {
+            "name": "Chris Brooks",
+            "ovr": 53,
+            "age": 26
+          }
+        ],
+        "WR": [
+          {
+            "name": "Garrett Wilson",
+            "ovr": 82,
+            "age": 25
+          },
+          {
+            "name": "Denzel Boston",
+            "ovr": 76,
+            "age": 22
+          },
+          {
+            "name": "Courtland Sutton",
+            "ovr": 72,
+            "age": 30
+          },
+          {
+            "name": "Xavier Worthy",
+            "ovr": 72,
+            "age": 23
+          },
+          {
+            "name": "Keenan Allen",
+            "ovr": 67,
+            "age": 33
+          },
+          {
+            "name": "Jaylin Noel",
+            "ovr": 70,
+            "age": 23
+          },
+          {
+            "name": "Caleb Douglas",
+            "ovr": 64,
+            "age": 22
+          },
+          {
+            "name": "Skyler Bell",
+            "ovr": 63,
+            "age": 23
+          },
+          {
+            "name": "Jalen Nailor",
+            "ovr": 63,
+            "age": 27
+          },
+          {
+            "name": "Tank Dell",
+            "ovr": 59,
+            "age": 26
+          },
+          {
+            "name": "Calvin Ridley",
+            "ovr": 58,
+            "age": 31
+          },
+          {
+            "name": "KeAndre Lambert-Smith",
+            "ovr": 55,
+            "age": 24
+          },
+          {
+            "name": "Tre' Harris",
+            "ovr": 55,
+            "age": 24
+          },
+          {
+            "name": "Isaac TeSlaa",
+            "ovr": 53,
+            "age": 24
+          }
+        ],
+        "TE": [
+          {
+            "name": "Oronde Gadsden",
+            "ovr": 75,
+            "age": 22
+          },
+          {
+            "name": "Eli Stowers",
+            "ovr": 70,
+            "age": 23
+          },
+          {
+            "name": "T.J. Hockenson",
+            "ovr": 70,
+            "age": 28
+          },
+          {
+            "name": "Brenton Strange",
+            "ovr": 58,
+            "age": 25
+          },
+          {
+            "name": "Greg Dulcich",
+            "ovr": 55,
+            "age": 26
+          },
+          {
+            "name": "Jalen Royals",
+            "ovr": 66,
+            "age": 23
+          },
+          {
+            "name": "Jordan James",
+            "ovr": 60,
+            "age": 22
+          },
+          {
+            "name": "Savion Williams",
+            "ovr": 52,
+            "age": 24
+          }
+        ],
+        "K": [],
+        "DEF": []
+      },
+      "picks": [
+        {
+          "year": 2026,
+          "round": 1,
+          "slot": "1.04",
+          "via": "own"
+        },
+        {
+          "year": 2026,
+          "round": 2,
+          "slot": "2.04",
+          "via": "own"
+        },
+        {
+          "year": 2026,
+          "round": 3,
+          "slot": "3.04",
+          "via": "own"
+        },
+        {
+          "year": 2026,
+          "round": 3,
+          "slot": "3.08",
+          "via": "own"
+        },
+        {
+          "year": 2027,
+          "round": 1,
+          "slot": null,
+          "via": "own"
+        },
+        {
+          "year": 2028,
+          "round": 4,
+          "slot": null,
+          "via": "own"
+        },
+        {
+          "year": 2028,
+          "round": 1,
+          "slot": null,
+          "via": "own"
+        }
+      ]
+    }
+  ]
+}
