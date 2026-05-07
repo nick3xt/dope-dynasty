@@ -531,7 +531,7 @@ html, body {
   <button class="nb" onclick="showTab('trades',this);closeMobileNav()">TRADE LOG</button>
   <button class="nb" onclick="showTab('prospects2027',this);closeMobileNav()">2027 PROSPECTS</button>
   <button class="nb new-tab" onclick="showTab('warroom',this);closeMobileNav()">MARKET BOARD</button>
-  <button class="nb" onclick="showTab('aianalyzer',this);closeMobileNav()">AI ANALYZER</button>
+  
   <button class="nb" onclick="showTab('dynastyduos',this);closeMobileNav()">DYNASTY DUOS</button>
   <button class="nb new-tab" onclick="showTab('lore',this);closeMobileNav()">LORE</button>
   <button class="nb" style="margin-top:auto;color:rgba(255,255,255,.25);font-size:8px;" onclick="closeMobileNav()">CLOSE</button>
@@ -1411,30 +1411,7 @@ html, body {
   </div>
 </div>
 
-<div class="sec" id="aianalyzer">
-  <div class="sec-title">AI ANALYZER</div>
-  <div class="sec-sub">Select a team and click analyze for a full breakdown</div>
 
-  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:24px;max-width:600px;margin-bottom:24px;">
-    <div style="margin-bottom:20px;">
-      <label style="display:block;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:8px;">SELECT TEAM</label>
-      <div style="display:flex;align-items:center;gap:10px;">
-        <div id="aiTeamAvatar" style="width:40px;height:40px;border-radius:50%;flex-shrink:0;overflow:hidden;border:2px solid var(--border);background:var(--bg3);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--muted)">?</div>
-        <select id="aiTeamSelect" onchange="updateAITeamAvatar(this.value)" style="flex:1;padding:10px;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-family:inherit;border-radius:4px;">
-          <option value="">&#x2014; Choose a team &#x2014;</option>
-        </select>
-      </div>
-    </div>
-
-    <button style="width:100%;padding:12px;background:var(--green);color:var(--bg);border:none;border-radius:4px;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;cursor:pointer;font-weight:bold;transition:all .2s;" onclick="aiAnalyzeTeam()" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">ANALYZE TEAM</button>
-  <button class="nb" onclick="showHotTake()" style="margin-top:8px;background:linear-gradient(135deg,#ff6b35,#e84e0f);color:#fff;font-weight:700;width:100%;letter-spacing:1px;">&#x1F525; HOT TAKE</button>
-  <div id="hotTakeBox" style="display:none;margin-top:12px;padding:14px 16px;background:rgba(255,107,53,0.1);border:1px solid rgba(255,107,53,0.35);border-radius:8px;font-size:0.93rem;color:#f7c59f;font-weight:600;line-height:1.55;"></div>
-  </div>
-
-  <div id="aiReportContainer" style="display:none;background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:24px;max-width:1000px;">
-    <div id="aiReport"></div>
-  </div>
-</div>
 
 <script>
 const GRADED_TRADES=[
@@ -5678,10 +5655,10 @@ setTimeout(function(){
 <li><strong>DAVID SHAH &#x2014; A+</strong> &#x00B7; The gold standard. WIN NOW and winning. Traded away CMC and emerged stronger at every position. Draft day added KC Concepcion &#x2014; a WR1 upside pick who fits the system perfectly. The deepest, most balanced roster in the league. If this team doesn't win a championship in the next two seasons, that grade gets reconsidered. But right now? Best team on paper, full stop.</li>
 <li><strong>NXBOSTA &#x2014; A</strong> &#x00B7; Active offseason. Multiple deals remade the roster from top to bottom &#x2014; CeeDee Lamb and Trevor Lawrence headline, with supporting depth built across several trades. One of the more transformed rosters heading into 2026.</li>
 <li><strong>LEGETTITPOPPIN &#x2014; A</strong> &#x00B7; Took a real hit in the NXBOSTA blockbuster, losing Jeanty and Egbuka. But they swung on Justin Joly at TE &#x2014; a high-ceiling dart with real dynasty upside &#x2014; and the big roster moves they made elsewhere keep this team in contention. The core is still elite. The question is whether the assets received convert into wins before the window closes.</li>
-<li><strong>LAMARIO BROS &#x2014; A</strong> &#x00B7; Busy offseason. CJ Stroud, Nico Nabers, and Javonte Williams arrived via the NXBOSTA deal; Tee Higgins, Travis Etienne, and Hunter Henry came through other moves. A significantly remade roster that enters 2026 as a genuine contender.</li>
+<li><strong>LAMARIO BROS &#x2014; A-</strong> &#x00B7; Busy offseason. CJ Stroud, Nico Nabers, and Javonte Williams arrived via the NXBOSTA deal; Tee Higgins, Travis Etienne, and Hunter Henry came through other moves. A significantly remade roster that enters 2026 as a genuine contender.</li>
 <li><strong>YARAKABI &#x2014; B+</strong> &#x00B7; Speed everywhere, all the time. Jeremiyah Love at 1.01 was the right call &#x2014; explosive RB1 talent with three-down upside. The young core is legitimate: fast players, big-play potential, a manager who trusts the process. Saquon Barkley adds veteran presence. High ceiling, some floor concerns, but the trajectory is up and to the right.</li>
 <li><strong>VIKITA &#x2014; B</strong> &#x00B7; Quiet. Strategic. Intentional. VIKITA landed both picks inside the 49ers offensive system &#x2014; players who enter a proven scheme with an elite supporting cast. De'Zhaun Stribling gives them a young receiver to develop. In a league this loud, quiet can be exactly the right move. Sneaky playoff threat when chaos claims the favorites.</li>
-<li><strong>LEGION OF BOOM &#x2014; B-</strong> &#x00B7; The WR factory. Carnell Tate headlines a young receiving corps that has real upside if the development curve lands right. This is a wide receiver collection built for dynasty &#x2014; speed, route running, ceiling plays. The asset base thinned out this offseason, but the talent is there. Reload or regret: the decision point is coming.</li>
+<li><strong>LEGION OF BOOM &#x2014; B</strong> &#x00B7; The WR factory. Carnell Tate headlines a young receiving corps that has real upside if the development curve lands right. This is a wide receiver collection built for dynasty &#x2014; speed, route running, ceiling plays. The asset base thinned out this offseason, but the talent is there. Reload or regret: the decision point is coming.</li>
 <li><strong>GARGARBANKS &#x2014; C+</strong> &#x00B7; Playing the long game, and playing it correctly. Fernando Mendoza at QB is a 49ers-offense dart throw with a three-year runway to pay off &#x2014; and with a deep enough roster to stay patient, GARGARBANKS can afford to wait. This is a future threat wearing a C+ grade. File under: watch in 2027.</li>
 <li><strong>CKHOSHOR89 &#x2014; C</strong> &#x00B7; Smart asset management in a messy situation. Omar Cooper at 2.01 was the kind of value pick that ages well &#x2014; a WR with legitimate upside drafted at a price that fits the rebuild timeline. Jaxon Smith-Njigba flashes. The vision is coming into focus. Get the pieces moving in the same direction and this roster becomes dangerous.</li>
 <li><strong>DRCHAMA &#x2014; D</strong> &#x00B7; &#x1F4A3; TEARDOWN. The draft picks are top-heavy and the overall roster has not kept pace. Ty Simpson is a moonshot and moonshots sometimes land, but the surrounding talent is too thin to hide it if he doesn't. The 2027 first acquired from CKHOSHOR is the most valuable asset on this roster right now. The rebuild starts here &#x2014; or it should.</li>
@@ -5699,6 +5676,11 @@ setTimeout(function(){
 <p>April 28 closed the month with seven trades in a single day. NXBOSTA added Travis Kelce from DRCHAMA for Jaylin Noel and a 2028 fourth. DRCHAMA acquired the 2026 first originally owned by CKHOSHOR89 from YARAKABI, sending back DRCHAMA&#x2019;s 2028 first. LEGION OF BOOM dealt Ja&#x2019;Tavion Sanders to VIKITA for DAVIDSHAH&#x2019;s 2026 fourth, then flipped that pick to YARAKABI for DeMario Douglas. CKHOSHOR89 received Elic Ayomanor from LEGION OF BOOM for a 2026 fourth. LAMARIO BROS sent LeQuint Allen to CKHOSHOR89 for CKHOSHOR89&#x2019;s 2026 fourth, then completed a pick exchange with DRCHAMA and LEGETTITPOPPIN to finalize the board.</p>
 </div>
 
+<div class="lore-divider"></div>
+<div class="lore-chapter">
+<h2>Trade #23 &#x2014; The May Deal</h2>
+<p>LAMARIO BROS shipped Ricky Pearsall and a 2027 3rd to LEGION OF BOOM, landing Mike Washington, Chris Brazzell, and a 4th in return &#x2014; trimming WR ceiling for live RB2 depth without cracking the core. LEGION OF BOOM wins the optics: Pearsall is 25 and ascending, and they moved up a round for just a 4th. Lamario stays disciplined, Legion bets on upside &#x2014; and on Pearsall, that&#39;s the right bet.</p>
+</div>
 <p class="lore-footer">DOPE Dynasty War Room &#x00B7; 2026 Season Report &#x00B7; All takes are final. No refunds. No trades reconsidered.</p>
 </div>
 </div>
