@@ -532,6 +532,7 @@ html, body {
   <button class="nb" onclick="showTab('prospects2027',this);closeMobileNav()">2027 PROSPECTS</button>
   <button class="nb new-tab" onclick="showTab('warroom',this);closeMobileNav()">MARKET BOARD</button>
   
+  <button class="nb" onclick="showTab('aianalyzer',this);closeMobileNav()">AI ANALYZER</button>
   <button class="nb" onclick="showTab('dynastyduos',this);closeMobileNav()">DYNASTY DUOS</button>
   <button class="nb new-tab" onclick="showTab('lore',this);closeMobileNav()">LORE</button>
   <button class="nb" style="margin-top:auto;color:rgba(255,255,255,.25);font-size:8px;" onclick="closeMobileNav()">CLOSE</button>
@@ -5339,6 +5340,30 @@ async function syncFromSleeper(){
 </div>
 
 <!-- DYNASTY DUOS TAB -->
+<div class="sec" id="aianalyzer">
+  <div class="sec-title">AI ANALYZER</div>
+  <div class="sec-sub">Select a team and click analyze for a full breakdown</div>
+
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:24px;max-width:600px;margin-bottom:24px;">
+    <div style="margin-bottom:20px;">
+      <label style="display:block;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:8px;">SELECT TEAM</label>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div id="aiTeamAvatar" style="width:40px;height:40px;border-radius:50%;flex-shrink:0;overflow:hidden;border:2px solid var(--border);background:var(--bg3);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:14px;color:var(--muted)">?</div>
+        <select id="aiTeamSelect" onchange="updateAITeamAvatar(this.value)" style="flex:1;padding:10px;background:var(--bg3);border:1px solid var(--border);color:var(--text);font-family:inherit;border-radius:4px;">
+          <option value="">&#x2014; Choose a team &#x2014;</option>
+        </select>
+      </div>
+    </div>
+
+    <button style="width:100%;padding:12px;background:var(--green);color:var(--bg);border:none;border-radius:4px;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;cursor:pointer;font-weight:bold;transition:all .2s;" onclick="aiAnalyzeTeam()" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">ANALYZE TEAM</button>
+  <button class="nb" onclick="showHotTake()" style="margin-top:8px;background:linear-gradient(135deg,#ff6b35,#e84e0f);color:#fff;font-weight:700;width:100%;letter-spacing:1px;">&#x1F525; HOT TAKE</button>
+  <div id="hotTakeBox" style="display:none;margin-top:12px;padding:14px 16px;background:rgba(255,107,53,0.1);border:1px solid rgba(255,107,53,0.35);border-radius:8px;font-size:0.93rem;color:#f7c59f;font-weight:600;line-height:1.55;"></div>
+  </div>
+
+  <div id="aiReportContainer" style="display:none;background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:24px;max-width:1000px;">
+    <div id="aiReport"></div>
+  </div>
+</div>
 <div class="tab-content sec" id="dynastyduos">
 <style>
 .duo-team-card{background:var(--card-bg,rgba(255,255,255,0.04));border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:16px;margin-bottom:20px;}
