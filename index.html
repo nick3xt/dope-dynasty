@@ -600,8 +600,7 @@ html, body {
 <div class="sec" id="analytics">
   <div class="sec-title">ROSTER ANALYTICS</div>
   <div class="sec-sub">Player stats ÃÂ· Season performance ÃÂ· Dynasty tier ratings ÃÂ· Click any player for full scout card</div>
-  <div id="analyticsContent"><div class="pr-loading"><span class="loading-spin"></span>Loading analytics...
-
+  <div id="analyticsContent"><div class="pr-loading"><span class="loading-spin"></span>Loading analytics...</div></div>
 
 <!-- TRADE LOG TAB -->
 <div class="sec" id="trades">
@@ -3783,27 +3782,9 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 <script>
 (function(){
 if(window._aXN)return;window._aXN=1;
-var GOLD='#FFB800',GR='#333';
-var ROI=[
-  {t:'NXBOSTA',n:116},{t:'LEGETTEITPOPPIN',n:85},{t:'DRCHAMA',n:27},
-  {t:'VIKITA',n:0},{t:'GARGAR BANKS',n:0},{t:'DAVID SHAH',n:-13},
-  {t:'YARAKABI',n:-35},{t:'LAMARIO BROS',n:-42},
-  {t:'LEGION OF BOOM',n:-48},{t:'CKHOSHOR',n:-92}
-];
-var TD={
-  'DAVID SHAH':{d:92,a:26.5,q:75,r:72,w:88,te:68},
-  'LAMARIO BROS':{d:85,a:24.8,q:90,r:96,w:72,te:55},
-  'YARAKABI':{d:78,a:27.2,q:85,r:65,w:95,te:62},
-  'NXBOSTA':{d:88,a:23.8,q:80,r:88,w:85,te:70},
-  'LEGETTEITPOPPIN':{d:80,a:28.0,q:88,r:72,w:92,te:65},
-  'CKHOSHOR':{d:58,a:29.1,q:78,r:68,w:70,te:60},
-  'VIKITA':{d:72,a:26.1,q:94,r:65,w:75,te:68},
-  'LEGION OF BOOM':{d:65,a:27.8,q:65,r:78,w:68,te:55},
-  'GARGAR BANKS':{d:62,a:25.2,q:70,r:62,w:72,te:85},
-  'DRCHAMA':{d:48,a:24.5,q:82,r:58,w:62,te:55}
-};
-var teams=Object.keys(TD);
-var n=teams.length,lgD=0,lgA=0,lgQ=0,lgR=0,lgW=0,lgTE=0;
+var ROI=[{t:'LAMARIO BROS',n:14200},{t:'DRCHAMA',n:5200},{t:'LEGETTEITPOPPIN',n:2900},{t:'GARGAR BANKS',n:0},{t:'VIKITA',n:-800},{t:'YARAKABI',n:-3300},{t:'CKHOSHOR',n:-3400},{t:'NXBOSTA',n:-4400},{t:'DAVID SHAH',n:-4900},{t:'LEGION OF BOOM',n:-5500}];
+var TD={'DAVID SHAH':{d:92,a:26.5,q:75,r:72,w:88,te:68},'LAMARIO BROS':{d:85,a:24.8,q:90,r:96,w:72,te:55},'YARAKABI':{d:78,a:27.2,q:85,r:65,w:95,te:62},'NXBOSTA':{d:88,a:23.8,q:80,r:88,w:85,te:70},'LEGETTEITPOPPIN':{d:80,a:28.0,q:88,r:72,w:92,te:65},'CKHOSHOR':{d:58,a:29.1,q:78,r:68,w:70,te:60},'VIKITA':{d:72,a:26.1,q:94,r:65,w:75,te:68},'LEGION OF BOOM':{d:65,a:27.8,q:65,r:78,w:68,te:55},'GARGAR BANKS':{d:62,a:25.2,q:70,r:62,w:72,te:85},'DRCHAMA':{d:48,a:24.5,q:82,r:58,w:62,te:55}};
+var teams=Object.keys(TD),n=teams.length,lgD=0,lgA=0,lgQ=0,lgR=0,lgW=0,lgTE=0;
 teams.forEach(function(t){var x=TD[t];lgD+=x.d;lgA+=x.a;lgQ+=x.q;lgR+=x.r;lgW+=x.w;lgTE+=x.te;});
 lgD/=n;lgA/=n;lgQ/=n;lgR/=n;lgW/=n;lgTE/=n;
 var rC=null,pC=null,dC=null,aC=null;
@@ -3811,65 +3792,22 @@ function mkDiv(){
   var el=document.getElementById('analytics');
   if(!el||!el.parentNode||document.getElementById('analytics-ext'))return;
   var div=document.createElement('div');
-  div.id='analytics-ext';
-  div.className='sec';
-  div.style.cssText='display:none;background:#111;padding:20px;';
-  div.innerHTML='<div style="padding:10px 0 20px"><h2 style="color:#FFB800;font-size:1.3em;margin-bottom:12px;">Trade ROI - Net Dynasty OVR</h2><div style="position:relative;height:300px;"><canvas id="roiChart"></canvas></div></div><div style="padding:10px 0"><h2 style="color:#FFB800;font-size:1.3em;margin-bottom:12px;">Team Comparison</h2><div id="teamBtns" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;"></div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;"><div><p style="color:#aaa;text-align:center;margin-bottom:8px;font-size:.9em;">Positional Depth Score</p><div style="position:relative;height:250px;"><canvas id="posChart"></canvas></div></div><div><p style="color:#aaa;text-align:center;margin-bottom:8px;font-size:.9em;">Dynasty Score vs League Avg</p><div style="position:relative;height:250px;"><canvas id="dynChart"></canvas></div></div><div><p style="color:#aaa;text-align:center;margin-bottom:8px;font-size:.9em;">Avg Starter Age</p><div style="position:relative;height:250px;"><canvas id="ageChart"></canvas></div></div></div></div>';
-  el.parentNode.insertBefore(div,el.nextSibling);
-  mkBtns();
+  div.id='analytics-ext';div.className='sec';div.style.cssText='display:none;background:#111;padding:20px;';
+  div.innerHTML='<div style="padding:10px 0 20px"><h2 style="color:#FFB800;font-size:1.3em;margin-bottom:8px;">Trade ROI &mdash; KTC Dynasty Value</h2><p style="color:#888;font-size:.82em;line-height:1.55;margin-bottom:14px;padding:10px 14px;background:#1a1a1a;border-left:3px solid #444;border-radius:0 4px 4px 0;">Each bar shows the net KTC dynasty value a team gained or lost through trades this offseason. Green = came out ahead in raw value. Red = gave more than they received. Note: raw value does not capture age, upside, or context &mdash; a green bar does not always mean a good trade.</p><div style="position:relative;height:300px;"><canvas id="roiChart"></canvas></div></div><div style="padding:10px 0"><h2 style="color:#FFB800;font-size:1.3em;margin-bottom:12px;">Team Comparison</h2><div id="teamBtns" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;"></div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;"><div><p style="color:#aaa;text-align:center;margin-bottom:8px;font-size:.9em;">Positional Depth Score</p><div style="position:relative;height:250px;"><canvas id="posChart"></canvas></div></div><div><p style="color:#aaa;text-align:center;margin-bottom:8px;font-size:.9em;">Dynasty Score vs League Avg</p><div style="position:relative;height:250px;"><canvas id="dynChart"></canvas></div></div><div><p style="color:#aaa;text-align:center;margin-bottom:8px;font-size:.9em;">Avg Starter Age</p><div style="position:relative;height:250px;"><canvas id="ageChart"></canvas></div></div></div></div>';
+  el.parentNode.insertBefore(div,el.nextSibling);mkBtns();
 }
-function mkBtns(){
-  var c=document.getElementById('teamBtns');
-  if(!c)return;
-  teams.forEach(function(t){
-    var b=document.createElement('button');
-    b.textContent=t;
-    b.setAttribute('data-team',t);
-    b.style.cssText='padding:5px 10px;background:#222;color:#ccc;border:1px solid #444;border-radius:4px;cursor:pointer;font-size:.78em;';
-    b.onclick=function(){selTA(t);};
-    c.appendChild(b);
-  });
-}
-function bROI(){
-  var el=document.getElementById('roiChart');
-  if(!el||el.offsetParent===null)return;
-  if(rC){rC.destroy();rC=null;}
-  var s=ROI.slice().sort(function(a,b){return b.n-a.n;});
-  rC=new Chart(el,{type:'bar',data:{labels:s.map(function(x){return x.t;}),datasets:[{label:'Net OVR',data:s.map(function(x){return x.n;}),backgroundColor:s.map(function(x){return x.n>=0?'#4CAF50':'#f44336';}),borderColor:s.map(function(x){return x.n>=0?'#4CAF50':'#f44336';}),borderWidth:1}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:function(ctx){return(ctx.parsed.x>0?'+':'')+ctx.parsed.x+' OVR';}}}},scales:{x:{grid:{color:'#333'},ticks:{color:'#ccc'},title:{display:true,text:'Net OVR',color:'#aaa'}},y:{grid:{color:'#333'},ticks:{color:'#ccc',font:{size:11}}}}}});
-}
-window.selTA=function(team){
-  document.querySelectorAll('#teamBtns button').forEach(function(b){var a=b.getAttribute('data-team')===team;b.style.background=a?'#FFB800':'#222';b.style.color=a?'#000':'#ccc';b.style.borderColor=a?'#FFB800':'#444';});
-  var td=TD[team];if(!td)return;
-  var pe=document.getElementById('posChart');
-  if(pe&&pe.offsetParent!==null){
-    if(pC){pC.destroy();pC=null;}
-    pC=new Chart(pe,{type:'radar',data:{labels:['QB','RB','WR','TE'],datasets:[{label:team,data:[td.q,td.r,td.w,td.te],backgroundColor:'rgba(255,184,0,.2)',borderColor:'#FFB800',pointBackgroundColor:'#FFB800',borderWidth:2},{label:'Lg Avg',data:[Math.round(lgQ),Math.round(lgR),Math.round(lgW),Math.round(lgTE)],backgroundColor:'rgba(102,119,255,.1)',borderColor:'#6677ff',pointBackgroundColor:'#6677ff',borderWidth:2,borderDash:[5,5]}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#ccc'}}},scales:{r:{min:0,max:100,grid:{color:'#333'},pointLabels:{color:'#ccc'},ticks:{color:'#888',backdropColor:'transparent',stepSize:25}}}}});
-  }
-  var de=document.getElementById('dynChart');
-  if(de&&de.offsetParent!==null){
-    if(dC){dC.destroy();dC=null;}
-    dC=new Chart(de,{type:'bar',data:{labels:[team,'Lg Avg'],datasets:[{data:[td.d,Math.round(lgD)],backgroundColor:['#FFB800','#6677ff'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:'#333'},ticks:{color:'#ccc'}},y:{min:0,max:100,grid:{color:'#333'},ticks:{color:'#ccc'},title:{display:true,text:'Dynasty Score',color:'#aaa'}}}}});
-  }
-  var ae=document.getElementById('ageChart');
-  if(ae&&ae.offsetParent!==null){
-    if(aC){aC.destroy();aC=null;}
-    var tc=td.a<=lgA?'#4CAF50':'#f44336';
-    aC=new Chart(ae,{type:'bar',data:{labels:[team,'Lg Avg'],datasets:[{data:[td.a,Math.round(lgA*10)/10],backgroundColor:[tc,'#6677ff'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:'#333'},ticks:{color:'#ccc'}},y:{min:20,max:35,grid:{color:'#333'},ticks:{color:'#ccc'},title:{display:true,text:'Avg Age',color:'#aaa'}}}}});
-  }
-};
-function hookST(){
-  if(typeof window.showTab!=='function')return false;
-  var _o=window.showTab;
-  window.showTab=function(id,btn){
-    _o.call(this,id,btn);
-    var ext=document.getElementById('analytics-ext');
-    if(ext)ext.style.display=(id==='analytics')?'block':'none';
-    if(id==='analytics'){setTimeout(function(){bROI();if(!window._taI){window._taI=true;selTA('LAMARIO BROS');}},80);}
-  };
-  return true;
-}
-mkDiv();
-if(!hookST()){var _hi=setInterval(function(){if(hookST())clearInterval(_hi);},50);setTimeout(function(){clearInterval(_hi);},4000);}
+function mkBtns(){var c=document.getElementById('teamBtns');if(!c)return;teams.forEach(function(t){var b=document.createElement('button');b.textContent=t;b.setAttribute('data-team',t);b.style.cssText='padding:5px 10px;background:#222;color:#ccc;border:1px solid #444;border-radius:4px;cursor:pointer;font-size:.78em;';b.onclick=function(){selTA(t);};c.appendChild(b);});}
+function bROI(){var el=document.getElementById('roiChart');if(!el||el.offsetParent===null)return;if(rC){rC.destroy();rC=null;}var s=ROI.slice().sort(function(a,b){return b.n-a.n;});rC=new Chart(el,{type:'bar',data:{labels:s.map(function(x){return x.t;}),datasets:[{label:'Net KTC',data:s.map(function(x){return x.n;}),backgroundColor:s.map(function(x){return x.n>=0?'#4CAF50':'#f44336';}),borderColor:s.map(function(x){return x.n>=0?'#4CAF50':'#f44336';}),borderWidth:1}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:function(ctx){return(ctx.parsed.x>0?'+':'')+ctx.parsed.x.toLocaleString()+' KTC';}}}},scales:{x:{grid:{color:'#333'},ticks:{color:'#ccc'},title:{display:true,text:'Net KTC Value',color:'#aaa'}},y:{grid:{color:'#333'},ticks:{color:'#ccc',font:{size:11}}}}}});}
+window.selTA=function(team){document.querySelectorAll('#teamBtns button').forEach(function(b){var a=b.getAttribute('data-team')===team;b.style.background=a?'#FFB800':'#222';b.style.color=a?'#000':'#ccc';b.style.borderColor=a?'#FFB800':'#444';});var td=TD[team];if(!td)return;var pe=document.getElementById('posChart');if(pe&&pe.offsetParent!==null){if(pC){pC.destroy();pC=null;}pC=new Chart(pe,{type:'radar',data:{labels:['QB','RB','WR','TE'],datasets:[{label:team,data:[td.q,td.r,td.w,td.te],backgroundColor:'rgba(255,184,0,.2)',borderColor:'#FFB800',pointBackgroundColor:'#FFB800',borderWidth:2},{label:'Lg Avg',data:[Math.round(lgQ),Math.round(lgR),Math.round(lgW),Math.round(lgTE)],backgroundColor:'rgba(102,119,255,.1)',borderColor:'#6677ff',pointBackgroundColor:'#6677ff',borderWidth:2,borderDash:[5,5]}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:'#ccc'}}},scales:{r:{min:0,max:100,grid:{color:'#333'},pointLabels:{color:'#ccc'},ticks:{color:'#888',backdropColor:'transparent',stepSize:25}}}}});}var de=document.getElementById('dynChart');if(de&&de.offsetParent!==null){if(dC){dC.destroy();dC=null;}dC=new Chart(de,{type:'bar',data:{labels:[team,'Lg Avg'],datasets:[{data:[td.d,Math.round(lgD)],backgroundColor:['#FFB800','#6677ff'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:'#333'},ticks:{color:'#ccc'}},y:{min:0,max:100,grid:{color:'#333'},ticks:{color:'#ccc'},title:{display:true,text:'Dynasty Score',color:'#aaa'}}}}});}var ae=document.getElementById('ageChart');if(ae&&ae.offsetParent!==null){if(aC){aC.destroy();aC=null;}var tc=td.a<=lgA?'#4CAF50':'#f44336';aC=new Chart(ae,{type:'bar',data:{labels:[team,'Lg Avg'],datasets:[{data:[td.a,Math.round(lgA*10)/10],backgroundColor:[tc,'#6677ff'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:'#333'},ticks:{color:'#ccc'}},y:{min:20,max:35,grid:{color:'#333'},ticks:{color:'#ccc'},title:{display:true,text:'Avg Age',color:'#aaa'}}}}});}};
+var LID='1317238957930446848',_tlDone=false;
+var PN={'1466':'Travis Kelce','3198':'Derrick Henry','3214':'Hunter Henry','4034':'Christian McCaffrey','4037':'Chris Godwin','4199':'Aaron Jones','4866':'Saquon Barkley','5846':'DK Metcalf','5892':'David Montgomery','5906':'Dawson Knox','6786':'CeeDee Lamb','6794':'Justin Jefferson','6801':'Tee Higgins','6804':'Jordan Love','7523':'Trevor Lawrence','7543':'Travis Etienne','7569':'Nico Collins','7588':'Javonte Williams','7611':'Rhamondre Stevenson','8112':'Drake London','8148':'Jameson Williams','8151':'Kenneth Walker','8161':'Malik Willis','9221':'Jahmyr Gibbs','9484':'Tucker Kraft','9488':'Jaxon Smith-Njigba','9501':'DeMario Douglas','9506':'Sean Tucker','9758':'C.J. Stroud','10219':'Chris Rodriguez','11575':'Ray Davis','11583':'Jonathon Brooks','11600':'Ja\'Tavion Sanders','11620':'Rome Odunze','11632':'Malik Nabers','11638':'Ricky Pearsall','12048':'George Holani','12469':'Dylan Sampson','12499':'Elic Ayomanor','12514':'Emeka Egbuka','12527':'Ashton Jeanty','12529':'TreVeyon Henderson','12536':'Jaylin Noel','12544':'LeQuint Allen','12545':'Tyler Shough','13305':'Mike Washington','13353':'Chris Brazzell','13420':'Bryce Lance'};
+var PKV={'1':3500,'2':1800,'3':900,'4':400};
+function pname(id){return PN[id]||('Player #'+id);}
+function loadDOPETrades(){if(_tlDone)return;var el=document.getElementById('tradeList');if(!el)return;_tlDone=true;el.innerHTML='<div style="color:#aaa;padding:30px;text-align:center;">Loading trade history...</div>';Promise.all([fetch('https://api.sleeper.app/v1/league/'+LID+'/users').then(function(r){return r.json();}),fetch('https://api.sleeper.app/v1/league/'+LID+'/rosters').then(function(r){return r.json();})]).then(function(res){var users=res[0],rosters=res[1],uMap={},rMap={};users.forEach(function(u){uMap[u.user_id]=u.display_name||u.username;});rosters.forEach(function(r){rMap[r.roster_id]=uMap[r.owner_id]||'Team '+r.roster_id;});var wks=[];for(var w=1;w<=18;w++)wks.push(w);return Promise.all(wks.map(function(w){return fetch('https://api.sleeper.app/v1/league/'+LID+'/transactions/'+w).then(function(r){return r.json();}).catch(function(){return [];});})).then(function(all){var trades=[];all.forEach(function(wk){if(wk&&wk.length)wk.forEach(function(tx){if(tx&&tx.type==='trade'&&tx.status==='complete')trades.push(tx);});});trades.sort(function(a,b){return b.created-a.created;});if(!trades.length){el.innerHTML='<div style="color:#aaa;padding:20px;text-align:center;">No trades found.</div>';return;}el.innerHTML=trades.map(function(tx){return renderTrade(tx,rMap);}).join('');});}).catch(function(e){el.innerHTML='<div style="color:#f44336;padding:20px;">Error: '+e.message+'</div>';_tlDone=false;});}
+function renderTrade(tx,rMap){var date=new Date(tx.created).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});var sides={};tx.roster_ids.forEach(function(r){sides[r]={gets:[]};});if(tx.adds)Object.keys(tx.adds).forEach(function(pid){var toR=tx.adds[pid];if(sides[toR])sides[toR].gets.push({nm:pname(pid),type:'player'});});if(tx.draft_picks)tx.draft_picks.forEach(function(pk){if(sides[pk.owner_id])sides[pk.owner_id].gets.push({nm:pk.season+' Round '+pk.round,type:'pick'});});var wu=tradeBlurb(tx.roster_ids,rMap,sides);var sH=tx.roster_ids.map(function(r){var team=rMap[r]||'Team '+r,s=sides[r];var aH=s.gets.map(function(a){return '<span style="display:inline-block;margin:2px 4px 2px 0;padding:3px 8px;border-radius:3px;font-size:.8em;background:'+(a.type==='pick'?'#1a2a4a;color:#88aaff':'#1e1e1e;color:#ddd')+';">'+a.nm+'</span>';}).join('');return '<div style="flex:1;min-width:190px;padding:10px;background:#1e1e1e;border-radius:6px;"><div style="color:#FFB800;font-weight:600;font-size:.88em;margin-bottom:5px;">'+team+'</div><div style="color:#555;font-size:.72em;letter-spacing:.05em;margin-bottom:5px;">RECEIVES</div><div style="line-height:1.8;">'+(aH||'<span style="color:#444;font-size:.8em;">Nothing listed</span>')+'</div></div>';}).join('');return '<div style="background:#161616;border:1px solid #252525;border-radius:8px;padding:14px;margin-bottom:12px;"><div style="color:#555;font-size:.75em;margin-bottom:10px;">'+date+'</div><div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;">'+sH+'</div><div style="color:#888;font-size:.82em;font-style:italic;padding-top:10px;border-top:1px solid #222;">'+wu+'</div></div>';}
+function tradeBlurb(rIds,rMap,sides){if(rIds.length<2)return 'Trade recorded.';var t0=rMap[rIds[0]]||'Team '+rIds[0],t1=rMap[rIds[1]]||'Team '+rIds[1],s0=sides[rIds[0]],s1=sides[rIds[1]];var pl0=s0.gets.filter(function(a){return a.type==='player';}).map(function(a){return a.nm;}),pl1=s1.gets.filter(function(a){return a.type==='player';}).map(function(a){return a.nm;});var pk0=s0.gets.filter(function(a){return a.type==='pick';}).length,pk1=s1.gets.filter(function(a){return a.type==='pick';}).length;var STARS=['Ashton Jeanty','Malik Nabers','Justin Jefferson','CeeDee Lamb','Jahmyr Gibbs','C.J. Stroud','Rome Odunze','Emeka Egbuka'];var star=pl0.concat(pl1).find(function(nm){return STARS.indexOf(nm)>=0;});if(pl0.length===0&&pl1.length===0)return 'A pick swap between '+t0+' and '+t1+'.';if(star){var own=pl0.indexOf(star)>=0?t0:t1,oth=own===t0?t1:t0;return own+' lands '+star+' from '+oth+(pk0+pk1>=2?', with draft capital completing the deal.':'.');}if(pl0.length===0)return t1+' ships '+pl1.join(' and ')+' to '+t0+(pk0?' in exchange for picks.':'.');if(pl1.length===0)return t0+' ships '+pl0.join(' and ')+' to '+t1+(pk1?' in exchange for picks.':'.');return t0+' and '+t1+' swap '+(pl0[0]||'assets')+' for '+(pl1[0]||'assets')+(pk0+pk1>=2?', plus picks.':'.');}
+function hookST(){if(typeof window.showTab!=='function')return false;var _o=window.showTab;window.showTab=function(id,btn){_o.call(this,id,btn);var ext=document.getElementById('analytics-ext');if(ext)ext.style.display=(id==='analytics')?'block':'none';if(id==='analytics'){setTimeout(function(){bROI();if(!window._taI){window._taI=true;selTA('LAMARIO BROS');}},80);}if(id==='trades'){setTimeout(loadDOPETrades,50);}};return true;}
+mkDiv();if(!hookST()){var _hi=setInterval(function(){if(hookST())clearInterval(_hi);},50);setTimeout(function(){clearInterval(_hi);},4000);}
 })();
 </script>
 </body>
