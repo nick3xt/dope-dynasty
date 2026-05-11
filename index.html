@@ -397,6 +397,7 @@ html, body {
 
 
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 </head>
 <body>
 <div class="header">
@@ -599,6 +600,74 @@ html, body {
   <div class="sec-title">ROSTER ANALYTICS</div>
   <div class="sec-sub">Player stats ÃÂ· Season performance ÃÂ· Dynasty tier ratings ÃÂ· Click any player for full scout card</div>
   <div id="analyticsContent"><div class="pr-loading"><span class="loading-spin"></span>Loading analytics...</div></div>
+
+
+<!-- ANALYTICS EXTENSION -->
+<div id="analytics-ext" style="margin-top:32px">
+<div style="height:1px;background:linear-gradient(90deg,transparent,#2a2a2a,transparent);margin:4px 0 28px"></div>
+<div style="color:#FFB800;font-size:.85rem;font-weight:700;letter-spacing:.14em;text-align:center;margin-bottom:6px">OFFSEASON TRADE ROI</div>
+<div style="color:#888;font-size:.73rem;letter-spacing:.06em;text-align:center;margin-bottom:24px">Net dynasty value received vs. given &middot; OVR-based estimation &middot; Green = net positive &middot; Red = net negative</div>
+<div style="position:relative;height:310px;max-width:740px;margin:0 auto 40px"><canvas id="tradeRoiChart"></canvas></div>
+<div style="height:1px;background:linear-gradient(90deg,transparent,#2a2a2a,transparent);margin:4px 0 28px"></div>
+<div style="color:#FFB800;font-size:.85rem;font-weight:700;letter-spacing:.14em;text-align:center;margin-bottom:6px">TEAM DEEP DIVE</div>
+<div style="color:#888;font-size:.73rem;letter-spacing:.06em;text-align:center;margin-bottom:22px">Select any team to compare their metrics vs. the 10-team league average</div>
+<div id="tanBtns" style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:26px"><button onclick="selTA('DAVID SHAH')" class="tan-btn" style="background:#222;color:#aaa;border:1px solid #444;padding:8px 14px;border-radius:4px;font-size:.7rem;letter-spacing:.08em;cursor:pointer;font-family:inherit;transition:all .2s;text-transform:uppercase">DAVID SHAH</button><button onclick="selTA('LAMARIO BROS')" class="tan-btn" style="background:#222;color:#aaa;border:1px solid #444;padding:8px 14px;border-radius:4px;font-size:.7rem;letter-spacing:.08em;cursor:pointer;font-family:inherit;transition:all .2s;text-transform:uppercase">LAMARIO BROS</button><button onclick="selTA('YARAKABI')" class="tan-btn" style="background:#222;color:#aaa;border:1px solid #444;padding:8px 14px;border-radius:4px;font-size:.7rem;letter-spacing:.08em;cursor:pointer;font-family:inherit;transition:all .2s;text-transform:uppercase">YARAKABI</button><button onclick="selTA('NXBOSTA')" class="tan-btn" style="background:#222;color:#aaa;border:1px solid #444;padding:8px 14px;border-radius:4px;font-size:.7rem;letter-spacing:.08em;cursor:pointer;font-family:inherit;transition:all .2s;text-transform:uppercase">NXBOSTA</button><button onclick="selTA('LEGETTEITPOPPIN')" class="tan-btn" style="background:#222;color:#aaa;border:1px solid #444;padding:8px 14px;border-radius:4px;font-size:.7rem;letter-spacing:.08em;cursor:pointer;font-family:inherit;transition:all .2s;text-transform:uppercase">LEGETTEITPOPPIN</button><button onclick="selTA('CKHOSHOR')" class="tan-btn" style="background:#222;color:#aaa;border:1px solid #444;padding:8px 14px;border-radius:4px;font-size:.7rem;letter-spacing:.08em;cursor:pointer;font-family:inherit;transition:all .2s;text-transform:uppercase">CKHOSHOR</button><button onclick="selTA('VIKITA')" class="tan-btn" style="background:#222;color:#aaa;border:1px solid #444;padding:8px 14px;border-radius:4px;font-size:.7rem;letter-spacing:.08em;cursor:pointer;font-family:inherit;transition:all .2s;text-transform:uppercase">VIKITA</button><button onclick="selTA('LEGION OF BOOM')" class="tan-btn" style="background:#222;color:#aaa;border:1px solid #444;padding:8px 14px;border-radius:4px;font-size:.7rem;letter-spacing:.08em;cursor:pointer;font-family:inherit;transition:all .2s;text-transform:uppercase">LEGION OF BOOM</button><button onclick="selTA('GARGAR BANKS')" class="tan-btn" style="background:#222;color:#aaa;border:1px solid #444;padding:8px 14px;border-radius:4px;font-size:.7rem;letter-spacing:.08em;cursor:pointer;font-family:inherit;transition:all .2s;text-transform:uppercase">GARGAR BANKS</button><button onclick="selTA('DRCHAMA')" class="tan-btn" style="background:#222;color:#aaa;border:1px solid #444;padding:8px 14px;border-radius:4px;font-size:.7rem;letter-spacing:.08em;cursor:pointer;font-family:inherit;transition:all .2s;text-transform:uppercase">DRCHAMA</button></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px;max-width:840px;margin:0 auto">
+<div style="background:#0d0d0d;border:1px solid #222;border-radius:8px;padding:18px">
+<div style="color:#FFB800;font-size:.68rem;letter-spacing:.14em;font-weight:700;margin-bottom:12px">POSITIONAL DEPTH SCORE</div>
+<div style="position:relative;height:190px"><canvas id="posDepthChart"></canvas></div>
+</div>
+<div style="background:#0d0d0d;border:1px solid #222;border-radius:8px;padding:18px">
+<div style="color:#FFB800;font-size:.68rem;letter-spacing:.14em;font-weight:700;margin-bottom:12px">DYNASTY SCORE vs LEAGUE AVG</div>
+<div style="position:relative;height:190px"><canvas id="dynastyScoreChart"></canvas></div>
+</div>
+</div>
+<div style="background:#0d0d0d;border:1px solid #222;border-radius:8px;padding:18px;max-width:840px;margin:16px auto 4px">
+<div style="color:#FFB800;font-size:.68rem;letter-spacing:.14em;font-weight:700;margin-bottom:12px">AGE PROFILE &mdash; AVG STARTER AGE vs LEAGUE (younger = more dynasty upside)</div>
+<div style="position:relative;height:150px"><canvas id="ageProfileChart"></canvas></div>
+</div>
+</div>
+<script>(function(){
+if(window._aExt)return;window._aExt=1;
+var TD={
+"DAVID SHAH":{d:92,a:26.5,q:75,r:72,w:88,te:68},
+"LAMARIO BROS":{d:85,a:24.8,q:90,r:96,w:72,te:55},
+"YARAKABI":{d:78,a:27.2,q:85,r:65,w:95,te:62},
+"NXBOSTA":{d:88,a:23.8,q:80,r:88,w:85,te:70},
+"LEGETTEITPOPPIN":{d:80,a:28.0,q:88,r:72,w:92,te:65},
+"CKHOSHOR":{d:58,a:29.1,q:78,r:68,w:70,te:60},
+"VIKITA":{d:72,a:26.1,q:94,r:65,w:75,te:68},
+"LEGION OF BOOM":{d:65,a:27.8,q:65,r:78,w:68,te:55},
+"GARGAR BANKS":{d:62,a:25.2,q:70,r:62,w:72,te:85},
+"DRCHAMA":{d:48,a:24.5,q:82,r:58,w:62,te:55}
+};
+var ROI=[
+{t:"NXBOSTA",n:116},{t:"LEGETTEITPOPPIN",n:85},{t:"DRCHAMA",n:27},
+{t:"VIKITA",n:0},{t:"GARGAR BANKS",n:0},{t:"DAVID SHAH",n:-13},
+{t:"YARAKABI",n:-35},{t:"LAMARIO BROS",n:-42},{t:"LEGION OF BOOM",n:-48},{t:"CKHOSHOR",n:-92}
+];
+var G="#FFB800",GN="rgba(76,175,125,.85)",RD="rgba(224,85,85,.85)",GNBRD="#4caf7d",RDBRD="#e05555";
+var vs=Object.values(TD);
+var aD=Math.round(vs.reduce(function(s,t){return s+t.d;},0)/vs.length);
+var aA=(vs.reduce(function(s,t){return s+t.a;},0)/vs.length).toFixed(1);
+var aQ=Math.round(vs.reduce(function(s,t){return s+t.q;},0)/vs.length);
+var aR=Math.round(vs.reduce(function(s,t){return s+t.r;},0)/vs.length);
+var aW=Math.round(vs.reduce(function(s,t){return s+t.w;},0)/vs.length);
+var aT=Math.round(vs.reduce(function(s,t){return s+t.te;},0)/vs.length);
+var base={responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:"#777",font:{size:10}}},tooltip:{backgroundColor:"#111",borderColor:G,borderWidth:1,titleColor:G,bodyColor:"#ccc"}},scales:{x:{grid:{color:"#1e1e1e"},ticks:{color:"#bbb",font:{size:11}},border:{color:"#2a2a2a"}},y:{grid:{color:"#1e1e1e"},ticks:{color:"#777",font:{size:10}},border:{color:"#2a2a2a"}}}};
+new Chart(document.getElementById("tradeRoiChart"),{type:"bar",data:{labels:ROI.map(function(d){return d.t;}),datasets:[{label:"Net Trade Value",data:ROI.map(function(d){return d.n;}),backgroundColor:ROI.map(function(d){return d.n>=0?GN:RD;}),borderColor:ROI.map(function(d){return d.n>=0?GNBRD:RDBRD;}),borderWidth:1,borderRadius:4}]},options:Object.assign({},base,{indexAxis:"y",plugins:Object.assign({},base.plugins,{legend:{display:false},tooltip:Object.assign({},base.plugins.tooltip,{callbacks:{label:function(c){return " Net: "+(c.raw>=0?"+":"")+c.raw+" OVR pts";}}})}),scales:{x:Object.assign({},base.scales.x,{title:{display:true,text:"Net OVR Point Differential",color:"#555",font:{size:10}}}),y:Object.assign({},base.scales.y,{ticks:{color:"#e0e0e0",font:{size:11,weight:"600"}},grid:{display:false}})}})});
+var pC,dC,aC;
+window.selTA=function(nm){
+document.querySelectorAll(".tan-btn").forEach(function(b){var on=b.textContent===nm;b.style.background=on?"#FFB800":"#222";b.style.color=on?"#000":"#aaa";b.style.borderColor=on?"#FFB800":"#444";b.style.fontWeight=on?"700":"400";});
+var d=TD[nm];if(!d)return;
+if(pC)pC.destroy();if(dC)dC.destroy();if(aC)aC.destroy();
+pC=new Chart(document.getElementById("posDepthChart"),{type:"bar",data:{labels:["QB","RB","WR","TE"],datasets:[{label:nm,data:[d.q,d.r,d.w,d.te],backgroundColor:"rgba(255,184,0,.8)",borderColor:G,borderWidth:1,borderRadius:4},{label:"League Avg",data:[aQ,aR,aW,aT],backgroundColor:"rgba(80,80,80,.5)",borderColor:"#555",borderWidth:1,borderRadius:4}]},options:Object.assign({},base,{plugins:Object.assign({},base.plugins,{legend:{labels:{color:"#888",font:{size:10},boxWidth:10}}}),scales:{x:Object.assign({},base.scales.x,{ticks:{color:"#e0e0e0",font:{size:12,weight:"700"}},grid:{display:false}}),y:Object.assign({},base.scales.y,{min:0,max:100})}})});
+dC=new Chart(document.getElementById("dynastyScoreChart"),{type:"bar",data:{labels:[nm,"LEAGUE AVG"],datasets:[{data:[d.d,aD],backgroundColor:[G+"cc","#3a3a3a"],borderColor:[G,"#555"],borderWidth:1,borderRadius:6}]},options:Object.assign({},base,{plugins:Object.assign({},base.plugins,{legend:{display:false},tooltip:Object.assign({},base.plugins.tooltip,{callbacks:{label:function(c){return " Dynasty Score: "+c.raw+"/100";}}})}),scales:{x:Object.assign({},base.scales.x,{ticks:{color:"#e0e0e0",font:{size:10,weight:"700"}},grid:{display:false}}),y:Object.assign({},base.scales.y,{min:0,max:100})}})});
+var la=parseFloat(aA),yo=d.a<la;
+aC=new Chart(document.getElementById("ageProfileChart"),{type:"bar",data:{labels:[nm,"LEAGUE AVG"],datasets:[{data:[d.a,la],backgroundColor:[yo?GN:RD,"#3a3a3a"],borderColor:[yo?GNBRD:RDBRD,"#555"],borderWidth:1,borderRadius:6}]},options:Object.assign({},base,{plugins:Object.assign({},base.plugins,{legend:{display:false},tooltip:Object.assign({},base.plugins.tooltip,{callbacks:{label:function(c){return " Avg Age: "+c.raw+"y"+(c.dataIndex===0?(yo?" ✓ younger":" ✗ older"):"");}}})}),scales:{x:Object.assign({},base.scales.x,{ticks:{color:"#e0e0e0",font:{size:10,weight:"700"}},grid:{display:false}}),y:Object.assign({},base.scales.y,{min:22,max:32,ticks:Object.assign({},base.scales.y.ticks,{callback:function(v){return v+"y";}})})}}});
+};
+setTimeout(function(){selTA("LAMARIO BROS");},250);
+})();</script>
 </div>
 
 <!-- TRADE LOG TAB -->
