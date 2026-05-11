@@ -2241,7 +2241,7 @@ async function loadLiveTradeLog(){
       const newCards=newTrades.map((tx,i)=>autoRenderTrade(tx,totalTrades-i,rosterOwner,playerMap)).filter(Boolean);
       if(newCards.length){
         const banner=`<div style="font-family:'DM Mono',monospace;font-size:8px;color:var(--green);padding:8px 0;letter-spacing:2px;margin-bottom:4px;">Ã¢ÂÂ ${newCards.length} NEW TRADE${newCards.length>1?'S':''} DETECTED Ã¢ÂÂ AUTO-GRADED</div>`;
-        tl.innerHTML=banner+newCards.join('')+renderGradedTrades();
+        tl.innerHTML=banner+newCards.join('');
         // Auto-update power rankings when new trades are detected
         recalculateRankings();
         const prEl=document.getElementById('powerList');
@@ -3782,7 +3782,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 <script>
 (function(){
 if(window._aXN)return;window._aXN=1;
-window.renderTrades=function(){};
+window.renderTrades=function(){};window.loadLiveTradeLog=function(){};
 var ROI=[{t:'LAMARIO BROS',n:14200},{t:'DRCHAMA',n:5200},{t:'LEGETTEITPOPPIN',n:2900},{t:'GARGAR BANKS',n:0},{t:'VIKITA',n:-800},{t:'YARAKABI',n:-3300},{t:'CKHOSHOR',n:-3400},{t:'NXBOSTA',n:-4400},{t:'DAVID SHAH',n:-4900},{t:'LEGION OF BOOM',n:-5500}];
 var TD={'DAVID SHAH':{d:92,a:26.5,q:75,r:72,w:88,te:68},'LAMARIO BROS':{d:85,a:24.8,q:90,r:96,w:72,te:55},'YARAKABI':{d:78,a:27.2,q:85,r:65,w:95,te:62},'NXBOSTA':{d:88,a:23.8,q:80,r:88,w:85,te:70},'LEGETTEITPOPPIN':{d:80,a:28.0,q:88,r:72,w:92,te:65},'CKHOSHOR':{d:58,a:29.1,q:78,r:68,w:70,te:60},'VIKITA':{d:72,a:26.1,q:94,r:65,w:75,te:68},'LEGION OF BOOM':{d:65,a:27.8,q:65,r:78,w:68,te:55},'GARGAR BANKS':{d:62,a:25.2,q:70,r:62,w:72,te:85},'DRCHAMA':{d:48,a:24.5,q:82,r:58,w:62,te:55}};
 var teams=Object.keys(TD),n=teams.length,lgD=0,lgA=0,lgQ=0,lgR=0,lgW=0,lgTE=0;
