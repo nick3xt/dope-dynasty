@@ -2581,7 +2581,7 @@ async function loadLiveRosters(){
       const taxiSet=new Set(r.taxi||[]);
       const reserveSet=new Set(r.reserve||[]);
       // Active = all players minus taxi and reserve
-      const activeIds=(r.players||[]).filter(id=>!taxiSet.has(id)&&!reserveSet.has(id));
+      const activeIds=(r.players||[]).filter(id=>!taxiSet.has(id));
       // Group by position
       const byPos={QB:[],RB:[],WR:[],TE:[]};
       activeIds.forEach(id=>{
