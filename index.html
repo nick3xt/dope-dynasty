@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>D.O.P.E Dynasty War Room v26</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
@@ -382,7 +384,7 @@ html, body {
 .atab-tier{font-family:'DM Mono',monospace;font-size:8px;font-weight:700;padding:2px 7px;border-radius:2px;letter-spacing:.5px;min-width:56px;text-align:center;flex-shrink:0;}
 .atab-extra{font-family:'DM Mono',monospace;font-size:8px;color:rgba(255,255,255,.35);padding-bottom:5px;padding-top:1px;}
 
-/* ════════════ v25.2 � STATIC STYLES (Apr 19 2026 — dynamism layer reverted) ════════════ */
+/* ════════════ v26.0 � STATIC STYLES (Apr 19 2026 — dynamism layer reverted) ════════════ */
 /* Top-10 league-wide — shimmer on pos badge (kept; not flagged for removal) */
 @keyframes v25-shimmer{0%{background-position:-120% 0;}100%{background-position:220% 0;}}
 .pbadge.top10-shimmer,.pr-type.top10-shimmer{background-image:linear-gradient(90deg,transparent 20%,rgba(255,255,255,.35) 50%,transparent 80%);background-size:200% 100%;animation:v25-shimmer 2.6s linear infinite;}
@@ -3675,7 +3677,7 @@ async function v25FetchAgesFromSleeper(){
   }catch(e){console.warn('[v25] age fetch failed:',e);}
 }
 
-// v25.1 auto-sync orchestrator + ticker + pulse/sparkle + sync pill stripped in v25.2
+// v25.1 auto-sync orchestrator + ticker + pulse/sparkle + sync pill stripped in v26.0
 // (those pieces have been ported to Lamario Bros where they belong).
 
 window.addEventListener('DOMContentLoaded',()=>{
@@ -3873,9 +3875,9 @@ const tier=pct!==null?scoutTier(pct):isDraftPick?{bg:'rgba(147,51,234,.15)',fg:'
   </div>
 </div>
 
-<!-- v25.2 � static footer (sync pill removed with auto-sync orchestrator) -->
+<!-- v26.0 � static footer (sync pill removed with auto-sync orchestrator) -->
 <div class="v25-footer" id="v25Footer">
-  <div class="v25-footer-sub">D.O.P.E � Dynasty Operations &amp; Power Engine � v25.2</div>
+  <div class="v25-footer-sub">D.O.P.E � Dynasty Operations &amp; Power Engine � v26.0</div>
 </div>
 
 <script id="v26-upgrade">
